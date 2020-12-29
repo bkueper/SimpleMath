@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GroesserKleiner">
+
+    <Button
+        android:id="@+id/groesserKleinerErgebnis1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:text="1"
+        android:textSize="30sp"
+        android:backgroundTint="@color/unserBlau"
+        app:layout_constraintEnd_toStartOf="@+id/groesserKleinerErgebnis2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/groesserKleinerErgebnis2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:text="2"
+        android:textSize="30sp"
+        android:backgroundTint="@color/unserBlau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/groesserKleinerErgebnis1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/groesserKleinerErgebnis3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="3"
+        android:textSize="30sp"
+        android:backgroundTint="@color/unserBlau"
+        app:layout_constraintEnd_toStartOf="@+id/groesserKleinerErgebnis4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis1" />
+
+    <Button
+        android:id="@+id/groesserKleinerErgebnis4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="4"
+        android:textSize="30sp"
+        android:backgroundTint="@color/unserBlau"
+        app:layout_constraintEnd_toStartOf="@+id/groesserKleinerErgebnis5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/groesserKleinerErgebnis3"
+        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis1" />
+
+    <Button
+        android:id="@+id/groesserKleinerErgebnis5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="5"
+        android:textSize="30sp"
+        android:backgroundTint="@color/unserBlau"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/groesserKleinerErgebnis4"
+        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
