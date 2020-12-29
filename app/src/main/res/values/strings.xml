@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SimpleMath</string>
+    <string name="smallerIcon"><![CDATA[<]]></string>
 </resources>

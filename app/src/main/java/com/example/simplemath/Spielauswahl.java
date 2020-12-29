@@ -263,7 +263,10 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                             }
                             break;
                         case 2:
-                            //starteGroeßerKleinerActivity
+                            Intent intent = new Intent(this,GroesserKleiner.class);
+                            intent.putExtra("HIGHSCOREMODE", false);
+                            intent.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[2]);
+                            startActivity(intent);
                             break;
                     }
                 }
