@@ -247,13 +247,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             int[] buttonValues = new int[4];
             int correctAnswerIndex = random.nextInt(4);
             buttonValues[correctAnswerIndex] = missingPart;
+            int offset = random.nextInt(18);
             for (int i = 0; i < 4; i++) {
                 if (i != correctAnswerIndex) {
                     boolean doppeltesErgebnis;
                     int randomErgebnis;
                     do {
                         doppeltesErgebnis = false;
-                        randomErgebnis = missingPart + (-9 + random.nextInt(19));
+                        randomErgebnis = missingPart + (-offset + random.nextInt(19));
                         for (int j = 0; j < 4; j++) {
                             if (buttonValues[j] == randomErgebnis) {
                                 doppeltesErgebnis = true;
