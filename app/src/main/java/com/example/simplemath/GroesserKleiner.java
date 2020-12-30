@@ -1,8 +1,5 @@
 package com.example.simplemath;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -13,24 +10,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
 public class GroesserKleiner extends AppCompatActivity implements View.OnTouchListener {
     private final Random random = new Random();
-    private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4,bestaetigen;
+    private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, bestaetigen;
     private boolean highscoreMode;
     private boolean ersterDurchlauf = true;
     private int restlicheAufgaben, scoreWert, durchlaeufe, sortierArt, correctAnswers;
-    private TextView sortierAufgabe, groesserKleinerZeichen1, groesserKleinerZeichen2, groesserKleinerZeichen3,score,aufgabenFortschritt,zeit;
-    private View solution1,solution2,solution3,solution4;
+    private TextView sortierAufgabe, groesserKleinerZeichen1, groesserKleinerZeichen2, groesserKleinerZeichen3, score, aufgabenFortschritt, zeit;
+    private View solution1, solution2, solution3, solution4;
     private float dX, dY;
-    private Rect normalRect = new Rect();
-    private int[] location = new int[2];
-    private Button[] besetztePlaetze = new Button[4];
+    private final Rect normalRect = new Rect();
+    private final int[] location = new int[2];
+    private final Button[] besetztePlaetze = new Button[4];
     private float[] startPositionen;
     private CountDownTimer cTimer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +49,9 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             @Override
             public void onClick(View v) {
                 ergebnisBewerten();
-                if(restlicheAufgaben<=0){
+                if (restlicheAufgaben <= 0) {
                     openAuswertung();
-                }else{
+                } else {
                     updateViews();
                 }
             }
@@ -81,18 +82,18 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
 
     @Override
     protected void onDestroy() {
-            super.onDestroy();
-            if(cTimer != null){
-                cTimer.cancel();
-            }
+        super.onDestroy();
+        if (cTimer != null) {
+            cTimer.cancel();
         }
+    }
 
-    public void startHighscoreGame(int minuten){
+    public void startHighscoreGame(int minuten) {
         restlicheAufgaben = 1;
         updateViews();
         scoreWert = 0;
         aufgabenFortschritt.setVisibility(View.GONE);
-        cTimer = new CountDownTimer(minuten*60000,1000) {
+        cTimer = new CountDownTimer(minuten * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 zeit.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
@@ -106,19 +107,21 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         };
         cTimer.start();
     }
-    public void startFreiesSpiel(){
-        restlicheAufgaben =15;
+
+    public void startFreiesSpiel() {
+        restlicheAufgaben = 15;
         updateViews();
         score.setVisibility(View.GONE);
         zeit.setVisibility(View.GONE);
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(ersterDurchlauf){
-            startPositionen = new float[] {ergebnis1.getX(),ergebnis1.getY(),
-                    ergebnis2.getX(),ergebnis2.getY(),ergebnis3.getX(),
-                    ergebnis3.getY(),ergebnis4.getX(),ergebnis4.getY()};
+        if (ersterDurchlauf) {
+            startPositionen = new float[]{ergebnis1.getX(), ergebnis1.getY(),
+                    ergebnis2.getX(), ergebnis2.getY(), ergebnis3.getX(),
+                    ergebnis3.getY(), ergebnis4.getX(), ergebnis4.getY()};
         }
         ersterDurchlauf = false;
         switch (event.getAction()) {
@@ -134,31 +137,31 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
                         .start();
                 break;
             case MotionEvent.ACTION_UP:
-                int x = (int)event.getRawX();
-                int y = (int)event.getRawY();
-                if(isViewInBounds(solution1, x, y)){
-                    besetztePlaetze[0] = (Button)v;
+                int x = (int) event.getRawX();
+                int y = (int) event.getRawY();
+                if (isViewInBounds(solution1, x, y)) {
+                    besetztePlaetze[0] = (Button) v;
                     solution1.dispatchTouchEvent(event);
-                    v.setX(solution1.getX()-20);
-                    v.setY(solution1.getY()+60);
+                    v.setX(solution1.getX() - 20);
+                    v.setY(solution1.getY() + 60);
                 }
-                if(isViewInBounds(solution2, x, y)){
-                    besetztePlaetze[1] = (Button)v;
+                if (isViewInBounds(solution2, x, y)) {
+                    besetztePlaetze[1] = (Button) v;
                     solution2.dispatchTouchEvent(event);
-                    v.setX(solution2.getX()-20);
-                    v.setY(solution2.getY()+60);
+                    v.setX(solution2.getX() - 20);
+                    v.setY(solution2.getY() + 60);
                 }
-                if(isViewInBounds(solution3, x, y)){
-                    besetztePlaetze[2] = (Button)v;
+                if (isViewInBounds(solution3, x, y)) {
+                    besetztePlaetze[2] = (Button) v;
                     solution3.dispatchTouchEvent(event);
-                    v.setX(solution3.getX()-20);
-                    v.setY(solution3.getY()+60);
+                    v.setX(solution3.getX() - 20);
+                    v.setY(solution3.getY() + 60);
                 }
-                if(isViewInBounds(solution4, x, y)){
-                    besetztePlaetze[3] = (Button)v;
+                if (isViewInBounds(solution4, x, y)) {
+                    besetztePlaetze[3] = (Button) v;
                     solution4.dispatchTouchEvent(event);
-                    v.setX(solution4.getX()-20);
-                    v.setY(solution4.getY()+60);
+                    v.setX(solution4.getX() - 20);
+                    v.setY(solution4.getY() + 60);
                 }
                 break;
             default:
@@ -172,50 +175,50 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean weitereRunde = false;
-        if(requestCode == 1){
+        if (requestCode == 1) {
             assert data != null;
-            weitereRunde = data.getBooleanExtra("WEITERERUNDE",false);
+            weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
         }
-        if(weitereRunde){
+        if (weitereRunde) {
             startFreiesSpiel();
-        }else{
+        } else {
             finish();
         }
     }
 
-    public void ergebnisBewerten(){
-        if(!highscoreMode){
+    public void ergebnisBewerten() {
+        if (!highscoreMode) {
             restlicheAufgaben--;
         }
-        for(int i = 0; i < 4;i++){
-            if(besetztePlaetze[i] == null){
-                if(scoreWert > 0){
+        for (int i = 0; i < 4; i++) {
+            if (besetztePlaetze[i] == null) {
+                if (scoreWert > 0) {
                     scoreWert--;
                 }
                 return;
             }
         }
-        if(sortierArt == 0){
-            for(int i = 0; i<3;i++){
-                if(Integer.parseInt(besetztePlaetze[i].getText().toString()) <= Integer.parseInt(besetztePlaetze[i+1].getText().toString())){
-                    if(scoreWert>0){
+        if (sortierArt == 0) {
+            for (int i = 0; i < 3; i++) {
+                if (Integer.parseInt(besetztePlaetze[i].getText().toString()) <= Integer.parseInt(besetztePlaetze[i + 1].getText().toString())) {
+                    if (scoreWert > 0) {
                         scoreWert--;
                     }
                     return;
                 }
             }
-        }else{
-            for(int i = 0; i<3;i++){
-                if(Integer.parseInt(besetztePlaetze[i].getText().toString()) >= Integer.parseInt(besetztePlaetze[i+1].getText().toString())){
-                    if(scoreWert>0){
+        } else {
+            for (int i = 0; i < 3; i++) {
+                if (Integer.parseInt(besetztePlaetze[i].getText().toString()) >= Integer.parseInt(besetztePlaetze[i + 1].getText().toString())) {
+                    if (scoreWert > 0) {
                         scoreWert--;
                     }
                     return;
                 }
             }
         }
-        if(highscoreMode){
-           scoreWert++;
+        if (highscoreMode) {
+            scoreWert++;
         }
         correctAnswers++;
     }
@@ -240,25 +243,25 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         }
         int[] buttonValues = new int[4];
         for (int i = 0; i < 4; i++) {
-                boolean doppeltesErgebnis;
-                int randomErgebnis;
-                do {
-                    doppeltesErgebnis = false;
-                    randomErgebnis = random.nextInt(100);
-                    for (int j = 0; j < 4; j++) {
-                        if (buttonValues[j] == randomErgebnis) {
-                            doppeltesErgebnis = true;
-                            break;
-                        }
+            boolean doppeltesErgebnis;
+            int randomErgebnis;
+            do {
+                doppeltesErgebnis = false;
+                randomErgebnis = random.nextInt(100);
+                for (int j = 0; j < 4; j++) {
+                    if (buttonValues[j] == randomErgebnis) {
+                        doppeltesErgebnis = true;
+                        break;
                     }
-                } while (doppeltesErgebnis);
-                buttonValues[i] = randomErgebnis;
+                }
+            } while (doppeltesErgebnis);
+            buttonValues[i] = randomErgebnis;
         }
         ergebnis1.setText(String.valueOf(buttonValues[0]));
         ergebnis2.setText(String.valueOf(buttonValues[1]));
         ergebnis3.setText(String.valueOf(buttonValues[2]));
         ergebnis4.setText(String.valueOf(buttonValues[3]));
-        if(!ersterDurchlauf) {
+        if (!ersterDurchlauf) {
             ergebnis1.setX(startPositionen[0]);
             ergebnis1.setY(startPositionen[1]);
 
@@ -272,25 +275,26 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             ergebnis4.setY(startPositionen[7]);
         }
     }
-    private boolean isViewInBounds(View view, int x, int y){
+
+    private boolean isViewInBounds(View view, int x, int y) {
         view.getDrawingRect(normalRect);
         view.getLocationOnScreen(location);
         normalRect.offset(location[0], location[1]);
         return normalRect.contains(x, y);
     }
 
-    public void openAuswertung(){
+    public void openAuswertung() {
         Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
-        if(highscoreMode){
-            intent.putExtra("SCOREWERT",scoreWert);
-            intent.putExtra("HIGHSCOREMODE",true);
+        if (highscoreMode) {
+            intent.putExtra("SCOREWERT", scoreWert);
+            intent.putExtra("HIGHSCOREMODE", true);
             startActivity(intent);
-        }else{
+        } else {
             intent.putExtra("PUNKTZAHL", correctAnswers);
             durchlaeufe -= 1;
-            intent.putExtra("DURCHLAEUFE",durchlaeufe);
-            intent.putExtra("HIGHSCOREMODE",false);
-            startActivityForResult(intent,1);
+            intent.putExtra("DURCHLAEUFE", durchlaeufe);
+            intent.putExtra("HIGHSCOREMODE", false);
+            startActivityForResult(intent, 1);
         }
     }
 }

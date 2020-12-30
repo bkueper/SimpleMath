@@ -1,8 +1,5 @@
 package com.example.simplemath;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,12 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickListener{
+public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     CountDownTimer cTimer = null;
     private int scoreWert = 0;
@@ -27,6 +26,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     private boolean highscoreMode;
     private TextView score, zeit, aufgabeText, aufgabenFortschritt, ergebnisRichtigOderFalsch;
     private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, weissIchNicht;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +47,13 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         weissIchNicht = findViewById(R.id.weißIchNichtButton);
         weissIchNicht.setOnClickListener(this);
         Intent intent = getIntent();
-        highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE",true);
+        highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE", true);
         minuten = intent.getIntExtra("MINUTES", 1);
-        if(highscoreMode){
+        if (highscoreMode) {
             restlicheAufgaben = 1;
             startHighscoreGame(minuten);
-        }else{
-            durchlaeufe = intent.getIntExtra("DURCHLAEUFE",1);
+        } else {
+            durchlaeufe = intent.getIntExtra("DURCHLAEUFE", 1);
             startFreiesSpiel();
         }
     }
@@ -61,14 +61,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(cTimer != null){
+        if (cTimer != null) {
             cTimer.cancel();
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ergebnisButton1:
                 validateButton(ergebnis1);
                 break;
@@ -82,17 +82,18 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 validateButton(ergebnis4);
                 break;
             case R.id.weißIchNichtButton:
-                if(!highscoreMode){
+                if (!highscoreMode) {
                     restlicheAufgaben -= 1;
                 }
-                if(restlicheAufgaben <= 0){
+                if (restlicheAufgaben <= 0) {
                     openAuswertung();
-                }else{
+                } else {
                     updateViews(aufgabeGenerieren());
                 }
                 break;
         }
     }
+
     public void validateButton(Button button) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
             if (button.getText().toString().equals(zeichenAusZahlenwert(missingPart))) {
@@ -109,7 +110,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
         if (restlicheAufgaben == 0) {
             openAuswertung();
-        }else{
+        } else {
             updateViews(aufgabeGenerieren());
         }
     }
@@ -118,18 +119,18 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean weitereRunde = false;
-        if(requestCode==1){
+        if (requestCode == 1) {
             assert data != null;
-            weitereRunde = data.getBooleanExtra("WEITERERUNDE",false);
+            weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
         }
-        if(weitereRunde){
+        if (weitereRunde) {
             startFreiesSpiel();
-        }else{
+        } else {
             finish();
         }
     }
 
-    public void correctButton(){
+    public void correctButton() {
         ergebnisRichtigOderFalsch.setText("RICHTIG");
         ergebnisRichtigOderFalsch.setTextColor(Color.GREEN);
         ergebnisRichtigOderFalsch.setVisibility(View.VISIBLE);
@@ -139,14 +140,15 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 ergebnisRichtigOderFalsch.setVisibility(View.GONE);
             }
         }, 2000);
-        if(highscoreMode){
-            scoreWert +=1;
-        }else{
+        if (highscoreMode) {
+            scoreWert += 1;
+        } else {
             restlicheAufgaben -= 1;
             correctAnswers += 1;
         }
     }
-    public void wrongButton(){
+
+    public void wrongButton() {
         ergebnisRichtigOderFalsch.setText("FALSCH");
         ergebnisRichtigOderFalsch.setTextColor(Color.RED);
         ergebnisRichtigOderFalsch.setVisibility(View.VISIBLE);
@@ -156,21 +158,20 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 ergebnisRichtigOderFalsch.setVisibility(View.GONE);
             }
         }, 2000);
-        if(highscoreMode){
-            if(scoreWert>0){
-                scoreWert -=1;
+        if (highscoreMode) {
+            if (scoreWert > 0) {
+                scoreWert -= 1;
             }
-        }else{
+        } else {
             restlicheAufgaben -= 1;
         }
     }
 
 
-
-    public void startHighscoreGame(int minuten){
+    public void startHighscoreGame(int minuten) {
         aufgabenFortschritt.setVisibility(View.GONE);
         updateViews(aufgabeGenerieren());
-        cTimer = new CountDownTimer(minuten*60000,1000) {
+        cTimer = new CountDownTimer(minuten * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 zeit.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
@@ -184,29 +185,31 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         };
         cTimer.start();
     }
-    public void openAuswertung(){
-        if(highscoreMode){
+
+    public void openAuswertung() {
+        if (highscoreMode) {
             Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
-            intent.putExtra("SCOREWERT",scoreWert);
-            intent.putExtra("HIGHSCOREMODE",true);
+            intent.putExtra("SCOREWERT", scoreWert);
+            intent.putExtra("HIGHSCOREMODE", true);
             startActivity(intent);
-        }else{
-            Intent intent = new Intent(this,AuswertungZahlenEinfuegen.class);
+        } else {
+            Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
             intent.putExtra("PUNKTZAHL", correctAnswers);
             durchlaeufe -= 1;
-            intent.putExtra("DURCHLAEUFE",durchlaeufe);
-            intent.putExtra("HIGHSCOREMODE",false);
-            startActivityForResult(intent,1);
+            intent.putExtra("DURCHLAEUFE", durchlaeufe);
+            intent.putExtra("HIGHSCOREMODE", false);
+            startActivityForResult(intent, 1);
         }
     }
-    public void startFreiesSpiel(){
+
+    public void startFreiesSpiel() {
         restlicheAufgaben = 15;
         updateViews(aufgabeGenerieren());
         score.setVisibility(View.GONE);
         zeit.setVisibility(View.GONE);
-        }
+    }
 
-    public int[] aufgabeGenerieren(){
+    public int[] aufgabeGenerieren() {
         int[] aufgabe = new int[6];
         aufgabe[0] = 1 + random.nextInt(9);
         aufgabe[1] = random.nextInt(3);
@@ -217,7 +220,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         return aufgabe;
     }
 
-    public void updateViews(int[]aufgabe) {
+    public void updateViews(int[] aufgabe) {
         if (!highscoreMode) {
             aufgabenFortschritt.setText(String.format("Aufgabe %d von 15", 16 - restlicheAufgaben));
         } else {
@@ -250,7 +253,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                                 break;
                             }
                         }
-                    }while (doppeltesErgebnis);
+                    } while (doppeltesErgebnis);
                     buttonValues[i] = randomErgebnis;
                 }
                 ergebnis1.setText(String.valueOf(buttonValues[0]));
@@ -260,18 +263,19 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             }
         }
     }
-    public String aufgabeAlsString(int[]aufgabe, int missingPartIndex){
+
+    public String aufgabeAlsString(int[] aufgabe, int missingPartIndex) {
         StringBuilder ergebnisString = new StringBuilder();
-        for(int i = 0; i<aufgabe.length; i++){
-            if(i == aufgabe.length - 1) {
+        for (int i = 0; i < aufgabe.length; i++) {
+            if (i == aufgabe.length - 1) {
                 ergebnisString.append("= ");
             }
-            if(i == missingPartIndex){
+            if (i == missingPartIndex) {
                 ergebnisString.append("___");
-            }else{
-                if(i == 1 || i == 3){
+            } else {
+                if (i == 1 || i == 3) {
                     ergebnisString.append(zeichenAusZahlenwert(aufgabe[i]));
-                }else {
+                } else {
                     ergebnisString.append(aufgabe[i]);
                 }
             }
@@ -279,9 +283,10 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
         return ergebnisString.toString();
     }
-    public String zeichenAusZahlenwert(int zahlenwert){
+
+    public String zeichenAusZahlenwert(int zahlenwert) {
         String zeichen = " ";
-        switch (zahlenwert){
+        switch (zahlenwert) {
             case 0:
                 zeichen = "+";
                 break;
@@ -296,10 +301,11 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
         return zeichen;
     }
-    public int ergebnisAusrechnen(int []aufgabe){
+
+    public int ergebnisAusrechnen(int[] aufgabe) {
         int ergebnis = 0;
-        int index = aufgabe[1] + 3* aufgabe[3];
-        switch (index){
+        int index = aufgabe[1] + 3 * aufgabe[3];
+        switch (index) {
             //+ und +
             case 0:
                 ergebnis = aufgabe[0] + aufgabe[2] + aufgabe[4];
@@ -329,7 +335,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 ergebnis = aufgabe[0] * aufgabe[2] * aufgabe[4];
                 break;
             default:
-                Toast.makeText(this,"FEHLER bei ergebnisAusrechnen",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "FEHLER bei ergebnisAusrechnen", Toast.LENGTH_SHORT).show();
                 break;
         }
         return ergebnis;

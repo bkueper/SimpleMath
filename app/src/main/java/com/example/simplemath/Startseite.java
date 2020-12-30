@@ -1,16 +1,17 @@
 package com.example.simplemath;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class Startseite extends AppCompatActivity {
     private ImageButton imageButton;
     private Button user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +32,13 @@ public class Startseite extends AppCompatActivity {
         });
 
     }
-    public void openUserErstellen(){
+
+    public void openUserErstellen() {
         Intent intent = new Intent(this, UserErstellen.class);
         startActivity(intent);
     }
-    public void openSpielauswahl(){
+
+    public void openSpielauswahl() {
         Intent intent = new Intent(this, Spielauswahl.class);
         startActivity(intent);
     }
