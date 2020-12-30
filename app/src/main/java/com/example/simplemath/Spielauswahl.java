@@ -166,7 +166,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                     hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
                     zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
                     groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    spielID = 0;
+                    spielID = 2;
                 }
                 break;
             case R.id.zahlenEinfuegen:
@@ -184,7 +184,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                     hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
                     zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
                     groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-                    spielID = 2;
+                    spielID = 0;
                 }
                 break;
             case R.id.plusHochzaehlen:
@@ -230,19 +230,19 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
     public void starteHighscoreSpiel(int minuten, int spielID){
         switch (spielID){
             case 0:
-                //starteHochzaehlen für Minutenzahl
-                break;
-            case 1:
-                Intent intent = new Intent(this, ZahlenEinfuegen.class);
+                Intent intent = new Intent(this, GroesserKleiner.class);
                 intent.putExtra("MINUTES", minuten);
                 intent.putExtra("HIGHSCOREMODE", true);
                 startActivity(intent);
                 break;
-            case 2:
-                Intent intent2 = new Intent(this, GroesserKleiner.class);
+            case 1:
+                Intent intent2 = new Intent(this, ZahlenEinfuegen.class);
                 intent2.putExtra("MINUTES", minuten);
                 intent2.putExtra("HIGHSCOREMODE", true);
                 startActivity(intent2);
+                break;
+            case 2:
+                //starteHochzaehlen
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + spielID);
@@ -252,21 +252,21 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         for(int i = 0; i < anzahlDurchlaeufeProSpiel.length; i++){
                     switch (i){
                         case 0:
-                            //starteHochzaehlenActivity
-                            break;
-                        case 1:
-                            if(anzahlDurchlaeufeProSpiel[1] > 0){
-                                Intent intent = new Intent(this,ZahlenEinfuegen.class);
-                                intent.putExtra("HIGHSCOREMODE", false);
-                                intent.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[1]);
-                                startActivity(intent);
-                            }
-                            break;
-                        case 2:
                             Intent intent = new Intent(this,GroesserKleiner.class);
                             intent.putExtra("HIGHSCOREMODE", false);
                             intent.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[2]);
                             startActivity(intent);
+                            break;
+                        case 1:
+                            if(anzahlDurchlaeufeProSpiel[1] > 0){
+                                Intent intent2 = new Intent(this,ZahlenEinfuegen.class);
+                                intent2.putExtra("HIGHSCOREMODE", false);
+                                intent2.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[1]);
+                                startActivity(intent2);
+                            }
+                            break;
+                        case 2:
+                            //starte hochzaehlen
                             break;
                     }
                 }

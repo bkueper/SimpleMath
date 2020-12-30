@@ -216,4 +216,5 @@
         app:iconTint="#FFFFFF"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ScrollViewFuerSpiele" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

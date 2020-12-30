@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraintLayoutGroesserKleiner"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GroesserKleiner">
 
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:text="SCORE: "
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/zeitUebrig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="50dp"
+        android:text="Zeit: "
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/aufgabenFortschritt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Aufgabe 1 von 15"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
         android:id="@+id/groesserKleinerErgebnis1"
         android:layout_width="75dp"
@@ -67,7 +105,8 @@
         android:text="Sortiere von groß nach klein"
         android:textColor="@color/black"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis3" />
@@ -113,5 +152,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/groesserKleinerZeichen2" />
+    <View
+        android:id="@+id/solutionSpace1"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1"/>
+    <View
+        android:id="@+id/solutionSpace2"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen2"
+        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1"/>
+    <View
+        android:id="@+id/solutionSpace3"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen3"
+        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen2"
+        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1"/>
+    <View
+        android:id="@+id/solutionSpace4"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen3"
+        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1"/>
+    <Button
+        android:id="@+id/bestaetigen"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="bestätigen"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groesserKleinerZeichen3"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="40dp"
+        android:backgroundTint="@color/unserBlau"
+        android:textColor="#FFEB3B"
+        android:textSize="20sp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

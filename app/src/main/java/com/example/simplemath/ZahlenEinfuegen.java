@@ -120,7 +120,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             }
         }
         if (restlicheAufgaben == 0) {
-
+            openAuswertung();
         }else{
             updateViews(aufgabeGenerieren());
         }
