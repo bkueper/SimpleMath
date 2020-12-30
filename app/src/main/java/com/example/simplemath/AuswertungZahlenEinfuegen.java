@@ -9,25 +9,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import static java.lang.String.*;
+
 public class AuswertungZahlenEinfuegen extends AppCompatActivity {
-    private int durchlaeufe;
-    private int punktzahl;
+    private int durchlaeufe, punktzahl, scoreWert;
     private TextView feedbackText;
     private Button weiterButton;
-    private boolean highscoreMode;
-    private int scoreWert;
+    private boolean highscoreMode, weitereRunde;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auswertung_zahlen_einfuegen);
         feedbackText = findViewById(R.id.feedbackFreiesSpiel);
         weiterButton = findViewById(R.id.weiterButton);
-        boolean weitereRunde;
         Intent intent = getIntent();
         highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE",false);
         if(highscoreMode){
             scoreWert = intent.getIntExtra("SCOREWERT",0);
-            feedbackText.setText("Du hast einen Score von " + scoreWert + " erreicht!");
+            feedbackText.setText(format("du hast einen Score von %d erreicht!", scoreWert));
             weiterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -36,13 +35,9 @@ public class AuswertungZahlenEinfuegen extends AppCompatActivity {
             });
         }else{
             durchlaeufe = intent.getIntExtra("DURCHLAEUFE", 0);
-            if(durchlaeufe <= 0){
-                weitereRunde = false;
-            }else{
-                weitereRunde = true;
-            }
             punktzahl = intent.getIntExtra("PUNKTZAHL", 0);
-            feedbackText.setText("Du hast " + punktzahl + " von 15 Aufgaben gelöst!");
+            weitereRunde = durchlaeufe > 0;
+            feedbackText.setText(format("Du hast %d von 15 Aufgaben gelöst!", punktzahl));
             weiterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
