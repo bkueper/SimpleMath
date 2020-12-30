@@ -11,25 +11,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
 public class Spielauswahl extends AppCompatActivity implements View.OnClickListener {
     private int spielID;
-    private Button highscore;
-    private Button freiesSpiel;
+    private Button highscore, freiesSpiel, startButton;
+    private Button hochzaehlenPlus, hochzaehlenMinus, zahlenEinfuegenPlus, zahlenEinfuegenMinus, groesserKleinerPlus, groesserKleinerMinus;
     private SeekBar zeitLeiste;
     private TextView angezeigteZeit;
-    private ImageButton hochzaehlen;
-    private ImageButton zahlenEinfuegen;
-    private ImageButton groesserKleiner;
-    private Button hochzaehlenPlus;
-    private Button hochzaehlenMinus;
-    private Button zahlenEinfuegenPlus;
-    private Button zahlenEinfuegenMinus;
-    private Button groesserKleinerPlus;
-    private Button groesserKleinerMinus;
-    private TextView countForHochzaehlen;
-    private TextView countForZahlenEinfuegen;
-    private TextView countForGroesserKleiner;
-    private Button startButton;
+    private ImageButton hochzaehlen, zahlenEinfuegen, groesserKleiner;
+    private TextView countForHochzaehlen, countForZahlenEinfuegen, countForGroesserKleiner;
     private boolean highscoreMode = false;
 
     @Override
@@ -51,7 +43,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                angezeigteZeit.setText((progress + 1) + " Min");
+                angezeigteZeit.setText(format("%d Min", progress + 1));
                 totalProgress = progress;
             }
 
@@ -62,11 +54,11 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                angezeigteZeit.setText((totalProgress + 1) + " Min");
+                angezeigteZeit.setText(format("%d Min", totalProgress + 1));
             }
         });
         angezeigteZeit = findViewById(R.id.angezeigteZeit);
-        angezeigteZeit.setText((zeitLeiste.getProgress() + 1) + " Min");
+        angezeigteZeit.setText(format("%d Min", zeitLeiste.getProgress() + 1));
         hochzaehlen = findViewById(R.id.hochzaehlen);
         hochzaehlen.setOnClickListener(this);
         zahlenEinfuegen = findViewById(R.id.zahlenEinfuegen);
@@ -94,7 +86,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         int zahl = Integer.parseInt(tw.getText().toString());
         if (zahl < 9) {
             zahl++;
-            tw.setText(String.valueOf(zahl));
+            tw.setText(valueOf(zahl));
         }
     }
 
@@ -102,7 +94,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         int zahl = Integer.parseInt(tw.getText().toString());
         if (zahl > 0) {
             zahl--;
-            tw.setText(String.valueOf(zahl));
+            tw.setText(valueOf(zahl));
         }
     }
 

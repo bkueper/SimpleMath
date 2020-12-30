@@ -91,6 +91,8 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                     updateViews(aufgabeGenerieren());
                 }
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
         }
     }
 

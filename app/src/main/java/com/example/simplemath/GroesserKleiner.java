@@ -17,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
 public class GroesserKleiner extends AppCompatActivity implements View.OnTouchListener {
     private final Random random = new Random();
     private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, bestaetigen;
@@ -225,9 +228,9 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
 
     public void updateViews() {
         if (!highscoreMode) {
-            aufgabenFortschritt.setText(String.format("Aufgabe %d von %d", (16 - restlicheAufgaben), 15));
+            aufgabenFortschritt.setText(format("Aufgabe %d von %d", (16 - restlicheAufgaben), 15));
         } else {
-            score.setText(String.format("SCORE: %d", scoreWert));
+            score.setText(format("SCORE: %d", scoreWert));
         }
         sortierArt = random.nextInt(2);
         if (sortierArt == 0) {
@@ -257,10 +260,10 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             } while (doppeltesErgebnis);
             buttonValues[i] = randomErgebnis;
         }
-        ergebnis1.setText(String.valueOf(buttonValues[0]));
-        ergebnis2.setText(String.valueOf(buttonValues[1]));
-        ergebnis3.setText(String.valueOf(buttonValues[2]));
-        ergebnis4.setText(String.valueOf(buttonValues[3]));
+        ergebnis1.setText(valueOf(buttonValues[0]));
+        ergebnis2.setText(valueOf(buttonValues[1]));
+        ergebnis3.setText(valueOf(buttonValues[2]));
+        ergebnis4.setText(valueOf(buttonValues[3]));
         if (!ersterDurchlauf) {
             ergebnis1.setX(startPositionen[0]);
             ergebnis1.setY(startPositionen[1]);
