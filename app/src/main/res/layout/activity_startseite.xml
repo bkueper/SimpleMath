@@ -11,7 +11,7 @@
         android:layout_width="276dp"
         android:layout_height="70dp"
         android:fontFamily="sans-serif-black"
-        android:text="SimpleMath"
+        android:text="@string/simplemath"
         android:textColor="#2196F3"
         android:textSize="50sp"
         android:textStyle="bold|italic"
@@ -57,7 +57,6 @@
                 android:backgroundTint="@color/unserBlau"
                 android:text="User3"
                 android:textSize="25sp" />
-            />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
