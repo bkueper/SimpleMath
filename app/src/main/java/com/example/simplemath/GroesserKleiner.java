@@ -31,7 +31,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     private float dX, dY;
     private final Rect normalRect = new Rect();
     private final int[] location = new int[2];
-    private final Button[] besetztePlaetze = new Button[4];
+    private Button[] besetztePlaetze = new Button[4];
     private float[] startPositionen;
     private CountDownTimer cTimer;
 
@@ -264,6 +264,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         ergebnis2.setText(valueOf(buttonValues[1]));
         ergebnis3.setText(valueOf(buttonValues[2]));
         ergebnis4.setText(valueOf(buttonValues[3]));
+        besetztePlaetze = new Button[4];
         if (!ersterDurchlauf) {
             ergebnis1.setX(startPositionen[0]);
             ergebnis1.setY(startPositionen[1]);
