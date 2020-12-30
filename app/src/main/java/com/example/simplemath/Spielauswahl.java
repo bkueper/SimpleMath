@@ -51,7 +51,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
             int totalProgress;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                angezeigteZeit.setText(String.valueOf(progress+1) + " Min");
+                angezeigteZeit.setText((progress + 1) + " Min");
                 totalProgress = progress;
             }
 
@@ -62,11 +62,11 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                angezeigteZeit.setText(String.valueOf(totalProgress+1) + " Min");
+                angezeigteZeit.setText((totalProgress + 1) + " Min");
             }
         });
         angezeigteZeit = findViewById(R.id.angezeigteZeit);
-        angezeigteZeit.setText(String.valueOf(zeitLeiste.getProgress()+1)+ " Min");
+        angezeigteZeit.setText((zeitLeiste.getProgress() + 1) + " Min");
         hochzaehlen = findViewById(R.id.hochzaehlen);
         hochzaehlen.setOnClickListener(this);
         zahlenEinfuegen = findViewById(R.id.zahlenEinfuegen);
@@ -110,9 +110,9 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
             startButton.setVisibility(View.GONE);
         }
         if(Integer.parseInt(tw.getText().toString())>0){
-            ib.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
+            ib.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
         }else{
-            ib.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+            ib.setBackground(getResources().getDrawable(R.drawable.default_button));
         }
     }
     public void checkAllCounts(){
@@ -139,9 +139,9 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 countForGroesserKleiner.setVisibility(View.GONE);
                 countForZahlenEinfuegen.setVisibility(View.GONE);
                 countForHochzaehlen.setVisibility(View.GONE);
-                hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                 break;
             case R.id.freiesSpiel:
                 checkAllCounts();
@@ -163,27 +163,27 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
             case R.id.hochzaehlen:
                 if(highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                     spielID = 2;
                 }
                 break;
             case R.id.zahlenEinfuegen:
                 if(highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                     spielID = 1;
                 }
                 break;
             case R.id.groesserKleiner:
                 if(highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
                     spielID = 0;
                 }
                 break;

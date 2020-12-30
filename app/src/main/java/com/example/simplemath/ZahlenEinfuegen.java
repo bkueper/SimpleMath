@@ -19,26 +19,14 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickListener{
+    private final Random random = new Random();
     CountDownTimer cTimer = null;
     private int scoreWert = 0;
-    private int durchlaeufe;
     private int correctAnswers = 0;
-    private int restlicheAufgaben;
-    private int missingPart;
-    private int missingPartIndex;
-    private Random random = new Random();
+    private int durchlaeufe, restlicheAufgaben, missingPart, missingPartIndex, minuten;
     private boolean highscoreMode;
-    private int minuten;
-    private TextView score;
-    private TextView zeit;
-    private TextView aufgabeText;
-    private TextView aufgabenFortschritt;
-    private TextView ergebnisRichtigOderFalsch;
-    private Button ergebnis1;
-    private Button ergebnis2;
-    private Button ergebnis3;
-    private Button ergebnis4;
-    private Button weissIchNicht;
+    private TextView score, zeit, aufgabeText, aufgabenFortschritt, ergebnisRichtigOderFalsch;
+    private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, weissIchNicht;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,13 +95,13 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     }
     public void validateButton(Button button) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
-            if (button.getText().toString() == zeichenAusZahlenwert(missingPart)) {
+            if (button.getText().toString().equals(zeichenAusZahlenwert(missingPart))) {
                 correctButton();
             } else {
                 wrongButton();
             }
         } else {
-            if (button.getText().toString() == String.valueOf(missingPart)) {
+            if (button.getText().toString().equals(String.valueOf(missingPart))) {
                 correctButton();
             } else {
                 wrongButton();
@@ -131,6 +119,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         boolean weitereRunde = false;
         if(requestCode==1){
+            assert data != null;
             weitereRunde = data.getBooleanExtra("WEITERERUNDE",false);
         }
         if(weitereRunde){
@@ -184,7 +173,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         cTimer = new CountDownTimer(minuten*60000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                zeit.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
+                zeit.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
             }
 
             @Override
@@ -218,7 +207,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
 
     public int[] aufgabeGenerieren(){
-        int aufgabe[] = new int[6];
+        int[] aufgabe = new int[6];
         aufgabe[0] = 1 + random.nextInt(9);
         aufgabe[1] = random.nextInt(3);
         aufgabe[2] = 1 + random.nextInt(9);
@@ -230,9 +219,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     public void updateViews(int[]aufgabe) {
         if (!highscoreMode) {
-            aufgabenFortschritt.setText("Aufgabe " + (16 - restlicheAufgaben) + " von 15");
+            aufgabenFortschritt.setText(String.format("Aufgabe %d von 15", 16 - restlicheAufgaben));
         } else {
-            score.setText("SCORE: " + scoreWert);
+            score.setText(String.format("SCORE: %d", scoreWert));
         }
         missingPartIndex = random.nextInt(6);
         missingPart = aufgabe[missingPartIndex];
@@ -258,6 +247,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                         for (int j = 0; j < 4; j++) {
                             if (buttonValues[j] == randomErgebnis) {
                                 doppeltesErgebnis = true;
+                                break;
                             }
                         }
                     }while (doppeltesErgebnis);
@@ -271,23 +261,23 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
     public String aufgabeAlsString(int[]aufgabe, int missingPartIndex){
-        String ergebnisString = "";
+        StringBuilder ergebnisString = new StringBuilder();
         for(int i = 0; i<aufgabe.length; i++){
             if(i == aufgabe.length - 1) {
-                ergebnisString += "= ";
+                ergebnisString.append("= ");
             }
             if(i == missingPartIndex){
-                ergebnisString += "___";
+                ergebnisString.append("___");
             }else{
                 if(i == 1 || i == 3){
-                    ergebnisString += zeichenAusZahlenwert(aufgabe[i]);
+                    ergebnisString.append(zeichenAusZahlenwert(aufgabe[i]));
                 }else {
-                    ergebnisString += String.valueOf(aufgabe[i]);
+                    ergebnisString.append(aufgabe[i]);
                 }
             }
-            ergebnisString += " ";
+            ergebnisString.append(" ");
         }
-        return ergebnisString;
+        return ergebnisString.toString();
     }
     public String zeichenAusZahlenwert(int zahlenwert){
         String zeichen = " ";
