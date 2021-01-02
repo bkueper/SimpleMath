@@ -1,11 +1,7 @@
 package com.example.simplemath;
 
-import androidx.annotation.ColorRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,26 +9,21 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class Spielauswahl extends AppCompatActivity implements View.OnClickListener{
+import androidx.appcompat.app.AppCompatActivity;
+
+import static java.lang.String.format;
+import static java.lang.String.valueOf;
+
+public class Spielauswahl extends AppCompatActivity implements View.OnClickListener {
     private int spielID;
-    private Button highscore;
-    private Button freiesSpiel;
+    private Button highscore, freiesSpiel, startButton;
+    private Button hochzaehlenPlus, hochzaehlenMinus, zahlenEinfuegenPlus, zahlenEinfuegenMinus, groesserKleinerPlus, groesserKleinerMinus;
     private SeekBar zeitLeiste;
     private TextView angezeigteZeit;
-    private ImageButton hochzaehlen;
-    private ImageButton zahlenEinfuegen;
-    private ImageButton groesserKleiner;
-    private Button hochzaehlenPlus;
-    private Button hochzaehlenMinus;
-    private Button zahlenEinfuegenPlus;
-    private Button zahlenEinfuegenMinus;
-    private Button groesserKleinerPlus;
-    private Button groesserKleinerMinus;
-    private TextView countForHochzaehlen;
-    private TextView countForZahlenEinfuegen;
-    private TextView countForGroesserKleiner;
-    private Button startButton;
+    private ImageButton hochzaehlen, zahlenEinfuegen, groesserKleiner;
+    private TextView countForHochzaehlen, countForZahlenEinfuegen, countForGroesserKleiner;
     private boolean highscoreMode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +40,10 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         zeitLeiste.setProgress(2);
         zeitLeiste.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int totalProgress;
+
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                angezeigteZeit.setText(String.valueOf(progress+1) + " Min");
+                angezeigteZeit.setText(format("%d Min", progress + 1));
                 totalProgress = progress;
             }
 
@@ -62,11 +54,11 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                angezeigteZeit.setText(String.valueOf(totalProgress+1) + " Min");
+                angezeigteZeit.setText(format("%d Min", totalProgress + 1));
             }
         });
         angezeigteZeit = findViewById(R.id.angezeigteZeit);
-        angezeigteZeit.setText(String.valueOf(zeitLeiste.getProgress()+1)+ " Min");
+        angezeigteZeit.setText(format("%d Min", zeitLeiste.getProgress() + 1));
         hochzaehlen = findViewById(R.id.hochzaehlen);
         hochzaehlen.setOnClickListener(this);
         zahlenEinfuegen = findViewById(R.id.zahlenEinfuegen);
@@ -89,40 +81,45 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         startButton.setOnClickListener(this);
         checkAllCounts();
     }
-    public void countPlus(TextView tw){
+
+    public void countPlus(TextView tw) {
         int zahl = Integer.parseInt(tw.getText().toString());
-        if(zahl<9){
+        if (zahl < 9) {
             zahl++;
-            tw.setText(String.valueOf(zahl));
+            tw.setText(valueOf(zahl));
         }
     }
-    public void countMinus(TextView tw){
+
+    public void countMinus(TextView tw) {
         int zahl = Integer.parseInt(tw.getText().toString());
-        if(zahl>0){
+        if (zahl > 0) {
             zahl--;
-            tw.setText(String.valueOf(zahl));
+            tw.setText(valueOf(zahl));
         }
     }
-    public void checkCount(TextView tw,ImageButton ib){
-        if(Integer.parseInt(countForHochzaehlen.getText().toString())>0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString())>0 || Integer.parseInt(countForGroesserKleiner.getText().toString())>0){
+
+    public void checkCount(TextView tw, ImageButton ib) {
+        if (Integer.parseInt(countForHochzaehlen.getText().toString()) > 0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString()) > 0 || Integer.parseInt(countForGroesserKleiner.getText().toString()) > 0) {
             startButton.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             startButton.setVisibility(View.GONE);
         }
-        if(Integer.parseInt(tw.getText().toString())>0){
-            ib.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-        }else{
-            ib.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+        if (Integer.parseInt(tw.getText().toString()) > 0) {
+            ib.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+        } else {
+            ib.setBackground(getResources().getDrawable(R.drawable.default_button));
         }
     }
-    public void checkAllCounts(){
-        checkCount(countForHochzaehlen,hochzaehlen);
-        checkCount(countForZahlenEinfuegen,zahlenEinfuegen);
-        checkCount(countForGroesserKleiner,groesserKleiner);
+
+    public void checkAllCounts() {
+        checkCount(countForHochzaehlen, hochzaehlen);
+        checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
+        checkCount(countForGroesserKleiner, groesserKleiner);
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.highscore:
                 highscoreMode = true;
                 highscore.setBackgroundColor(Color.GREEN);
@@ -139,9 +136,9 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 countForGroesserKleiner.setVisibility(View.GONE);
                 countForZahlenEinfuegen.setVisibility(View.GONE);
                 countForHochzaehlen.setVisibility(View.GONE);
-                hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                 break;
             case R.id.freiesSpiel:
                 checkAllCounts();
@@ -161,62 +158,62 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 countForHochzaehlen.setVisibility(View.VISIBLE);
                 break;
             case R.id.hochzaehlen:
-                if(highscoreMode) {
+                if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                     spielID = 2;
                 }
                 break;
             case R.id.zahlenEinfuegen:
-                if(highscoreMode) {
+                if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
                     spielID = 1;
                 }
                 break;
             case R.id.groesserKleiner:
-                if(highscoreMode) {
+                if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground((Drawable) getResources().getDrawable(R.drawable.default_button_pressed));
+                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
                     spielID = 0;
                 }
                 break;
             case R.id.plusHochzaehlen:
                 countPlus(countForHochzaehlen);
-                checkCount(countForHochzaehlen,hochzaehlen);
+                checkCount(countForHochzaehlen, hochzaehlen);
                 break;
             case R.id.minusHochzaehlen:
                 countMinus(countForHochzaehlen);
-                checkCount(countForHochzaehlen,hochzaehlen);
+                checkCount(countForHochzaehlen, hochzaehlen);
                 break;
             case R.id.plusZahlenEinfuegen:
                 countPlus(countForZahlenEinfuegen);
-                checkCount(countForZahlenEinfuegen,zahlenEinfuegen);
+                checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
                 break;
             case R.id.minusZahlenEinfuegen:
                 countMinus(countForZahlenEinfuegen);
-                checkCount(countForZahlenEinfuegen,zahlenEinfuegen);
+                checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
                 break;
             case R.id.plusGroesserKleiner:
                 countPlus(countForGroesserKleiner);
-                checkCount(countForGroesserKleiner,groesserKleiner);
+                checkCount(countForGroesserKleiner, groesserKleiner);
                 break;
             case R.id.minusGroesserKleiner:
                 countMinus(countForGroesserKleiner);
-                checkCount(countForGroesserKleiner,groesserKleiner);
+                checkCount(countForGroesserKleiner, groesserKleiner);
                 break;
             case R.id.startButton:
-                if(highscoreMode){
+                if (highscoreMode) {
                     int minuten = zeitLeiste.getProgress() + 1;
-                    starteHighscoreSpiel(minuten,spielID);
-                }else{
-                    int []durchlaeufe = new int[3];
+                    starteHighscoreSpiel(minuten, spielID);
+                } else {
+                    int[] durchlaeufe = new int[3];
                     durchlaeufe[0] = Integer.parseInt(countForHochzaehlen.getText().toString());
                     durchlaeufe[1] = Integer.parseInt(countForZahlenEinfuegen.getText().toString());
                     durchlaeufe[2] = Integer.parseInt(countForGroesserKleiner.getText().toString());
@@ -227,8 +224,8 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void starteHighscoreSpiel(int minuten, int spielID){
-        switch (spielID){
+    public void starteHighscoreSpiel(int minuten, int spielID) {
+        switch (spielID) {
             case 0:
                 Intent intent = new Intent(this, GroesserKleiner.class);
                 intent.putExtra("MINUTES", minuten);
@@ -248,29 +245,30 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 throw new IllegalStateException("Unexpected value: " + spielID);
         }
     }
-    public void starteFreiesSpiel(int[] anzahlDurchlaeufeProSpiel){
-        for(int i = 0; i < anzahlDurchlaeufeProSpiel.length; i++){
-                    switch (i){
-                        case 0:
-                            Intent intent = new Intent(this,GroesserKleiner.class);
-                            intent.putExtra("HIGHSCOREMODE", false);
-                            intent.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[2]);
-                            startActivity(intent);
-                            break;
-                        case 1:
-                            if(anzahlDurchlaeufeProSpiel[1] > 0){
-                                Intent intent2 = new Intent(this,ZahlenEinfuegen.class);
-                                intent2.putExtra("HIGHSCOREMODE", false);
-                                intent2.putExtra("DURCHLAEUFE",anzahlDurchlaeufeProSpiel[1]);
-                                startActivity(intent2);
-                            }
-                            break;
-                        case 2:
-                            //starte hochzaehlen
-                            break;
-                    }
-                }
 
+    public void starteFreiesSpiel(int[] anzahlDurchlaeufeProSpiel) {
+        for (int i = 0; i < anzahlDurchlaeufeProSpiel.length; i++) {
+            switch (i) {
+                case 0:
+                    Intent intent = new Intent(this, GroesserKleiner.class);
+                    intent.putExtra("HIGHSCOREMODE", false);
+                    intent.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[2]);
+                    startActivity(intent);
+                    break;
+                case 1:
+                    if (anzahlDurchlaeufeProSpiel[1] > 0) {
+                        Intent intent2 = new Intent(this, ZahlenEinfuegen.class);
+                        intent2.putExtra("HIGHSCOREMODE", false);
+                        intent2.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[1]);
+                        startActivity(intent2);
+                    }
+                    break;
+                case 2:
+                    //starte hochzaehlen
+                    break;
             }
         }
+
+    }
+}
 

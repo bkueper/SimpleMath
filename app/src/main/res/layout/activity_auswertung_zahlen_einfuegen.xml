@@ -5,28 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AuswertungZahlenEinfuegen">
+
     <TextView
         android:id="@+id/feedbackFreiesSpiel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Du hast 10 von 15 Aufgaben gelöst!"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="80dp"
+        android:text="@string/du_hast_10_von_15_aufgaben_gel_st"
         android:textSize="22sp"
         android:textStyle="bold"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/weiterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weiter"
-        android:textSize="40sp"
+        android:layout_marginBottom="70dp"
         android:backgroundTint="@color/unserBlau"
+        android:text="@string/weiter"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="70dp"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

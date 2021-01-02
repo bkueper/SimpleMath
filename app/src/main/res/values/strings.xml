@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">SimpleMath</string>
     <string name="smallerIcon"><![CDATA[<]]></string>
+    <string name="weiter">Weiter</string>
+    <string name="du_hast_10_von_15_aufgaben_gel_st">Du hast 10 von 15 Aufgaben gelöst!</string>
+    <string name="simplemath">SimpleMath</string>
+    <string name="highscoreButtonText">Highscore</string>
+    <string name="freies_spielButtonText">Freies Spiel</string>
+    <string name="plus_symbol">+</string>
+    <string name="defaultValueFreiesSpiel">1</string>
+    <string name="minus_symbol">-</string>
+    <string name="start">START</string>
+    <string name="hallo_user">Hallo User</string>
+    <string name="los_gehts">Los gehts</string>
+    <string name="bestaetigen">bestätigen</string>
+    <string name="gib_deinen_nutzernamen_ein">Gib deinen Nutzernamen ein</string>
+    <string name="username">Username</string>
+    <string name="user_erstellen">User erstellen</string>
+    <string name="wei_ich_nicht">Weiß ich nicht</string>
 </resources>
