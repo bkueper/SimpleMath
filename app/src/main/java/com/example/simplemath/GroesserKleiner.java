@@ -34,7 +34,6 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     private Button[] besetztePlaetze = new Button[4];
     private CountDownTimer cTimer;
     private float[] startPositionen;
-    private ConstraintLayout cl;
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,6 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         ergebnis3.setOnTouchListener(this);
         ergebnis4 = findViewById(R.id.groesserKleinerErgebnis4);
         ergebnis4.setOnTouchListener(this);
-        cl = findViewById(R.id.constraintLayoutGroesserKleiner);
         bestaetigen = findViewById(R.id.bestaetigen);
         bestaetigen.setOnClickListener(new View.OnClickListener() {
             @Override
