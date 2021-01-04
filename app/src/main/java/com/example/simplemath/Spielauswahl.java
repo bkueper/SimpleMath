@@ -19,7 +19,7 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
     private Button highscore, freiesSpiel, startButton;
     private Button hochzaehlenPlus, hochzaehlenMinus, zahlenEinfuegenPlus, zahlenEinfuegenMinus, groesserKleinerPlus, groesserKleinerMinus;
     private SeekBar zeitLeiste;
-    private TextView angezeigteZeit;
+    private TextView angezeigteZeit, halloUser;
     private ImageButton hochzaehlen, zahlenEinfuegen, groesserKleiner;
     private TextView countForHochzaehlen, countForZahlenEinfuegen, countForGroesserKleiner;
     private boolean highscoreMode = false;
@@ -28,6 +28,8 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spielauswahl);
+        halloUser = findViewById(R.id.halloUser);
+        halloUser.setText("Hallo " + getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", ""));
         countForZahlenEinfuegen = findViewById(R.id.countForZahlenEinfuegen);
         countForGroesserKleiner = findViewById(R.id.countForGroesserKleiner);
         countForHochzaehlen = findViewById(R.id.countForHochzählen);
@@ -230,12 +232,14 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, GroesserKleiner.class);
                 intent.putExtra("MINUTES", minuten);
                 intent.putExtra("HIGHSCOREMODE", true);
+                intent.putExtra("SPIELID", spielID);
                 startActivity(intent);
                 break;
             case 1:
                 Intent intent2 = new Intent(this, ZahlenEinfuegen.class);
                 intent2.putExtra("MINUTES", minuten);
                 intent2.putExtra("HIGHSCOREMODE", true);
+                intent2.putExtra("SPIELID", spielID);
                 startActivity(intent2);
                 break;
             case 2:

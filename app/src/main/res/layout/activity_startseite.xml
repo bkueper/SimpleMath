@@ -37,27 +37,6 @@
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/user1"
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:backgroundTint="@color/unserBlau"
-                android:text="User1"
-                android:textSize="25sp" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:backgroundTint="@color/unserBlau"
-                android:text="User2"
-                android:textSize="25sp" />
-
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="70dp"
-                android:backgroundTint="@color/unserBlau"
-                android:text="User3"
-                android:textSize="25sp" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
@@ -74,4 +53,40 @@
         app:layout_constraintTop_toBottomOf="@+id/ScrollView">
 
     </ImageButton>
+
+    <EditText
+        android:id="@+id/enterUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="11"
+        android:hint="neuer Username"
+        android:maxLength="10"
+        android:textSize="25sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addUserButton" />
+
+    <Button
+        android:id="@+id/setNeuerUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/unserBlau"
+        android:text="umbenennen"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/deleteUsername"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enterUsername" />
+
+    <Button
+        android:id="@+id/deleteUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/unserRot"
+
+        android:text="entfernen"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/setNeuerUsername"
+        app:layout_constraintTop_toBottomOf="@id/enterUsername" />
 </androidx.constraintlayout.widget.ConstraintLayout>

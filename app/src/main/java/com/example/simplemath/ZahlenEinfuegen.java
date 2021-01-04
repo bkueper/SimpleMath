@@ -22,7 +22,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     CountDownTimer cTimer = null;
     private int scoreWert = 0;
     private int correctAnswers = 0;
-    private int durchlaeufe, restlicheAufgaben, missingPart, missingPartIndex, minuten;
+    private int durchlaeufe, restlicheAufgaben, missingPart, missingPartIndex, minuten, spielId;
     private boolean highscoreMode;
     private TextView score, zeit, aufgabeText, aufgabenFortschritt, ergebnisRichtigOderFalsch;
     private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, weissIchNicht;
@@ -52,6 +52,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         if (highscoreMode) {
             restlicheAufgaben = 1;
             startHighscoreGame(minuten);
+            spielId = intent.getIntExtra("SPIELID", 1);
         } else {
             durchlaeufe = intent.getIntExtra("DURCHLAEUFE", 1);
             startFreiesSpiel();
@@ -190,9 +191,12 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     public void openAuswertung() {
         if (highscoreMode) {
+
             Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
             intent.putExtra("SCOREWERT", scoreWert);
             intent.putExtra("HIGHSCOREMODE", true);
+
+            intent.putExtra("SPIELID", spielId);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
