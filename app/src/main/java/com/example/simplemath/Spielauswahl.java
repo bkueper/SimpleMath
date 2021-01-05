@@ -243,7 +243,11 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent2);
                 break;
             case 2:
-                //starteHochzaehlen
+                Intent intent3 = new Intent(this, Hochzaehlen.class);
+                intent3.putExtra("MINUTES", minuten);
+                intent3.putExtra("HIGHSCOREMODE", true);
+                intent3.putExtra("SPIELID", spielID);
+                startActivity(intent3);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + spielID);
@@ -268,7 +272,10 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
                 case 2:
-                    //starte hochzaehlen
+                    Intent intent3 = new Intent(this, Hochzaehlen.class);
+                    intent3.putExtra("HIGHSCOREMODE", false);
+                    intent3.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[0]);
+                    startActivity(intent3);
                     break;
             }
         }

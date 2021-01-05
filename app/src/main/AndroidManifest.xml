@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleMath">
-        <activity android:name=".GroesserKleiner"></activity>
+        <activity android:name=".Hochzaehlen"></activity>
+        <activity android:name=".GroesserKleiner" />
         <activity android:name=".AuswertungZahlenEinfuegen" />
         <activity android:name=".ZahlenEinfuegen" />
         <activity android:name=".Spielauswahl" />
