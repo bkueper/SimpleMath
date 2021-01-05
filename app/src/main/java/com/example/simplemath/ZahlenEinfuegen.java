@@ -234,14 +234,13 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
         missingPartIndex = random.nextInt(6);
         missingPart = aufgabe[missingPartIndex];
-        if (missingPartIndex == 1 || missingPartIndex == 3) {
+        if (missingPartIndex % 2 == 1) {
             ergebnis1.setText("+");
             ergebnis2.setText("-");
             ergebnis3.setText("*");
-            ergebnis4.setText(" ");
-            aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+            //ergebnis4.setText(" ");       potential division symbol button
+            ergebnis4.setVisibility(View.INVISIBLE);
         } else {
-            aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
             int[] buttonValues = new int[4];
             int correctAnswerIndex = random.nextInt(4);
             buttonValues[correctAnswerIndex] = missingPart;
@@ -262,12 +261,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                     } while (doppeltesErgebnis);
                     buttonValues[i] = randomErgebnis;
                 }
-                ergebnis1.setText(String.valueOf(buttonValues[0]));
-                ergebnis2.setText(String.valueOf(buttonValues[1]));
-                ergebnis3.setText(String.valueOf(buttonValues[2]));
-                ergebnis4.setText(String.valueOf(buttonValues[3]));
             }
+            ergebnis1.setText(String.valueOf(buttonValues[0]));
+            ergebnis2.setText(String.valueOf(buttonValues[1]));
+            ergebnis3.setText(String.valueOf(buttonValues[2]));
+            ergebnis4.setText(String.valueOf(buttonValues[3]));
+            ergebnis4.setVisibility(View.VISIBLE);
         }
+        aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
     }
 
     public String aufgabeAlsString(int[] aufgabe, int missingPartIndex) {
