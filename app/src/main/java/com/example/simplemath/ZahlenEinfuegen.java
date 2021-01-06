@@ -235,7 +235,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
         missingPartIndex = random.nextInt(6);
         missingPart = aufgabe[missingPartIndex];
-        if (missingPartIndex % 2 == 1) {
+        if (missingPartIndex == 1 || missingPartIndex == 3) {
             ergebnis1.setText("+");
             ergebnis2.setText("-");
             ergebnis3.setText("*");
