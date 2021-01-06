@@ -247,7 +247,6 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
 
         missingPartIndex = random.nextInt(6);
-        missingPartIndex = 5;
         int[] buttonValues = new int[4];
         missingPart = aufgabe[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
