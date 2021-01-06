@@ -127,6 +127,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
         }
         if (weitereRunde) {
+            correctAnswers = 0;
             startFreiesSpiel();
         } else {
             finish();

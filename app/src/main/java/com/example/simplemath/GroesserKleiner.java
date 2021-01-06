@@ -183,6 +183,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
         }
         if (weitereRunde) {
+            correctAnswers = 0;
             startFreiesSpiel();
         } else {
             finish();

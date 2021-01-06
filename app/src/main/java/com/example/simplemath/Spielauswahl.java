@@ -258,10 +258,12 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < anzahlDurchlaeufeProSpiel.length; i++) {
             switch (i) {
                 case 0:
-                    Intent intent = new Intent(this, GroesserKleiner.class);
-                    intent.putExtra("HIGHSCOREMODE", false);
-                    intent.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[2]);
-                    startActivity(intent);
+                    if(anzahlDurchlaeufeProSpiel[2] > 0) {
+                        Intent intent = new Intent(this, GroesserKleiner.class);
+                        intent.putExtra("HIGHSCOREMODE", false);
+                        intent.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[2]);
+                        startActivity(intent);
+                    }
                     break;
                 case 1:
                     if (anzahlDurchlaeufeProSpiel[1] > 0) {
@@ -272,10 +274,12 @@ public class Spielauswahl extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
                 case 2:
-                    Intent intent3 = new Intent(this, Hochzaehlen.class);
-                    intent3.putExtra("HIGHSCOREMODE", false);
-                    intent3.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[0]);
-                    startActivity(intent3);
+                    if(anzahlDurchlaeufeProSpiel[0] > 0) {
+                        Intent intent3 = new Intent(this, Hochzaehlen.class);
+                        intent3.putExtra("HIGHSCOREMODE", false);
+                        intent3.putExtra("DURCHLAEUFE", anzahlDurchlaeufeProSpiel[0]);
+                        startActivity(intent3);
+                    }
                     break;
             }
         }
