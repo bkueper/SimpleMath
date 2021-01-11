@@ -224,7 +224,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         aufgabe[3] = random.nextInt(3);
         aufgabe[4] = 1 + random.nextInt(9);
         aufgabe[5] = ergebnisAusrechnen(aufgabe);
-        if(aufgabe[5]>100 || aufgabe[5]<1){
+        if (aufgabe[5] > 100 || aufgabe[5] < 1) {
             aufgabe = aufgabeGenerieren();
         }
         return aufgabe;
@@ -253,13 +253,12 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             ergebnis1.setText("+");
             ergebnis2.setText("-");
             ergebnis3.setText("*");
-            //ergebnis4.setText(" ");       potential division symbol button
             ergebnis4.setVisibility(View.INVISIBLE);
             aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
             return;
         } else if (missingPartIndex == 5) {
             int offset = missingPart / 10 * 10;
-            Toast.makeText(this,"offset: "+ String.valueOf(offset), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "offset: " + String.valueOf(offset), Toast.LENGTH_SHORT).show();
             int correctAnswerIndex = random.nextInt(4);
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;
@@ -279,26 +278,6 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 buttonValues[i] = newNumber;
             }
             buttonValues[correctAnswerIndex] = missingPart;
-            /*
-            int offset = random.nextInt(18);
-            for (int i = 0; i < 4; i++) {
-                if (i != correctAnswerIndex) {
-                    boolean doppeltesErgebnis;
-                    int randomErgebnis;
-                    do {
-                        doppeltesErgebnis = false;
-                        randomErgebnis = missingPart + (-offset + random.nextInt(19));
-                        for (int j = 0; j < 4; j++) {
-                            if (buttonValues[j] == randomErgebnis) {
-                                doppeltesErgebnis = true;
-                                break;
-                            }
-                        }
-                    } while (doppeltesErgebnis);
-                    buttonValues[i] = randomErgebnis;
-                }
-            }*/
-
         }
         ergebnis1.setText(String.valueOf(buttonValues[0]));
         ergebnis2.setText(String.valueOf(buttonValues[1]));
@@ -350,7 +329,6 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         int ergebnis = 0;
         int index = aufgabe[1] + 3 * aufgabe[3];
         switch (index) {
-            //+ und +
             case 0:
                 ergebnis = aufgabe[0] + aufgabe[2] + aufgabe[4];
                 break;
