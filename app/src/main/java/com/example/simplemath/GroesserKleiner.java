@@ -25,7 +25,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, bestaetigen;
     private boolean highscoreMode;
     private boolean ersterDurchlauf = true;
-    private int restlicheAufgaben, scoreWert, durchlaeufe, sortierArt, correctAnswers;
+    private int restlicheAufgaben, scoreWert, durchlaeufe, sortierArt, correctAnswers, minuten;
     private TextView sortierAufgabe, groesserKleinerZeichen1, groesserKleinerZeichen2, groesserKleinerZeichen3, score, aufgabenFortschritt, zeit;
     private View solution1, solution2, solution3, solution4;
     private float dX, dY;
@@ -73,7 +73,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
 
         Intent intent = getIntent();
         highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE", true);
-        int minuten = intent.getIntExtra("MINUTES", 1);
+        minuten = intent.getIntExtra("MINUTES", 1);
         if (highscoreMode) {
             restlicheAufgaben = 1;
             startHighscoreGame(minuten);
@@ -292,6 +292,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
         if (highscoreMode) {
             intent.putExtra("SCOREWERT", scoreWert);
+            intent.putExtra("MINUTES", minuten);
             intent.putExtra("HIGHSCOREMODE", true);
             startActivity(intent);
         } else {

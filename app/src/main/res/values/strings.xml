@@ -11,10 +11,11 @@
     <string name="minus_symbol">-</string>
     <string name="start">START</string>
     <string name="hallo_user">Hallo User</string>
-    <string name="los_gehts">Los gehts</string>
+    <string name="multiplayer">Multiplayer</string>
     <string name="bestaetigen">bestätigen</string>
     <string name="gib_deinen_nutzernamen_ein">Gib deinen Nutzernamen ein</string>
     <string name="username">Username</string>
     <string name="user_erstellen">User erstellen</string>
     <string name="wei_ich_nicht">Weiß ich nicht</string>
+    <string name="singleplayer">Singleplayer</string>
 </resources>

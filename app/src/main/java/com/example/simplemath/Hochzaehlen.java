@@ -185,6 +185,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
         if (highscoreMode) {
             intent.putExtra("SCOREWERT", scoreWert);
+            intent.putExtra("MINUTES", minuten);
             intent.putExtra("HIGHSCOREMODE", true);
             startActivity(intent);
         } else {

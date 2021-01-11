@@ -7,19 +7,32 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/losGehts"
-        android:layout_width="174dp"
-        android:layout_height="61dp"
+        android:id="@+id/multiplayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="124dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="@string/los_gehts"
+        android:text="@string/multiplayer"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="26sp"
         app:backgroundTint="#2196F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+    android:id="@+id/singleplayer"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
+    android:backgroundTint="@color/unserBlau"
+    android:text="@string/singleplayer"
+    android:textColor="@color/black"
+    android:textSize="26sp"
+    app:backgroundTint="#2196F3"
+    app:layout_constraintBottom_toTopOf="@id/multiplayer"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"

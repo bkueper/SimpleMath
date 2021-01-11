@@ -191,16 +191,17 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     }
 
     public void openAuswertung() {
+        Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
         if (highscoreMode) {
 
-            Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
             intent.putExtra("SCOREWERT", scoreWert);
+            intent.putExtra("MINUTES", minuten);
             intent.putExtra("HIGHSCOREMODE", true);
 
             intent.putExtra("SPIELID", spielId);
+
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
             intent.putExtra("PUNKTZAHL", correctAnswers);
             durchlaeufe -= 1;
             intent.putExtra("DURCHLAEUFE", durchlaeufe);
@@ -258,7 +259,6 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             return;
         } else if (missingPartIndex == 5) {
             int offset = missingPart / 10 * 10;
-            Toast.makeText(this, "offset: " + String.valueOf(offset), Toast.LENGTH_SHORT).show();
             int correctAnswerIndex = random.nextInt(4);
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;

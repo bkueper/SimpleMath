@@ -9,10 +9,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static java.lang.String.*;
 import static java.lang.String.format;
 
 public class AuswertungZahlenEinfuegen extends AppCompatActivity {
-    private int durchlaeufe, punktzahl, scoreWert, bisherigerHighscore, spielId;
+    private int durchlaeufe, punktzahl, spielId, minuten;
+    private float scoreWert, bisherigerHighscore;
     private TextView feedbackText, highscoreView;
     private Button weiterButton;
     private boolean highscoreMode, weitereRunde;
@@ -39,8 +41,8 @@ public class AuswertungZahlenEinfuegen extends AppCompatActivity {
                 editor = getSharedPreferences("zahlenEinfuegenHighscore", MODE_PRIVATE).edit();
                 break;
             case 2:
-                //prefs = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE);
-                //editor = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE).edit();
+                prefs = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE);
+                editor = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE).edit();
                 break;
             default:
 
@@ -48,18 +50,20 @@ public class AuswertungZahlenEinfuegen extends AppCompatActivity {
         highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE", false);
         if (highscoreMode) {
             scoreWert = intent.getIntExtra("SCOREWERT", 0);
+            minuten = intent.getIntExtra("MINUTES", 1);
+            float scoreProMinute =(float) scoreWert/minuten;
             username = getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", "");
-            bisherigerHighscore = prefs.getInt(username, 0);
+            bisherigerHighscore = prefs.getFloat(username, 0.0f);
 
-            if (scoreWert > bisherigerHighscore) {
+            if (scoreProMinute > bisherigerHighscore) {
 
-                editor.putInt(username, scoreWert);
-                editor.commit();
-                bisherigerHighscore = scoreWert;
+                editor.putFloat(username, scoreProMinute);
+                editor.apply();
+                bisherigerHighscore = scoreProMinute;
             }
             highscoreView.setVisibility(View.VISIBLE);
-            highscoreView.setText(format("HIGHSCORE: %d", bisherigerHighscore));
-            feedbackText.setText(format("DEIN SCORE: %d", scoreWert));
+            highscoreView.setText(format("HIGHSCORE: %.2f",bisherigerHighscore));
+            feedbackText.setText(format("DEIN SCORE: %.2f", scoreProMinute));
 
             weiterButton.setOnClickListener(new View.OnClickListener() {
                 @Override
