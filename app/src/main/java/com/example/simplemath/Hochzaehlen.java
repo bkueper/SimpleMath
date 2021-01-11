@@ -42,7 +42,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     /**
      * The onCreate method sets the Content and finds the Views in the layout file.
      * It adds 25 buttons and finds out whether the user started a highscore game or not.
-     * The informations (duration of game in minutes, the game ID, 
+     * The information (duration of game in minutes, the game ID,
      * the amount of times the game has to be played, a boolean that says whether the game is a highscoregame or not)
      * get taken out of the intent, that started the activity.
      * @param savedInstanceState
@@ -175,11 +175,9 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         for(Button button:allButtons){
             button.setBackgroundResource(R.drawable.round_button_bestaetigt);
         }
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                confirm.setVisibility(View.VISIBLE);
-                updateViews();
-            }
+        handler.postDelayed(() -> {
+            confirm.setVisibility(View.VISIBLE);
+            updateViews();
         }, 1000);
 
     }
@@ -192,11 +190,9 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         for(Button button:allButtons) {
             button.setBackgroundResource(R.drawable.round_button_falsch);
         }
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                confirm.setVisibility(View.VISIBLE);
-                updateViews();
-            }
+        handler.postDelayed(() -> {
+            confirm.setVisibility(View.VISIBLE);
+            updateViews();
         }, 1000);
     }
 
@@ -228,8 +224,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     public String taskAsString(){
         firstNumber = random.nextInt(21);
         secondNumber = 1 + random.nextInt(25 - firstNumber) ;
-        String aufgabeAlsString = format("%d + %d", firstNumber, secondNumber);
-        return aufgabeAlsString;
+        return format("%d + %d", firstNumber, secondNumber);
     }
 
     /**
@@ -269,15 +264,14 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Converts a number of dp to a number of pixels.
-     * @param dp a number of dp
-     * @param context
-     * @return
+     * @param dp number of dp to convert
+     * @param context required to get access to the devices display dimensions
+     * @return dp converted to pixels depending on the devices display dimensions
      */
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     /**

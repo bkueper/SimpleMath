@@ -20,21 +20,33 @@ import java.util.Random;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 
+
+/**
+ * This is the Javaclass for the game/activity "Größer Kleiner".
+ * @author Bjarne Küper and Sascha Rührup
+ *
+ */
 public class GroesserKleiner extends AppCompatActivity implements View.OnTouchListener {
     private final Random random = new Random();
     private Button result1, result2, result3, result4, confirm;
     private boolean highscoreMode;
     private boolean firstRound = true;
     private int remainingTasks, scoreValue, rounds, sortingType, correctAnswers, minutes;
-    private TextView sortierAufgabe, groesserKleinerZeichen1, groesserKleinerZeichen2, groesserKleinerZeichen3, score, aufgabenFortschritt, zeit;
+    private TextView sortingTask, largerSmallerSymbol1, largerSmallerSymbol2, largerSmallerSymbol3, score, taskProgress, time;
     private View solution1, solution2, solution3, solution4;
     private float dX, dY;
     private final Rect normalRect = new Rect();
     private final int[] location = new int[2];
-    private Button[] besetztePlaetze = new Button[4];
-    private float[] startPositionen;
+    private Button[] occupiedSpace = new Button[4];
+    private float[] startingPositions;
     private CountDownTimer cTimer;
 
+    /**
+     * The onCreate method sets the Content and finds the Views in the layout file.
+     * It retrieves information about gamemode and game duration or number of rounds respectively.
+     * Finally a Highscore or Freeplay game is started.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,24 +60,21 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         result4 = findViewById(R.id.groesserKleinerErgebnis4);
         result4.setOnTouchListener(this);
         confirm = findViewById(R.id.confirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ergebnisBewerten();
-                if (remainingTasks <= 0) {
-                    openAuswertung();
-                } else {
-                    updateViews();
-                }
+        confirm.setOnClickListener(v -> {
+            ergebnisBewerten();
+            if (remainingTasks <= 0) {
+                openEvaluation();
+            } else {
+                updateViews();
             }
         });
-        sortierAufgabe = findViewById(R.id.sortierAufgabe);
-        groesserKleinerZeichen1 = findViewById(R.id.groesserKleinerZeichen1);
-        groesserKleinerZeichen2 = findViewById(R.id.groesserKleinerZeichen2);
-        groesserKleinerZeichen3 = findViewById(R.id.groesserKleinerZeichen3);
-        aufgabenFortschritt = findViewById(R.id.taskProgress);
+        sortingTask = findViewById(R.id.sortierAufgabe);
+        largerSmallerSymbol1 = findViewById(R.id.groesserKleinerZeichen1);
+        largerSmallerSymbol2 = findViewById(R.id.groesserKleinerZeichen2);
+        largerSmallerSymbol3 = findViewById(R.id.groesserKleinerZeichen3);
+        taskProgress = findViewById(R.id.taskProgress);
         score = findViewById(R.id.score);
-        zeit = findViewById(R.id.timeLeft);
+        time = findViewById(R.id.timeLeft);
         solution1 = findViewById(R.id.solutionSpace1);
         solution2 = findViewById(R.id.solutionSpace2);
         solution3 = findViewById(R.id.solutionSpace3);
@@ -79,10 +88,13 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             startHighscoreGame(minutes);
         } else {
             rounds = intent.getIntExtra("DURCHLAEUFE", 1);
-            startFreiesSpiel();
+            startFreeplayGame();
         }
     }
 
+    /**
+     * cTimer gets released to free up system resources
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -91,38 +103,53 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         }
     }
 
-    public void startHighscoreGame(int minuten) {
+    /**
+     * Sets required parameters remainingTasks and scoreValue.
+     * Starts a timer for the Highscore game and opens the evaluation after it runs out.
+     * @param minutes time the Highscore game will last in minutes
+     */
+    public void startHighscoreGame(int minutes) {
         remainingTasks = 1;
         updateViews();
         scoreValue = 0;
-        aufgabenFortschritt.setVisibility(View.GONE);
-        cTimer = new CountDownTimer(minuten * 60000, 1000) {
+        taskProgress.setVisibility(View.GONE);
+        cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                zeit.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
+                time.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
             }
 
             @Override
             public void onFinish() {
-                openAuswertung();
+                openEvaluation();
                 finish();
             }
         };
         cTimer.start();
     }
 
-    public void startFreiesSpiel() {
+    /**
+     * Sets remainingTasks and disables Views related to Highscore mode only
+     */
+    public void startFreeplayGame() {
         remainingTasks = 15;
         updateViews();
         score.setVisibility(View.GONE);
-        zeit.setVisibility(View.GONE);
+        time.setVisibility(View.GONE);
     }
 
+    /**
+     * Checks position of selected View and wether it is inside specified area.
+     * If the view is inside it, the View gets placed at a preset position.
+     * @param v current View
+     * @param event current MotionEvent
+     * @return consume event
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (firstRound) {
-            startPositionen = new float[]{result1.getX(), result1.getY(),
+            startingPositions = new float[]{result1.getX(), result1.getY(),
                     result2.getX(), result2.getY(), result3.getX(),
                     result3.getY(), result4.getX(), result4.getY()};
         }
@@ -143,25 +170,25 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
                 int x = (int) event.getRawX();
                 int y = (int) event.getRawY();
                 if (isViewInBounds(solution1, x, y)) {
-                    besetztePlaetze[0] = (Button) v;
+                    occupiedSpace[0] = (Button) v;
                     solution1.dispatchTouchEvent(event);
                     v.setX(solution1.getX() - 20);
                     v.setY(solution1.getY() + 60);
                 }
                 if (isViewInBounds(solution2, x, y)) {
-                    besetztePlaetze[1] = (Button) v;
+                    occupiedSpace[1] = (Button) v;
                     solution2.dispatchTouchEvent(event);
                     v.setX(solution2.getX() - 20);
                     v.setY(solution2.getY() + 60);
                 }
                 if (isViewInBounds(solution3, x, y)) {
-                    besetztePlaetze[2] = (Button) v;
+                    occupiedSpace[2] = (Button) v;
                     solution3.dispatchTouchEvent(event);
                     v.setX(solution3.getX() - 20);
                     v.setY(solution3.getY() + 60);
                 }
                 if (isViewInBounds(solution4, x, y)) {
-                    besetztePlaetze[3] = (Button) v;
+                    occupiedSpace[3] = (Button) v;
                     solution4.dispatchTouchEvent(event);
                     v.setX(solution4.getX() - 20);
                     v.setY(solution4.getY() + 60);
@@ -173,7 +200,12 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         return true;
     }
 
-
+    /**
+     * Starts another Freeplay game depending on the received data or ends this Activitiy
+     * @param requestCode number that gets answered from the other Acitvity.
+     * @param resultCode
+     * @param data intent which is filled with information from the other Activity.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -184,18 +216,21 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         }
         if (weitereRunde) {
             correctAnswers = 0;
-            startFreiesSpiel();
+            startFreeplayGame();
         } else {
             finish();
         }
     }
 
+    /**
+     * Evaluates the task and sets increments or decreases scores and remainingTasks accordingly
+     */
     public void ergebnisBewerten() {
         if (!highscoreMode) {
             remainingTasks--;
         }
         for (int i = 0; i < 4; i++) {
-            if (besetztePlaetze[i] == null) {
+            if (occupiedSpace[i] == null) {
                 if (scoreValue > 0) {
                     scoreValue--;
                 }
@@ -204,7 +239,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         }
         if (sortingType == 0) {
             for (int i = 0; i < 3; i++) {
-                if (Integer.parseInt(besetztePlaetze[i].getText().toString()) <= Integer.parseInt(besetztePlaetze[i + 1].getText().toString())) {
+                if (Integer.parseInt(occupiedSpace[i].getText().toString()) <= Integer.parseInt(occupiedSpace[i + 1].getText().toString())) {
                     if (scoreValue > 0) {
                         scoreValue--;
                     }
@@ -213,7 +248,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             }
         } else {
             for (int i = 0; i < 3; i++) {
-                if (Integer.parseInt(besetztePlaetze[i].getText().toString()) >= Integer.parseInt(besetztePlaetze[i + 1].getText().toString())) {
+                if (Integer.parseInt(occupiedSpace[i].getText().toString()) >= Integer.parseInt(occupiedSpace[i + 1].getText().toString())) {
                     if (scoreValue > 0) {
                         scoreValue--;
                     }
@@ -227,23 +262,26 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         correctAnswers++;
     }
 
+    /**
+     * updates game progress indicator or score and generates a new round as well as resetting the playing field
+     */
     public void updateViews() {
         if (!highscoreMode) {
-            aufgabenFortschritt.setText(format("Aufgabe %d von %d", (16 - remainingTasks), 15));
+            taskProgress.setText(format("Aufgabe %d von %d", (16 - remainingTasks), 15));
         } else {
             score.setText(format("SCORE: %d", scoreValue));
         }
         sortingType = random.nextInt(2);
         if (sortingType == 0) {
-            sortierAufgabe.setText("Sortiere von groß nach klein");
-            groesserKleinerZeichen1.setText(">");
-            groesserKleinerZeichen2.setText(">");
-            groesserKleinerZeichen3.setText(">");
+            sortingTask.setText("Sortiere von groß nach klein");
+            largerSmallerSymbol1.setText(">");
+            largerSmallerSymbol2.setText(">");
+            largerSmallerSymbol3.setText(">");
         } else {
-            sortierAufgabe.setText("Sortiere von klein nach groß");
-            groesserKleinerZeichen1.setText("<");
-            groesserKleinerZeichen2.setText("<");
-            groesserKleinerZeichen3.setText("<");
+            sortingTask.setText("Sortiere von klein nach groß");
+            largerSmallerSymbol1.setText("<");
+            largerSmallerSymbol2.setText("<");
+            largerSmallerSymbol3.setText("<");
         }
         int[] buttonValues = new int[4];
         for (int i = 0; i < 4; i++) {
@@ -265,22 +303,29 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         result2.setText(valueOf(buttonValues[1]));
         result3.setText(valueOf(buttonValues[2]));
         result4.setText(valueOf(buttonValues[3]));
-        besetztePlaetze = new Button[4];
+        occupiedSpace = new Button[4];
         if (!firstRound) {
-            result1.setX(startPositionen[0]);
-            result1.setY(startPositionen[1]);
+            result1.setX(startingPositions[0]);
+            result1.setY(startingPositions[1]);
 
-            result2.setX(startPositionen[2]);
-            result2.setY(startPositionen[3]);
+            result2.setX(startingPositions[2]);
+            result2.setY(startingPositions[3]);
 
-            result3.setX(startPositionen[4]);
-            result3.setY(startPositionen[5]);
+            result3.setX(startingPositions[4]);
+            result3.setY(startingPositions[5]);
 
-            result4.setX(startPositionen[6]);
-            result4.setY(startPositionen[7]);
+            result4.setX(startingPositions[6]);
+            result4.setY(startingPositions[7]);
         }
     }
 
+    /**
+     *
+     * @param view View to check coordinate against
+     * @param x coordinate
+     * @param y coordinate
+     * @return true if View contains the coordinates, flase otherwise
+     */
     private boolean isViewInBounds(View view, int x, int y) {
         view.getDrawingRect(normalRect);
         view.getLocationOnScreen(location);
@@ -288,7 +333,10 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         return normalRect.contains(x, y);
     }
 
-    public void openAuswertung() {
+    /**
+     * starts the evaluation activity and adds needed information to the intent
+     */
+    public void openEvaluation() {
         Intent intent = new Intent(this, Evaluation.class);
         if (highscoreMode) {
             intent.putExtra("SCOREWERT", scoreValue);
