@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Startseite">
+    tools:context=".UserSelection">
 
     <TextView
         android:id="@+id/textView"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addUserButton" />
 
     <Button
-        android:id="@+id/setNeuerUsername"
+        android:id="@+id/setNewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/unserBlau"
@@ -87,6 +87,6 @@
         android:text="entfernen"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/setNeuerUsername"
+        app:layout_constraintStart_toEndOf="@id/setNewUsername"
         app:layout_constraintTop_toBottomOf="@id/enterUsername" />
 </androidx.constraintlayout.widget.ConstraintLayout>

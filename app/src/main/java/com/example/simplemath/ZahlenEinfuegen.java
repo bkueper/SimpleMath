@@ -20,42 +20,42 @@ import java.util.Random;
 public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     CountDownTimer cTimer = null;
-    private int scoreWert = 0;
+    private int scoreValue = 0;
     private int correctAnswers = 0;
-    private int durchlaeufe, restlicheAufgaben, missingPart, missingPartIndex, minuten, spielId;
+    private int rounds, remainingTasks, missingPart, missingPartIndex, minutes, gameID;
     private boolean highscoreMode;
-    private TextView score, zeit, aufgabeText, aufgabenFortschritt, ergebnisRichtigOderFalsch;
-    private Button ergebnis1, ergebnis2, ergebnis3, ergebnis4, weissIchNicht;
+    private TextView score, time, taskText, taskProgress, resultCorrectOrWrong;
+    private Button result1, result2, result3, result4, dontKnow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zahlen_einfuegen);
         score = findViewById(R.id.score);
-        zeit = findViewById(R.id.zeitUebrig);
-        aufgabeText = findViewById(R.id.aufgabe);
-        ergebnisRichtigOderFalsch = findViewById(R.id.ergebnisRichtigOderFalsch);
-        aufgabenFortschritt = findViewById(R.id.aufgabenFortschritt);
-        ergebnis1 = findViewById(R.id.ergebnisButton1);
-        ergebnis1.setOnClickListener(this);
-        ergebnis2 = findViewById(R.id.ergebnisButton2);
-        ergebnis2.setOnClickListener(this);
-        ergebnis3 = findViewById(R.id.ergebnisButton3);
-        ergebnis3.setOnClickListener(this);
-        ergebnis4 = findViewById(R.id.ergebnisButton4);
-        ergebnis4.setOnClickListener(this);
-        weissIchNicht = findViewById(R.id.weißIchNichtButton);
-        weissIchNicht.setOnClickListener(this);
+        time = findViewById(R.id.timeLeft);
+        taskText = findViewById(R.id.taskText);
+        resultCorrectOrWrong = findViewById(R.id.ergebnisRichtigOderFalsch);
+        taskProgress = findViewById(R.id.taskProgress);
+        result1 = findViewById(R.id.resultButton1);
+        result1.setOnClickListener(this);
+        result2 = findViewById(R.id.resultButton2);
+        result2.setOnClickListener(this);
+        result3 = findViewById(R.id.resultButton3);
+        result3.setOnClickListener(this);
+        result4 = findViewById(R.id.resultButton4);
+        result4.setOnClickListener(this);
+        dontKnow = findViewById(R.id.dontKnowButton);
+        dontKnow.setOnClickListener(this);
         Intent intent = getIntent();
         highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE", true);
-        minuten = intent.getIntExtra("MINUTES", 1);
+        minutes = intent.getIntExtra("MINUTES", 1);
         if (highscoreMode) {
-            restlicheAufgaben = 1;
-            startHighscoreGame(minuten);
-            spielId = intent.getIntExtra("SPIELID", 1);
+            remainingTasks = 1;
+            startHighscoreGame(minutes);
+            gameID = intent.getIntExtra("SPIELID", 1);
         } else {
-            durchlaeufe = intent.getIntExtra("DURCHLAEUFE", 1);
-            startFreiesSpiel();
+            rounds = intent.getIntExtra("DURCHLAEUFE", 1);
+            startFreeGame();
         }
     }
 
@@ -70,26 +70,26 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.ergebnisButton1:
-                validateButton(ergebnis1);
+            case R.id.resultButton1:
+                validateButton(result1);
                 break;
-            case R.id.ergebnisButton2:
-                validateButton(ergebnis2);
+            case R.id.resultButton2:
+                validateButton(result2);
                 break;
-            case R.id.ergebnisButton3:
-                validateButton(ergebnis3);
+            case R.id.resultButton3:
+                validateButton(result3);
                 break;
-            case R.id.ergebnisButton4:
-                validateButton(ergebnis4);
+            case R.id.resultButton4:
+                validateButton(result4);
                 break;
-            case R.id.weißIchNichtButton:
+            case R.id.dontKnowButton:
                 if (!highscoreMode) {
-                    restlicheAufgaben -= 1;
+                    remainingTasks -= 1;
                 }
-                if (restlicheAufgaben <= 0) {
-                    openAuswertung();
+                if (remainingTasks <= 0) {
+                    openEvaluation();
                 } else {
-                    updateViews(aufgabeGenerieren());
+                    updateViews(generateTask());
                 }
                 break;
             default:
@@ -99,7 +99,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     public void validateButton(Button button) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
-            if (button.getText().toString().equals(zeichenAusZahlenwert(missingPart))) {
+            if (button.getText().toString().equals(mathSymbolFromNumber(missingPart))) {
                 correctButton();
             } else {
                 wrongButton();
@@ -111,122 +111,122 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 wrongButton();
             }
         }
-        if (restlicheAufgaben == 0) {
-            openAuswertung();
+        if (remainingTasks == 0) {
+            openEvaluation();
         } else {
-            updateViews(aufgabeGenerieren());
+            updateViews(generateTask());
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        boolean weitereRunde = false;
+        boolean anotherRound = false;
         if (requestCode == 1) {
             assert data != null;
-            weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
+            anotherRound = data.getBooleanExtra("WEITERERUNDE", false);
         }
-        if (weitereRunde) {
+        if (anotherRound) {
             correctAnswers = 0;
-            startFreiesSpiel();
+            startFreeGame();
         } else {
             finish();
         }
     }
 
     public void correctButton() {
-        ergebnisRichtigOderFalsch.setText("RICHTIG");
-        ergebnisRichtigOderFalsch.setTextColor(Color.GREEN);
-        ergebnisRichtigOderFalsch.setVisibility(View.VISIBLE);
+        resultCorrectOrWrong.setText("RICHTIG");
+        resultCorrectOrWrong.setTextColor(Color.GREEN);
+        resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                ergebnisRichtigOderFalsch.setVisibility(View.GONE);
+                resultCorrectOrWrong.setVisibility(View.GONE);
             }
         }, 2000);
         if (highscoreMode) {
-            scoreWert += 1;
+            scoreValue += 1;
         } else {
-            restlicheAufgaben -= 1;
+            remainingTasks -= 1;
             correctAnswers += 1;
         }
     }
 
     public void wrongButton() {
-        ergebnisRichtigOderFalsch.setText("FALSCH");
-        ergebnisRichtigOderFalsch.setTextColor(Color.RED);
-        ergebnisRichtigOderFalsch.setVisibility(View.VISIBLE);
+        resultCorrectOrWrong.setText("FALSCH");
+        resultCorrectOrWrong.setTextColor(Color.RED);
+        resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                ergebnisRichtigOderFalsch.setVisibility(View.GONE);
+                resultCorrectOrWrong.setVisibility(View.GONE);
             }
         }, 2000);
         if (highscoreMode) {
-            if (scoreWert > 0) {
-                scoreWert -= 1;
+            if (scoreValue > 0) {
+                scoreValue -= 1;
             }
         } else {
-            restlicheAufgaben -= 1;
+            remainingTasks -= 1;
         }
     }
 
 
     public void startHighscoreGame(int minuten) {
-        aufgabenFortschritt.setVisibility(View.GONE);
-        updateViews(aufgabeGenerieren());
+        taskProgress.setVisibility(View.GONE);
+        updateViews(generateTask());
         cTimer = new CountDownTimer(minuten * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                zeit.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
+                time.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
             }
 
             @Override
             public void onFinish() {
-                openAuswertung();
+                openEvaluation();
                 finish();
             }
         };
         cTimer.start();
     }
 
-    public void openAuswertung() {
-        Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
+    public void openEvaluation() {
+        Intent intent = new Intent(this, Evaluation.class);
         if (highscoreMode) {
 
-            intent.putExtra("SCOREWERT", scoreWert);
-            intent.putExtra("MINUTES", minuten);
+            intent.putExtra("SCOREWERT", scoreValue);
+            intent.putExtra("MINUTES", minutes);
             intent.putExtra("HIGHSCOREMODE", true);
 
-            intent.putExtra("SPIELID", spielId);
+            intent.putExtra("SPIELID", gameID);
 
             startActivity(intent);
         } else {
             intent.putExtra("PUNKTZAHL", correctAnswers);
-            durchlaeufe -= 1;
-            intent.putExtra("DURCHLAEUFE", durchlaeufe);
+            rounds -= 1;
+            intent.putExtra("DURCHLAEUFE", rounds);
             intent.putExtra("HIGHSCOREMODE", false);
             startActivityForResult(intent, 1);
         }
     }
 
-    public void startFreiesSpiel() {
-        restlicheAufgaben = 15;
-        updateViews(aufgabeGenerieren());
+    public void startFreeGame() {
+        remainingTasks = 15;
+        updateViews(generateTask());
         score.setVisibility(View.GONE);
-        zeit.setVisibility(View.GONE);
+        time.setVisibility(View.GONE);
     }
 
-    public int[] aufgabeGenerieren() {
+    public int[] generateTask() {
         int[] aufgabe = new int[6];
         aufgabe[0] = 1 + random.nextInt(9);
         aufgabe[1] = random.nextInt(3);
         aufgabe[2] = 1 + random.nextInt(9);
         aufgabe[3] = random.nextInt(3);
         aufgabe[4] = 1 + random.nextInt(9);
-        aufgabe[5] = ergebnisAusrechnen(aufgabe);
+        aufgabe[5] = calculateResult(aufgabe);
         if (aufgabe[5] > 100 || aufgabe[5] < 1) {
-            aufgabe = aufgabeGenerieren();
+            aufgabe = generateTask();
         }
         return aufgabe;
     }
@@ -242,20 +242,20 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     public void updateViews(int[] aufgabe) {
         if (!highscoreMode) {
-            aufgabenFortschritt.setText(String.format("Aufgabe %d von 15", 16 - restlicheAufgaben));
+            taskProgress.setText(String.format("Aufgabe %d von 15", 16 - remainingTasks));
         } else {
-            score.setText(String.format("SCORE: %d", scoreWert));
+            score.setText(String.format("SCORE: %d", scoreValue));
         }
 
         missingPartIndex = random.nextInt(6);
         int[] buttonValues = new int[4];
         missingPart = aufgabe[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
-            ergebnis1.setText("+");
-            ergebnis2.setText("-");
-            ergebnis3.setText("*");
-            ergebnis4.setVisibility(View.INVISIBLE);
-            aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+            result1.setText("+");
+            result2.setText("-");
+            result3.setText("*");
+            result4.setVisibility(View.INVISIBLE);
+            taskText.setText(taskAsString(aufgabe, missingPartIndex));
             return;
         } else if (missingPartIndex == 5) {
             int offset = missingPart / 10 * 10;
@@ -279,15 +279,15 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
             }
             buttonValues[correctAnswerIndex] = missingPart;
         }
-        ergebnis1.setText(String.valueOf(buttonValues[0]));
-        ergebnis2.setText(String.valueOf(buttonValues[1]));
-        ergebnis3.setText(String.valueOf(buttonValues[2]));
-        ergebnis4.setText(String.valueOf(buttonValues[3]));
-        ergebnis4.setVisibility(View.VISIBLE);
-        aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+        result1.setText(String.valueOf(buttonValues[0]));
+        result2.setText(String.valueOf(buttonValues[1]));
+        result3.setText(String.valueOf(buttonValues[2]));
+        result4.setText(String.valueOf(buttonValues[3]));
+        result4.setVisibility(View.VISIBLE);
+        taskText.setText(taskAsString(aufgabe, missingPartIndex));
     }
 
-    public String aufgabeAlsString(int[] aufgabe, int missingPartIndex) {
+    public String taskAsString(int[] aufgabe, int missingPartIndex) {
         StringBuilder ergebnisString = new StringBuilder();
         for (int i = 0; i < aufgabe.length; i++) {
             if (i == aufgabe.length - 1) {
@@ -297,7 +297,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 ergebnisString.append("___");
             } else {
                 if (i == 1 || i == 3) {
-                    ergebnisString.append(zeichenAusZahlenwert(aufgabe[i]));
+                    ergebnisString.append(mathSymbolFromNumber(aufgabe[i]));
                 } else {
                     ergebnisString.append(aufgabe[i]);
                 }
@@ -307,60 +307,60 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         return ergebnisString.toString();
     }
 
-    public String zeichenAusZahlenwert(int zahlenwert) {
-        String zeichen = " ";
-        switch (zahlenwert) {
+    public String mathSymbolFromNumber(int number) {
+        String mathSymbol = " ";
+        switch (number) {
             case 0:
-                zeichen = "+";
+                mathSymbol = "+";
                 break;
             case 1:
-                zeichen = "-";
+                mathSymbol = "-";
                 break;
             case 2:
-                zeichen = "*";
+                mathSymbol = "*";
                 break;
             default:
                 break;
         }
-        return zeichen;
+        return mathSymbol;
     }
 
-    public int ergebnisAusrechnen(int[] aufgabe) {
-        int ergebnis = 0;
-        int index = aufgabe[1] + 3 * aufgabe[3];
+    public int calculateResult(int[] task) {
+        int result = 0;
+        int index = task[1] + 3 * task[3];
         switch (index) {
             case 0:
-                ergebnis = aufgabe[0] + aufgabe[2] + aufgabe[4];
+                result = task[0] + task[2] + task[4];
                 break;
             case 1:
-                ergebnis = aufgabe[0] - aufgabe[2] + aufgabe[4];
+                result = task[0] - task[2] + task[4];
                 break;
             case 2:
-                ergebnis = aufgabe[0] * aufgabe[2] + aufgabe[4];
+                result = task[0] * task[2] + task[4];
                 break;
             case 3:
-                ergebnis = aufgabe[0] + aufgabe[2] - aufgabe[4];
+                result = task[0] + task[2] - task[4];
                 break;
             case 4:
-                ergebnis = aufgabe[0] - aufgabe[2] - aufgabe[4];
+                result = task[0] - task[2] - task[4];
                 break;
             case 5:
-                ergebnis = aufgabe[0] * aufgabe[2] - aufgabe[4];
+                result = task[0] * task[2] - task[4];
                 break;
             case 6:
-                ergebnis = aufgabe[0] + aufgabe[2] * aufgabe[4];
+                result = task[0] + task[2] * task[4];
                 break;
             case 7:
-                ergebnis = aufgabe[0] - aufgabe[2] * aufgabe[4];
+                result = task[0] - task[2] * task[4];
                 break;
             case 8:
-                ergebnis = aufgabe[0] * aufgabe[2] * aufgabe[4];
+                result = task[0] * task[2] * task[4];
                 break;
             default:
                 Toast.makeText(this, "FEHLER bei ergebnisAusrechnen", Toast.LENGTH_SHORT).show();
                 break;
         }
-        return ergebnis;
+        return result;
     }
 
 }

@@ -12,11 +12,11 @@
         <activity android:name=".Multiplayer"></activity>
         <activity android:name=".Hochzaehlen" />
         <activity android:name=".GroesserKleiner" />
-        <activity android:name=".AuswertungZahlenEinfuegen" />
+        <activity android:name=".Evaluation" />
         <activity android:name=".ZahlenEinfuegen" />
-        <activity android:name=".Spielauswahl" />
-        <activity android:name=".UserErstellen" />
-        <activity android:name=".Startseite" />
+        <activity android:name=".GameSelection" />
+        <activity android:name=".CreateUser" />
+        <activity android:name=".UserSelection" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

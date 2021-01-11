@@ -24,9 +24,9 @@ import java.util.Map;
 import static com.example.simplemath.R.color.purple_200;
 import static com.example.simplemath.R.color.unserBlau;
 
-public class Startseite extends AppCompatActivity {
+public class UserSelection extends AppCompatActivity {
     LinearLayout linearLayoutUsers;
-    Button setNeuerUsername, deleteUsername;
+    Button setNewUserName, deleteUsername;
     EditText enterUsername;
     String editUsername;
     Button editButton;
@@ -43,11 +43,11 @@ public class Startseite extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startseite);
+        setContentView(R.layout.activity_user_selection);
         imageButton = findViewById(R.id.addUserButton);
         linearLayoutUsers = findViewById(R.id.linearLayoutUsers);
-        setNeuerUsername = findViewById(R.id.setNeuerUsername);
-        setNeuerUsername.setOnClickListener(new View.OnClickListener() {
+        setNewUserName = findViewById(R.id.setNewUsername);
+        setNewUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newUsername = enterUsername.getText().toString();
@@ -77,7 +77,7 @@ public class Startseite extends AppCompatActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUserErstellen();
+                openCreateUser();
             }
         });
 
@@ -100,13 +100,13 @@ public class Startseite extends AppCompatActivity {
         }
     }
 
-    public void openUserErstellen() {
-        Intent intent = new Intent(this, UserErstellen.class);
+    public void openCreateUser() {
+        Intent intent = new Intent(this, CreateUser.class);
         startActivityForResult(intent, 0);
     }
 
-    public void openSpielauswahl() {
-        Intent intent = new Intent(this, Spielauswahl.class);
+    public void openGameSelection() {
+        Intent intent = new Intent(this, GameSelection.class);
         startActivity(intent);
     }
 
@@ -144,7 +144,7 @@ public class Startseite extends AppCompatActivity {
     }
 
     public void openEditUsernameMenu(Button button, String name) {
-        setNeuerUsername.setVisibility(View.VISIBLE);
+        setNewUserName.setVisibility(View.VISIBLE);
         deleteUsername.setVisibility(View.VISIBLE);
         enterUsername.setVisibility(View.VISIBLE);
         editUsername = name;
@@ -152,7 +152,7 @@ public class Startseite extends AppCompatActivity {
     }
 
     public void closeEditUsernameMenu(Button button, String name) {
-        setNeuerUsername.setVisibility(View.INVISIBLE);
+        setNewUserName.setVisibility(View.INVISIBLE);
         deleteUsername.setVisibility(View.INVISIBLE);
         enterUsername.setVisibility(View.INVISIBLE);
         editUsername = null;
@@ -169,7 +169,7 @@ public class Startseite extends AppCompatActivity {
                 prefs.clear();
                 prefs.putString("username", button.getText().toString());
                 prefs.commit();
-                openSpielauswahl();
+                openGameSelection();
             }
         });
     }

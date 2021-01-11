@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zeitUebrig"
+        android:id="@+id/timeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/aufgabenFortschritt"
+        android:id="@+id/taskProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/aufgabe"
+        android:id="@+id/taskText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
@@ -61,46 +61,46 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton1"
+        android:id="@+id/resultButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:backgroundTint="@color/unserBlau"
         android:text="  "
         android:textSize="35sp"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton2"
+        app:layout_constraintEnd_toStartOf="@+id/resultButton2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aufgabe" />
+        app:layout_constraintTop_toBottomOf="@id/taskText" />
 
     <Button
-        android:id="@+id/ergebnisButton2"
+        android:id="@+id/resultButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:backgroundTint="@color/unserBlau"
         android:text="  "
         android:textSize="35sp"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton3"
+        app:layout_constraintEnd_toStartOf="@+id/resultButton3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton1"
-        app:layout_constraintTop_toBottomOf="@id/aufgabe" />
+        app:layout_constraintStart_toEndOf="@+id/resultButton1"
+        app:layout_constraintTop_toBottomOf="@id/taskText" />
 
     <Button
-        android:id="@+id/ergebnisButton3"
+        android:id="@+id/resultButton3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:backgroundTint="@color/unserBlau"
         android:text="  "
         android:textSize="35sp"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton4"
+        app:layout_constraintEnd_toStartOf="@+id/resultButton4"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton2"
-        app:layout_constraintTop_toBottomOf="@id/aufgabe" />
+        app:layout_constraintStart_toEndOf="@+id/resultButton2"
+        app:layout_constraintTop_toBottomOf="@id/taskText" />
 
     <Button
-        android:id="@+id/ergebnisButton4"
+        android:id="@+id/resultButton4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
@@ -109,11 +109,11 @@
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton3"
-        app:layout_constraintTop_toBottomOf="@id/aufgabe" />
+        app:layout_constraintStart_toEndOf="@+id/resultButton3"
+        app:layout_constraintTop_toBottomOf="@id/taskText" />
 
     <Button
-        android:id="@+id/weißIchNichtButton"
+        android:id="@+id/dontKnowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -122,7 +122,7 @@
         android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ergebnisButton2" />
+        app:layout_constraintTop_toBottomOf="@id/resultButton2" />
 
     <TextView
         android:id="@+id/ergebnisRichtigOderFalsch"
@@ -130,10 +130,10 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/ergebnisButton2"
+        app:layout_constraintBottom_toTopOf="@id/resultButton2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aufgabe" />
+        app:layout_constraintTop_toBottomOf="@id/taskText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

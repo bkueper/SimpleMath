@@ -52,10 +52,10 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hochzaehlen);
         score = findViewById(R.id.score);
-        time = findViewById(R.id.zeitUebrig);
-        taskText = findViewById(R.id.aufgabe);
-        taskProgress = findViewById(R.id.aufgabenFortschritt);
-        confirm = findViewById(R.id.bestaetigen);
+        time = findViewById(R.id.timeLeft);
+        taskText = findViewById(R.id.taskText);
+        taskProgress = findViewById(R.id.taskProgress);
+        confirm = findViewById(R.id.confirm);
         confirm.setOnClickListener(this);
         gridLayout = findViewById(R.id.gridLayout);
         for(int i = 0; i<25; i++){
@@ -236,7 +236,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * Puts needed information in the intent and Starts the evaluation Activity.
      */
     public void openEvaluation() {
-        Intent intent = new Intent(this, AuswertungZahlenEinfuegen.class);
+        Intent intent = new Intent(this, Evaluation.class);
         if (highscoreMode) {
             intent.putExtra("SCOREWERT", scoreValue);
             intent.putExtra("MINUTES", minutes);
@@ -286,7 +286,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      */
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.bestaetigen) {
+        if (v.getId() == R.id.confirm) {
             validate();
             if(!highscoreMode) {
                 if (remainingTasks == 0) {

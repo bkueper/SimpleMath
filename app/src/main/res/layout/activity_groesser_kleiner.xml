@@ -22,7 +22,7 @@
         android:layout_marginStart="40dp" />
 
     <TextView
-        android:id="@+id/zeitUebrig"
+        android:id="@+id/timeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -36,7 +36,7 @@
         android:layout_marginEnd="50dp" />
 
     <TextView
-        android:id="@+id/aufgabenFortschritt"
+        android:id="@+id/taskProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -194,7 +194,7 @@
         app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1" />
 
     <Button
-        android:id="@+id/bestaetigen"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"

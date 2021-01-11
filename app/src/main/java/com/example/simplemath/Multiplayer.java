@@ -20,10 +20,10 @@ import static com.example.simplemath.R.color.unserBlau;
 public class Multiplayer extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     private CountDownTimer cTimer = null;
-    private Button startPlayer1, startPlayer2, ergebnis1Spieler1, ergebnis2Spieler1, ergebnis3Spieler1, ergebnis4Spieler1, ergebnis1Spieler2, ergebnis2Spieler2, ergebnis3Spieler2, ergebnis4Spieler2;
-    private TextView aufgabePlayer1, aufgabePlayer2, scoreSpieler1, scoreSpieler2, zeitUebrigSpieler1, zeitUebrigSpieler2, countdownSpieler1, countdownSpieler2, ergebnisRichtigOderFalschSpieler1, ergebnisRichtigOderFalschSpieler2;
+    private Button startPlayer1, startPlayer2, result1Player1, result2Player1, result3Player1, result4Player1, result1Player2, result2Player2, result3Player2, result4Player2;
+    private TextView taskPlayer1, taskPlayer2, scorePlayer1, scorePlayer2, timeLeftPlayer1, timeLeftPlayer2, countdownPlayer1, countdownPlayer2, resultRightOrWrongPlayer1, resultRightOrWrongPlayer2;
     private int missingPartIndex, missingPart;
-    private int scoreWertSpieler1 = 0, scoreWertSpieler2 = 0;
+    private int scoreValuePlayer1 = 0, scoreValuePlayer2 = 0;
     private boolean player1Ready = false, player2Ready = false;
 
     @Override
@@ -35,36 +35,36 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         startPlayer2 = findViewById(R.id.startPlayer2);
         startPlayer2.setOnClickListener(this);
 
-        countdownSpieler1 = findViewById(R.id.countdownSpieler1);
-        countdownSpieler2 = findViewById(R.id.countdownSpieler2);
-        ergebnisRichtigOderFalschSpieler1 = findViewById(R.id.ergebnisRichtigOderFalschSpieler1);
-        ergebnisRichtigOderFalschSpieler2 = findViewById(R.id.ergebnisRichtigOderFalschSpieler2);
+        countdownPlayer1 = findViewById(R.id.countdownSpieler1);
+        countdownPlayer2 = findViewById(R.id.countdownSpieler2);
+        resultRightOrWrongPlayer1 = findViewById(R.id.ergebnisRichtigOderFalschSpieler1);
+        resultRightOrWrongPlayer2 = findViewById(R.id.ergebnisRichtigOderFalschSpieler2);
 
 
-        ergebnis1Spieler1 = findViewById(R.id.ergebnisButton1Spieler1);
-        ergebnis1Spieler1.setOnClickListener(this);
-        ergebnis2Spieler1 = findViewById(R.id.ergebnisButton2Spieler1);
-        ergebnis2Spieler1.setOnClickListener(this);
-        ergebnis3Spieler1 = findViewById(R.id.ergebnisButton3Spieler1);
-        ergebnis3Spieler1.setOnClickListener(this);
-        ergebnis4Spieler1 = findViewById(R.id.ergebnisButton4Spieler1);
-        ergebnis4Spieler1.setOnClickListener(this);
+        result1Player1 = findViewById(R.id.ergebnisButton1Spieler1);
+        result1Player1.setOnClickListener(this);
+        result2Player1 = findViewById(R.id.ergebnisButton2Spieler1);
+        result2Player1.setOnClickListener(this);
+        result3Player1 = findViewById(R.id.ergebnisButton3Spieler1);
+        result3Player1.setOnClickListener(this);
+        result4Player1 = findViewById(R.id.ergebnisButton4Spieler1);
+        result4Player1.setOnClickListener(this);
 
-        ergebnis1Spieler2 = findViewById(R.id.ergebnisButton1Spieler2);
-        ergebnis1Spieler2.setOnClickListener(this);
-        ergebnis2Spieler2 = findViewById(R.id.ergebnisButton2Spieler2);
-        ergebnis2Spieler2.setOnClickListener(this);
-        ergebnis3Spieler2 = findViewById(R.id.ergebnisButton3Spieler2);
-        ergebnis3Spieler2.setOnClickListener(this);
-        ergebnis4Spieler2 = findViewById(R.id.ergebnisButton4Spieler2);
-        ergebnis4Spieler2.setOnClickListener(this);
+        result1Player2 = findViewById(R.id.ergebnisButton1Spieler2);
+        result1Player2.setOnClickListener(this);
+        result2Player2 = findViewById(R.id.ergebnisButton2Spieler2);
+        result2Player2.setOnClickListener(this);
+        result3Player2 = findViewById(R.id.ergebnisButton3Spieler2);
+        result3Player2.setOnClickListener(this);
+        result4Player2 = findViewById(R.id.ergebnisButton4Spieler2);
+        result4Player2.setOnClickListener(this);
 
-        aufgabePlayer1 = findViewById(R.id.aufgabePlayer1);
-        aufgabePlayer2 = findViewById(R.id.aufgabePlayer2);
-        scoreSpieler1 = findViewById(R.id.scoreSpieler1);
-        scoreSpieler2 = findViewById(R.id.scoreSpieler2);
-        zeitUebrigSpieler1 = findViewById(R.id.zeitUebrigSpieler1);
-        zeitUebrigSpieler2 = findViewById(R.id.zeitUebrigSpieler2);
+        taskPlayer1 = findViewById(R.id.aufgabePlayer1);
+        taskPlayer2 = findViewById(R.id.aufgabePlayer2);
+        scorePlayer1 = findViewById(R.id.scoreSpieler1);
+        scorePlayer2 = findViewById(R.id.scoreSpieler2);
+        timeLeftPlayer1 = findViewById(R.id.zeitUebrigSpieler1);
+        timeLeftPlayer2 = findViewById(R.id.zeitUebrigSpieler2);
 
     }
 
@@ -80,28 +80,28 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 startPlayer2.setBackgroundColor(Color.GREEN);
                 break;
             case R.id.ergebnisButton1Spieler1:
-                validateButton(ergebnis1Spieler1, 1);
+                validateButton(result1Player1, 1);
                 break;
             case R.id.ergebnisButton2Spieler1:
-                validateButton(ergebnis2Spieler1, 1);
+                validateButton(result2Player1, 1);
                 break;
             case R.id.ergebnisButton3Spieler1:
-                validateButton(ergebnis3Spieler1, 1);
+                validateButton(result3Player1, 1);
                 break;
             case R.id.ergebnisButton4Spieler1:
-                validateButton(ergebnis4Spieler1, 1);
+                validateButton(result4Player1, 1);
                 break;
             case R.id.ergebnisButton1Spieler2:
-                validateButton(ergebnis1Spieler2, 2);
+                validateButton(result1Player2, 2);
                 break;
             case R.id.ergebnisButton2Spieler2:
-                validateButton(ergebnis2Spieler2, 2);
+                validateButton(result2Player2, 2);
                 break;
             case R.id.ergebnisButton3Spieler2:
-                validateButton(ergebnis3Spieler2, 2);
+                validateButton(result3Player2, 2);
                 break;
             case R.id.ergebnisButton4Spieler2:
-                validateButton(ergebnis4Spieler2, 2);
+                validateButton(result4Player2, 2);
                 break;
         }
         if (player1Ready && player2Ready) {
@@ -109,8 +109,8 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
             player2Ready = false;
             startPlayer1.setVisibility(View.GONE);
             startPlayer2.setVisibility(View.GONE);
-            countdownSpieler1.setVisibility(View.VISIBLE);
-            countdownSpieler2.setVisibility(View.VISIBLE);
+            countdownPlayer1.setVisibility(View.VISIBLE);
+            countdownPlayer2.setVisibility(View.VISIBLE);
 
             startCountdown();
         }
@@ -121,23 +121,23 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownSpieler1.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
-                countdownSpieler2.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
+                countdownPlayer1.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
+                countdownPlayer2.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
             }
 
             @Override
             public void onFinish() {
-                countdownSpieler1.setVisibility(View.GONE);
-                countdownSpieler2.setVisibility(View.GONE);
-                changeErgebnisButtonVisibility(View.VISIBLE);
+                countdownPlayer1.setVisibility(View.GONE);
+                countdownPlayer2.setVisibility(View.GONE);
+                changeResultButtonVisibility(View.VISIBLE);
 
-                aufgabePlayer1.setVisibility(View.VISIBLE);
-                aufgabePlayer2.setVisibility(View.VISIBLE);
-                scoreSpieler1.setVisibility(View.VISIBLE);
-                scoreSpieler2.setVisibility(View.VISIBLE);
-                zeitUebrigSpieler1.setVisibility(View.VISIBLE);
-                zeitUebrigSpieler2.setVisibility(View.VISIBLE);
-                starteSpiel(1);
+                taskPlayer1.setVisibility(View.VISIBLE);
+                taskPlayer2.setVisibility(View.VISIBLE);
+                scorePlayer1.setVisibility(View.VISIBLE);
+                scorePlayer2.setVisibility(View.VISIBLE);
+                timeLeftPlayer1.setVisibility(View.VISIBLE);
+                timeLeftPlayer2.setVisibility(View.VISIBLE);
+                startGame(1);
             }
         };
         cTimer.start();
@@ -151,33 +151,33 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public void starteSpiel(int minuten) {
+    public void startGame(int minuten) {
         cTimer = new CountDownTimer(minuten * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                zeitUebrigSpieler1.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
-                zeitUebrigSpieler2.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
+                timeLeftPlayer1.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
+                timeLeftPlayer2.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
             }
 
             @Override
             public void onFinish() {
-                changeErgebnisButtonVisibility(View.GONE);
+                changeResultButtonVisibility(View.GONE);
 
-                if (scoreWertSpieler1 > scoreWertSpieler2) {
-                    aufgabePlayer1.setText("GEWONNEN");
-                    aufgabePlayer1.setTextColor(Color.GREEN);
-                    aufgabePlayer2.setText("VERLOREN");
-                    aufgabePlayer2.setTextColor(Color.RED);
-                } else if (scoreWertSpieler1 < scoreWertSpieler2) {
-                    aufgabePlayer1.setText("VERLOREN");
-                    aufgabePlayer1.setTextColor(Color.RED);
-                    aufgabePlayer2.setText("GEWONNEN");
-                    aufgabePlayer2.setTextColor(Color.GREEN);
+                if (scoreValuePlayer1 > scoreValuePlayer2) {
+                    taskPlayer1.setText("GEWONNEN");
+                    taskPlayer1.setTextColor(Color.GREEN);
+                    taskPlayer2.setText("VERLOREN");
+                    taskPlayer2.setTextColor(Color.RED);
+                } else if (scoreValuePlayer1 < scoreValuePlayer2) {
+                    taskPlayer1.setText("VERLOREN");
+                    taskPlayer1.setTextColor(Color.RED);
+                    taskPlayer2.setText("GEWONNEN");
+                    taskPlayer2.setTextColor(Color.GREEN);
                 } else {
-                    aufgabePlayer1.setText("UNENTSCHIEDEN");
-                    aufgabePlayer1.setTextColor(getResources().getColor(unserBlau));
-                    aufgabePlayer2.setText("UNENTSCHIEDEN");
-                    aufgabePlayer2.setTextColor(getResources().getColor(unserBlau));
+                    taskPlayer1.setText("UNENTSCHIEDEN");
+                    taskPlayer1.setTextColor(getResources().getColor(unserBlau));
+                    taskPlayer2.setText("UNENTSCHIEDEN");
+                    taskPlayer2.setTextColor(getResources().getColor(unserBlau));
                 }
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -188,20 +188,20 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
             }
         };
-        updateViews(aufgabeGenerieren());
+        updateViews(generateTask());
         cTimer.start();
     }
 
-    public int[] aufgabeGenerieren() {
+    public int[] generateTask() {
         int[] aufgabe = new int[6];
         aufgabe[0] = 1 + random.nextInt(9);
         aufgabe[1] = random.nextInt(3);
         aufgabe[2] = 1 + random.nextInt(9);
         aufgabe[3] = random.nextInt(3);
         aufgabe[4] = 1 + random.nextInt(9);
-        aufgabe[5] = ergebnisAusrechnen(aufgabe);
+        aufgabe[5] = calculateTask(aufgabe);
         if (aufgabe[5] > 100 || aufgabe[5] < 1) {
-            aufgabe = aufgabeGenerieren();
+            aufgabe = generateTask();
         }
         return aufgabe;
     }
@@ -215,7 +215,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         return false;
     }
 
-    public String aufgabeAlsString(int[] aufgabe, int missingPartIndex) {
+    public String taskAsString(int[] aufgabe, int missingPartIndex) {
         StringBuilder ergebnisString = new StringBuilder();
         for (int i = 0; i < aufgabe.length; i++) {
             if (i == aufgabe.length - 1) {
@@ -225,7 +225,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 ergebnisString.append("___");
             } else {
                 if (i == 1 || i == 3) {
-                    ergebnisString.append(zeichenAusZahlenwert(aufgabe[i]));
+                    ergebnisString.append(mathSymbolFromNumber(aufgabe[i]));
                 } else {
                     ergebnisString.append(aufgabe[i]);
                 }
@@ -235,85 +235,85 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         return ergebnisString.toString();
     }
 
-    public String zeichenAusZahlenwert(int zahlenwert) {
-        String zeichen = " ";
-        switch (zahlenwert) {
+    public String mathSymbolFromNumber(int number) {
+        String mathSymbol = " ";
+        switch (number) {
             case 0:
-                zeichen = "+";
+                mathSymbol = "+";
                 break;
             case 1:
-                zeichen = "-";
+                mathSymbol = "-";
                 break;
             case 2:
-                zeichen = "*";
+                mathSymbol = "*";
                 break;
             default:
                 break;
         }
-        return zeichen;
+        return mathSymbol;
     }
 
-    public int ergebnisAusrechnen(int[] aufgabe) {
-        int ergebnis = 0;
-        int index = aufgabe[1] + 3 * aufgabe[3];
+    public int calculateTask(int[] task) {
+        int result = 0;
+        int index = task[1] + 3 * task[3];
         switch (index) {
             case 0:
-                ergebnis = aufgabe[0] + aufgabe[2] + aufgabe[4];
+                result = task[0] + task[2] + task[4];
                 break;
             case 1:
-                ergebnis = aufgabe[0] - aufgabe[2] + aufgabe[4];
+                result = task[0] - task[2] + task[4];
                 break;
             case 2:
-                ergebnis = aufgabe[0] * aufgabe[2] + aufgabe[4];
+                result = task[0] * task[2] + task[4];
                 break;
             case 3:
-                ergebnis = aufgabe[0] + aufgabe[2] - aufgabe[4];
+                result = task[0] + task[2] - task[4];
                 break;
             case 4:
-                ergebnis = aufgabe[0] - aufgabe[2] - aufgabe[4];
+                result = task[0] - task[2] - task[4];
                 break;
             case 5:
-                ergebnis = aufgabe[0] * aufgabe[2] - aufgabe[4];
+                result = task[0] * task[2] - task[4];
                 break;
             case 6:
-                ergebnis = aufgabe[0] + aufgabe[2] * aufgabe[4];
+                result = task[0] + task[2] * task[4];
                 break;
             case 7:
-                ergebnis = aufgabe[0] - aufgabe[2] * aufgabe[4];
+                result = task[0] - task[2] * task[4];
                 break;
             case 8:
-                ergebnis = aufgabe[0] * aufgabe[2] * aufgabe[4];
+                result = task[0] * task[2] * task[4];
                 break;
             default:
                 Toast.makeText(this, "FEHLER bei ergebnisAusrechnen", Toast.LENGTH_SHORT).show();
                 break;
         }
-        return ergebnis;
+        return result;
     }
 
-    public void validateButton(Button button, int spielerNr) {
+    public void validateButton(Button button, int playerNumber) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
-            if (button.getText().toString().equals(zeichenAusZahlenwert(missingPart))) {
-                correctButton(spielerNr);
+            if (button.getText().toString().equals(mathSymbolFromNumber(missingPart))) {
+                correctButton(playerNumber);
             } else {
-                wrongButton(spielerNr);
+                wrongButton(playerNumber);
             }
         } else {
             if (button.getText().toString().equals(String.valueOf(missingPart))) {
-                correctButton(spielerNr);
+                correctButton(playerNumber);
             } else {
-                wrongButton(spielerNr);
+                wrongButton(playerNumber);
             }
         }
-        changeErgebnisButtonVisibility(View.GONE);
+        changeResultButtonVisibility(View.GONE);
         long delay = 500;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
                                 public void run() {
-                                    changeErgebnisButtonVisibility(View.VISIBLE);
-                                    ergebnisRichtigOderFalschSpieler1.setVisibility(View.GONE);
-                                    ergebnisRichtigOderFalschSpieler2.setVisibility(View.GONE);
-                                    updateViews(aufgabeGenerieren());
+                                    changeResultButtonVisibility(View.VISIBLE);
+                                    resultRightOrWrongPlayer1.setVisibility(View.GONE);
+                                    resultRightOrWrongPlayer2.setVisibility(View.GONE);
+                                    updateViews(generateTask());
                                 }
                             }
                 , delay);
@@ -321,85 +321,85 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void changeErgebnisButtonVisibility(int value){
+    public void changeResultButtonVisibility(int value){
 
-        ergebnis1Spieler1.setVisibility(value);
-        ergebnis2Spieler1.setVisibility(value);
-        ergebnis3Spieler1.setVisibility(value);
-        ergebnis4Spieler1.setVisibility(value);
-        ergebnis1Spieler2.setVisibility(value);
-        ergebnis2Spieler2.setVisibility(value);
-        ergebnis3Spieler2.setVisibility(value);
-        ergebnis4Spieler2.setVisibility(value);
+        result1Player1.setVisibility(value);
+        result2Player1.setVisibility(value);
+        result3Player1.setVisibility(value);
+        result4Player1.setVisibility(value);
+        result1Player2.setVisibility(value);
+        result2Player2.setVisibility(value);
+        result3Player2.setVisibility(value);
+        result4Player2.setVisibility(value);
 
     }
 
-    public void correctButton(int spielerNr) {
-        ergebnisRichtigOderFalschSpieler1.setVisibility(View.VISIBLE);
-        ergebnisRichtigOderFalschSpieler2.setVisibility(View.VISIBLE);
-        if (spielerNr == 1) {
-            scoreWertSpieler1++;
-            ergebnisRichtigOderFalschSpieler1.setText("RICHTIG");
-            ergebnisRichtigOderFalschSpieler1.setTextColor(Color.GREEN);
+    public void correctButton(int playerNumber) {
+        resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
+        resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
+        if (playerNumber == 1) {
+            scoreValuePlayer1++;
+            resultRightOrWrongPlayer1.setText("RICHTIG");
+            resultRightOrWrongPlayer1.setTextColor(Color.GREEN);
 
-            ergebnisRichtigOderFalschSpieler2.setText("ZU LANGSAM");
-            ergebnisRichtigOderFalschSpieler2.setTextColor(Color.RED);
-        } else if (spielerNr == 2) {
-            scoreWertSpieler2++;
-            ergebnisRichtigOderFalschSpieler1.setText("ZU LANGSAM");
-            ergebnisRichtigOderFalschSpieler1.setTextColor(Color.RED);
+            resultRightOrWrongPlayer2.setText("ZU LANGSAM");
+            resultRightOrWrongPlayer2.setTextColor(Color.RED);
+        } else if (playerNumber == 2) {
+            scoreValuePlayer2++;
+            resultRightOrWrongPlayer1.setText("ZU LANGSAM");
+            resultRightOrWrongPlayer1.setTextColor(Color.RED);
 
-            ergebnisRichtigOderFalschSpieler2.setText("RICHTIG");
-            ergebnisRichtigOderFalschSpieler2.setTextColor(Color.GREEN);
+            resultRightOrWrongPlayer2.setText("RICHTIG");
+            resultRightOrWrongPlayer2.setTextColor(Color.GREEN);
         }
     }
 
-    public void wrongButton(int spielerNr) {
-        ergebnisRichtigOderFalschSpieler1.setVisibility(View.VISIBLE);
-        ergebnisRichtigOderFalschSpieler2.setVisibility(View.VISIBLE);
-        if (spielerNr == 1) {
-            scoreWertSpieler2++;
-            if (scoreWertSpieler1 > 0) {
-                scoreWertSpieler1--;
-                ergebnisRichtigOderFalschSpieler1.setText("FALSCH");
-                ergebnisRichtigOderFalschSpieler1.setTextColor(Color.RED);
+    public void wrongButton(int playerNumber) {
+        resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
+        resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
+        if (playerNumber == 1) {
+            scoreValuePlayer2++;
+            if (scoreValuePlayer1 > 0) {
+                scoreValuePlayer1--;
+                resultRightOrWrongPlayer1.setText("FALSCH");
+                resultRightOrWrongPlayer1.setTextColor(Color.RED);
 
-                ergebnisRichtigOderFalschSpieler2.setText("GLÜCK GEHABT");
-                ergebnisRichtigOderFalschSpieler2.setTextColor(Color.GREEN);
+                resultRightOrWrongPlayer2.setText("GLÜCK GEHABT");
+                resultRightOrWrongPlayer2.setTextColor(Color.GREEN);
             }
-        } else if (spielerNr == 2) {
-            scoreWertSpieler1++;
-            if (scoreWertSpieler2 > 0) {
-                scoreWertSpieler2--;
-                ergebnisRichtigOderFalschSpieler1.setText("GLÜCK GEHABT");
-                ergebnisRichtigOderFalschSpieler1.setTextColor(Color.GREEN);
+        } else if (playerNumber == 2) {
+            scoreValuePlayer1++;
+            if (scoreValuePlayer2 > 0) {
+                scoreValuePlayer2--;
+                resultRightOrWrongPlayer1.setText("GLÜCK GEHABT");
+                resultRightOrWrongPlayer1.setTextColor(Color.GREEN);
 
-                ergebnisRichtigOderFalschSpieler2.setText("FALSCH");
-                ergebnisRichtigOderFalschSpieler2.setTextColor(Color.RED);
+                resultRightOrWrongPlayer2.setText("FALSCH");
+                resultRightOrWrongPlayer2.setTextColor(Color.RED);
 
             }
         }
     }
 
 
-    public void updateViews(int[] aufgabe) {
-        scoreSpieler1.setText(String.format("SCORE: %d", scoreWertSpieler1));
-        scoreSpieler2.setText(String.format("SCORE: %d", scoreWertSpieler2));
+    public void updateViews(int[] task) {
+        scorePlayer1.setText(String.format("SCORE: %d", scoreValuePlayer1));
+        scorePlayer2.setText(String.format("SCORE: %d", scoreValuePlayer2));
 
         missingPartIndex = random.nextInt(6);
         int[] buttonValues = new int[4];
-        missingPart = aufgabe[missingPartIndex];
+        missingPart = task[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
-            ergebnis1Spieler1.setText("+");
-            ergebnis2Spieler1.setText("-");
-            ergebnis3Spieler1.setText("*");
-            ergebnis4Spieler1.setVisibility(View.INVISIBLE);
-            ergebnis1Spieler2.setText("+");
-            ergebnis2Spieler2.setText("-");
-            ergebnis3Spieler2.setText("*");
-            ergebnis4Spieler2.setVisibility(View.INVISIBLE);
-            aufgabePlayer1.setText(aufgabeAlsString(aufgabe, missingPartIndex));
-            aufgabePlayer2.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+            result1Player1.setText("+");
+            result2Player1.setText("-");
+            result3Player1.setText("*");
+            result4Player1.setVisibility(View.INVISIBLE);
+            result1Player2.setText("+");
+            result2Player2.setText("-");
+            result3Player2.setText("*");
+            result4Player2.setVisibility(View.INVISIBLE);
+            taskPlayer1.setText(taskAsString(task, missingPartIndex));
+            taskPlayer2.setText(taskAsString(task, missingPartIndex));
             return;
         } else if (missingPartIndex == 5) {
             int offset = missingPart / 10 * 10;
@@ -423,18 +423,18 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
             }
             buttonValues[correctAnswerIndex] = missingPart;
         }
-        ergebnis1Spieler1.setText(String.valueOf(buttonValues[0]));
-        ergebnis2Spieler1.setText(String.valueOf(buttonValues[1]));
-        ergebnis3Spieler1.setText(String.valueOf(buttonValues[2]));
-        ergebnis4Spieler1.setText(String.valueOf(buttonValues[3]));
-        ergebnis4Spieler1.setVisibility(View.VISIBLE);
-        aufgabePlayer1.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+        result1Player1.setText(String.valueOf(buttonValues[0]));
+        result2Player1.setText(String.valueOf(buttonValues[1]));
+        result3Player1.setText(String.valueOf(buttonValues[2]));
+        result4Player1.setText(String.valueOf(buttonValues[3]));
+        result4Player1.setVisibility(View.VISIBLE);
+        taskPlayer1.setText(taskAsString(task, missingPartIndex));
 
-        ergebnis1Spieler2.setText(String.valueOf(buttonValues[0]));
-        ergebnis2Spieler2.setText(String.valueOf(buttonValues[1]));
-        ergebnis3Spieler2.setText(String.valueOf(buttonValues[2]));
-        ergebnis4Spieler2.setText(String.valueOf(buttonValues[3]));
-        ergebnis4Spieler2.setVisibility(View.VISIBLE);
-        aufgabePlayer2.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+        result1Player2.setText(String.valueOf(buttonValues[0]));
+        result2Player2.setText(String.valueOf(buttonValues[1]));
+        result3Player2.setText(String.valueOf(buttonValues[2]));
+        result4Player2.setText(String.valueOf(buttonValues[3]));
+        result4Player2.setVisibility(View.VISIBLE);
+        taskPlayer2.setText(taskAsString(task, missingPartIndex));
     }
 }
