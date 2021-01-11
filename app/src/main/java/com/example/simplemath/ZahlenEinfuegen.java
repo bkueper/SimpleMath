@@ -224,7 +224,19 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         aufgabe[3] = random.nextInt(3);
         aufgabe[4] = 1 + random.nextInt(9);
         aufgabe[5] = ergebnisAusrechnen(aufgabe);
+        if (aufgabe[5] > 100 || aufgabe[5] < 1) {
+            aufgabe = aufgabeGenerieren();
+        }
         return aufgabe;
+    }
+
+    public boolean isInArray(int[] array, int number) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void updateViews(int[] aufgabe) {
@@ -233,42 +245,45 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         } else {
             score.setText(String.format("SCORE: %d", scoreWert));
         }
+
         missingPartIndex = random.nextInt(6);
+        int[] buttonValues = new int[4];
         missingPart = aufgabe[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
             ergebnis1.setText("+");
             ergebnis2.setText("-");
             ergebnis3.setText("*");
-            //ergebnis4.setText(" ");       potential division symbol button
             ergebnis4.setVisibility(View.INVISIBLE);
-        } else {
-            int[] buttonValues = new int[4];
+            aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
+            return;
+        } else if (missingPartIndex == 5) {
+            int offset = missingPart / 10 * 10;
+            Toast.makeText(this, "offset: " + String.valueOf(offset), Toast.LENGTH_SHORT).show();
             int correctAnswerIndex = random.nextInt(4);
-            buttonValues[correctAnswerIndex] = missingPart;
-            int offset = random.nextInt(18);
-            for (int i = 0; i < 4; i++) {
-                if (i != correctAnswerIndex) {
-                    boolean doppeltesErgebnis;
-                    int randomErgebnis;
-                    do {
-                        doppeltesErgebnis = false;
-                        randomErgebnis = missingPart + (-offset + random.nextInt(19));
-                        for (int j = 0; j < 4; j++) {
-                            if (buttonValues[j] == randomErgebnis) {
-                                doppeltesErgebnis = true;
-                                break;
-                            }
-                        }
-                    } while (doppeltesErgebnis);
-                    buttonValues[i] = randomErgebnis;
-                }
+            for (int i = 0; i < buttonValues.length; i++) {
+                int newNumber;
+                do {
+                    newNumber = offset + random.nextInt(10);
+                } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
+                buttonValues[i] = newNumber;
             }
-            ergebnis1.setText(String.valueOf(buttonValues[0]));
-            ergebnis2.setText(String.valueOf(buttonValues[1]));
-            ergebnis3.setText(String.valueOf(buttonValues[2]));
-            ergebnis4.setText(String.valueOf(buttonValues[3]));
-            ergebnis4.setVisibility(View.VISIBLE);
+            buttonValues[correctAnswerIndex] = missingPart;
+        } else {
+            int correctAnswerIndex = random.nextInt(4);
+            for (int i = 0; i < buttonValues.length; i++) {
+                int newNumber;
+                do {
+                    newNumber = 1 + random.nextInt(9);
+                } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
+                buttonValues[i] = newNumber;
+            }
+            buttonValues[correctAnswerIndex] = missingPart;
         }
+        ergebnis1.setText(String.valueOf(buttonValues[0]));
+        ergebnis2.setText(String.valueOf(buttonValues[1]));
+        ergebnis3.setText(String.valueOf(buttonValues[2]));
+        ergebnis4.setText(String.valueOf(buttonValues[3]));
+        ergebnis4.setVisibility(View.VISIBLE);
         aufgabeText.setText(aufgabeAlsString(aufgabe, missingPartIndex));
     }
 
@@ -314,7 +329,6 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         int ergebnis = 0;
         int index = aufgabe[1] + 3 * aufgabe[3];
         switch (index) {
-            //+ und +
             case 0:
                 ergebnis = aufgabe[0] + aufgabe[2] + aufgabe[4];
                 break;
