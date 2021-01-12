@@ -17,6 +17,10 @@ import java.util.Random;
 
 import static com.example.simplemath.R.color.unserBlau;
 
+/**
+ * This is the Javaclass for the game/activity "Multiplayer".
+ * @author Bjarne Küper and Sascha Rührup
+ */
 public class Multiplayer extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     private CountDownTimer cTimer = null;
@@ -26,6 +30,11 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
     private int scoreValuePlayer1 = 0, scoreValuePlayer2 = 0;
     private boolean player1Ready = false, player2Ready = false;
 
+    /**
+     * The onCreate method sets the Content and finds the Views in the layout file.
+     * sets onClick listeners for all Buttons, implemented by this class.
+     * @param savedInstanceState android related
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +77,12 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Sets onClick listeners for all Buttons. The Buttons startPlayer1/2 set a boolean to true and change color.
+     * When both booleans are true, the game countdown starts, and the start Buttons are set to "GONE".
+     * The result Buttons call the validateButton function.
+     * @param v View that was clicked.
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -116,6 +131,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Starts the games countdown and onFinish disables the countdown related views as well as
+     * making the Views needed to play the game visible.
+     */
     private void startCountdown() {
         cTimer = new CountDownTimer(3000, 1000) {
 
@@ -143,6 +162,9 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         cTimer.start();
     }
 
+    /**
+     * Frees up system resources for cTimer in case it is not null.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -151,8 +173,14 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public void startGame(int minuten) {
-        cTimer = new CountDownTimer(minuten * 60000, 1000) {
+    /**
+     *  Starts a multiplayer game by creating a new countdown and generating the first Task.
+     *  In onFinish, the game gets evaluated and the players get a message. After a delay, the activity finishes.
+     *
+     * @param minutes time a game lasts.
+     */
+    public void startGame(int minutes) {
+        cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftPlayer1.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
@@ -180,11 +208,12 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                     taskPlayer2.setTextColor(getResources().getColor(unserBlau));
                 }
                 Handler handler = new Handler();
+                int delay = 8000;
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         finish();
                     }
-                }, 8000);
+                }, delay);
 
             }
         };
@@ -192,6 +221,11 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         cTimer.start();
     }
 
+    /**
+     * Generates a new task. The solution to the task gets calculated and in case it is not
+     * in range 1-100, the method calls itself recursively.
+     * @return int array containing the task
+     */
     public int[] generateTask() {
         int[] aufgabe = new int[6];
         aufgabe[0] = 1 + random.nextInt(9);
@@ -205,7 +239,13 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return aufgabe;
     }
-
+    /**
+     * iterates over the array and checks for the number.
+     *
+     * @param array  to compare against
+     * @param number to check
+     * @return false if number is not present in array, true otherwise.
+     */
     public boolean isInArray(int[] array, int number) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == number) {
@@ -214,27 +254,38 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return false;
     }
-
-    public String taskAsString(int[] aufgabe, int missingPartIndex) {
-        StringBuilder ergebnisString = new StringBuilder();
-        for (int i = 0; i < aufgabe.length; i++) {
-            if (i == aufgabe.length - 1) {
-                ergebnisString.append("= ");
+    /**
+     * Converts a given task with a missing part to a custom String.
+     *
+     * @param task task to convert
+     * @param missingPartIndex index of the missing part of the task
+     * @return task as custom String
+     */
+    public String taskAsString(int[] task, int missingPartIndex) {
+        StringBuilder resultString = new StringBuilder();
+        for (int i = 0; i < task.length; i++) {
+            if (i == task.length - 1) {
+                resultString.append("= ");
             }
             if (i == missingPartIndex) {
-                ergebnisString.append("___");
+                resultString.append("___");
             } else {
                 if (i == 1 || i == 3) {
-                    ergebnisString.append(mathSymbolFromNumber(aufgabe[i]));
+                    resultString.append(mathSymbolFromNumber(task[i]));
                 } else {
-                    ergebnisString.append(aufgabe[i]);
+                    resultString.append(task[i]);
                 }
             }
-            ergebnisString.append(" ");
+            resultString.append(" ");
         }
-        return ergebnisString.toString();
+        return resultString.toString();
     }
-
+    /**
+     * Converts a number to String with the following pattern: 1:+, 2:-, 3:*
+     *
+     * @param number of the symbol to convert
+     * @return symbol as String
+     */
     public String mathSymbolFromNumber(int number) {
         String mathSymbol = " ";
         switch (number) {
@@ -252,7 +303,12 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return mathSymbol;
     }
-
+    /**
+     * Calculates the given task and returns the solution
+     *
+     * @param task to calculate the result for
+     * @return int solution of the task
+     */
     public int calculateTask(int[] task) {
         int result = 0;
         int index = task[1] + 3 * task[3];
@@ -321,6 +377,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Sets the visibility of the result buttons.
+     * @param value Value to set visibility to. View.GONE, View.VISIBLE, View.INVISIBLE .
+     */
     public void changeResultButtonVisibility(int value){
 
         result1Player1.setVisibility(value);
@@ -334,6 +394,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    /**
+     * Increases the players score and displays messages to both players.
+     * @param playerNumber Playernumber that pressed the correct button.
+     */
     public void correctButton(int playerNumber) {
         resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
         resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
@@ -354,6 +418,12 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    /**
+     * Decreases the score of the player, that pressed the button and increases
+     * the score of the other player.
+     * Sets texts to display messages to both players.
+     * @param playerNumber Playernumber that pressed the wrong button.
+     */
     public void wrongButton(int playerNumber) {
         resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
         resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
@@ -381,7 +451,18 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-
+    /**
+     * Updates the players scores.
+     * Chooses a random part of the given task as missing. In case it is a symbol, the buttons' texts
+     * are set to the possible symbols and the displayed task is updated.
+     * In case the missing part is the result of the task, the buttons receive random numbers calculated by
+     * rounding the correct answer down to the lower multiple of ten and adding a random number between
+     * 0 and 9. Finally the correct answer replaces one of the generated numbers and all buttons are set.
+     * Otherwise the buttons get a random value from 1 to 9 and the correct answer is placed after that and
+     * all buttons are set.
+     *
+     * @param task to update views with.
+     */
     public void updateViews(int[] task) {
         scorePlayer1.setText(String.format("SCORE: %d", scoreValuePlayer1));
         scorePlayer2.setText(String.format("SCORE: %d", scoreValuePlayer2));
@@ -390,6 +471,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         int[] buttonValues = new int[4];
         missingPart = task[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
+            // missing symbol
             result1Player1.setText("+");
             result2Player1.setText("-");
             result3Player1.setText("*");
@@ -401,9 +483,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
             taskPlayer1.setText(taskAsString(task, missingPartIndex));
             taskPlayer2.setText(taskAsString(task, missingPartIndex));
             return;
+
         } else if (missingPartIndex == 5) {
+            // missing solution
             int offset = missingPart / 10 * 10;
-            int correctAnswerIndex = random.nextInt(4);
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;
                 do {
@@ -411,9 +494,9 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
                 buttonValues[i] = newNumber;
             }
-            buttonValues[correctAnswerIndex] = missingPart;
+            buttonValues[random.nextInt(4)] = missingPart;
         } else {
-            int correctAnswerIndex = random.nextInt(4);
+            // missing number in calculation
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;
                 do {
@@ -421,7 +504,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
                 buttonValues[i] = newNumber;
             }
-            buttonValues[correctAnswerIndex] = missingPart;
+            buttonValues[random.nextInt(4)] = missingPart;
         }
         result1Player1.setText(String.valueOf(buttonValues[0]));
         result2Player1.setText(String.valueOf(buttonValues[1]));

@@ -34,7 +34,7 @@ public class CreateUser extends AppCompatActivity {
             /**
              * Checks whether a user with the entered name already exist. If not a new user with a
              * unique ID gets created.
-             * @param v View which got clicked
+             * @param v View which got clicked.
              */
             @Override
             public void onClick(View v) {

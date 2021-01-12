@@ -274,10 +274,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * Generates a new task. In case the result of the task is not in the range from 1-100
-     * the method calls itself again.
-     *
-     * @return int array containing a task
+     * Generates a new task. The solution to the task gets calculated and in case it is not
+     * in range 1-100, the method calls itself recursively.
+     * @return int array containing the task.
      */
     public int[] generateTask() {
         int[] task = new int[6];
@@ -320,7 +319,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * Otherwise the buttons get a random value from 1 to 9 and the correct answer is placed after that and
      * all buttons are set.
      *
-     * @param task to update views with
+     * @param task to update views with.
      */
     public void updateViews(int[] task) {
         if (!highscoreMode) {
