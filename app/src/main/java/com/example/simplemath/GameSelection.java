@@ -13,7 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
-
+/**
+ * This is the Javaclass for the activity "GameSelection".
+ * @author Bjarne Küper and Sascha Rührup
+ *
+ */
 public class GameSelection extends AppCompatActivity implements View.OnClickListener {
     private int gameID;
     private Button highscore, freeGame, startButton;
@@ -24,6 +28,13 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     private TextView countForHochzaehlen, countForZahlenEinfuegen, countForGroesserKleiner;
     private boolean highscoreMode = false;
 
+    /**
+     * The onCreate method sets the Content and finds the Views in the layout file.
+     * The selected user is greeted. An onProgressChanged listener is set for the progressbar.
+     * All buttons get an onCLick listener, implemented by this class.
+     * Finally the state of the selected games is checked.
+     * @param savedInstanceState android related
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,28 +95,37 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         checkAllCounts();
     }
 
+    /**
+     * Increases the count of the TextView by getting its text, increasing it by one,
+     * if it is not already nine or higher and setting the views text with the new value.
+     * @param tw TextView to increase the count for.
+     */
     public void countPlus(TextView tw) {
-        int zahl = Integer.parseInt(tw.getText().toString());
-        if (zahl < 9) {
-            zahl++;
-            tw.setText(valueOf(zahl));
+        int count = Integer.parseInt(tw.getText().toString());
+        if (count < 9) {
+            count++;
+            tw.setText(valueOf(count));
         }
     }
-
+    /**
+     * Decreases the count of the TextView by getting its text, decreasing it by one,
+     * if it is not already zero or lower and setting the views text with the new value.
+     * @param tw TextView to decrease the count for.
+     */
     public void countMinus(TextView tw) {
-        int zahl = Integer.parseInt(tw.getText().toString());
-        if (zahl > 0) {
-            zahl--;
-            tw.setText(valueOf(zahl));
+        int count = Integer.parseInt(tw.getText().toString());
+        if (count > 0) {
+            count--;
+            tw.setText(valueOf(count));
         }
     }
 
+    /**
+     * Checks the given TextView. Depending on its count the background of the given ImageButton is set.
+     * @param tw TextView, containing a count.
+     * @param ib ImageButton of the related game.
+     */
     public void checkCount(TextView tw, ImageButton ib) {
-        if (Integer.parseInt(countForHochzaehlen.getText().toString()) > 0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString()) > 0 || Integer.parseInt(countForGroesserKleiner.getText().toString()) > 0) {
-            startButton.setVisibility(View.VISIBLE);
-        } else {
-            startButton.setVisibility(View.GONE);
-        }
         if (Integer.parseInt(tw.getText().toString()) > 0) {
             ib.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
         } else {
@@ -113,12 +133,27 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * Checks the count of all games and sets the startButton to visible,
+     * if any have a count larger than zero, otherwise the startButton is set to "GONE".
+     * Also checks the counts of all games.
+     */
     public void checkAllCounts() {
+        if (Integer.parseInt(countForHochzaehlen.getText().toString()) > 0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString()) > 0 || Integer.parseInt(countForGroesserKleiner.getText().toString()) > 0) {
+            startButton.setVisibility(View.VISIBLE);
+        } else {
+            startButton.setVisibility(View.GONE);
+        }
         checkCount(countForHochzaehlen, hochzaehlen);
         checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
         checkCount(countForGroesserKleiner, groesserKleiner);
+
     }
 
+    /**
+     * Sets the different functions for the buttons, which update the visibility of Views and call functions.
+     * @param v View that is clicked.
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -212,39 +247,44 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.startButton:
                 if (highscoreMode) {
-                    int minuten = seekBar.getProgress() + 1;
-                    startHighscoreGame(minuten, gameID);
+                    int minutes = seekBar.getProgress() + 1;
+                    startHighscoreGame(minutes, gameID);
                 } else {
-                    int[] durchlaeufe = new int[3];
-                    durchlaeufe[0] = Integer.parseInt(countForHochzaehlen.getText().toString());
-                    durchlaeufe[1] = Integer.parseInt(countForZahlenEinfuegen.getText().toString());
-                    durchlaeufe[2] = Integer.parseInt(countForGroesserKleiner.getText().toString());
-                    startFreeGame(durchlaeufe);
+                    int[] rounds = new int[3];
+                    rounds[0] = Integer.parseInt(countForHochzaehlen.getText().toString());
+                    rounds[1] = Integer.parseInt(countForZahlenEinfuegen.getText().toString());
+                    rounds[2] = Integer.parseInt(countForGroesserKleiner.getText().toString());
+                    startFreeGame(rounds);
                 }
             default:
                 break;
         }
     }
 
-    public void startHighscoreGame(int minuten, int spielID) {
+    /**
+     * Starts a new game in Highscore mode.
+     * @param minutes time the game should last.
+     * @param spielID game that gets started.
+     */
+    public void startHighscoreGame(int minutes, int spielID) {
         switch (spielID) {
             case 0:
                 Intent intent = new Intent(this, GroesserKleiner.class);
-                intent.putExtra("MINUTES", minuten);
+                intent.putExtra("MINUTES", minutes);
                 intent.putExtra("HIGHSCOREMODE", true);
                 intent.putExtra("SPIELID", spielID);
                 startActivity(intent);
                 break;
             case 1:
                 Intent intent2 = new Intent(this, ZahlenEinfuegen.class);
-                intent2.putExtra("MINUTES", minuten);
+                intent2.putExtra("MINUTES", minutes);
                 intent2.putExtra("HIGHSCOREMODE", true);
                 intent2.putExtra("SPIELID", spielID);
                 startActivity(intent2);
                 break;
             case 2:
                 Intent intent3 = new Intent(this, Hochzaehlen.class);
-                intent3.putExtra("MINUTES", minuten);
+                intent3.putExtra("MINUTES", minutes);
                 intent3.putExtra("HIGHSCOREMODE", true);
                 intent3.putExtra("SPIELID", spielID);
                 startActivity(intent3);
@@ -254,6 +294,10 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * Starts one or multiple games with one or many rounds each.
+     * @param roundsPerGame int array, each index relates to a game, the value defines the number of rounds.
+     */
     public void startFreeGame(int[] roundsPerGame) {
         for (int i = 0; i < roundsPerGame.length; i++) {
             switch (i) {
