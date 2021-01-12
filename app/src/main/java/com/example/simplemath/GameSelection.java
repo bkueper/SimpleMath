@@ -122,10 +122,16 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
 
     /**
      * Checks the given TextView. Depending on its count the background of the given ImageButton is set.
+     * Sets the startButton to visible if any have a count larger than zero, otherwise the startButton is set to "GONE".
      * @param tw TextView, containing a count.
      * @param ib ImageButton of the related game.
      */
     public void checkCount(TextView tw, ImageButton ib) {
+        if (Integer.parseInt(countForHochzaehlen.getText().toString()) > 0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString()) > 0 || Integer.parseInt(countForGroesserKleiner.getText().toString()) > 0) {
+            startButton.setVisibility(View.VISIBLE);
+        } else {
+            startButton.setVisibility(View.GONE);
+        }
         if (Integer.parseInt(tw.getText().toString()) > 0) {
             ib.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
         } else {
@@ -134,16 +140,11 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * Checks the count of all games and sets the startButton to visible,
-     * if any have a count larger than zero, otherwise the startButton is set to "GONE".
+     * Checks the count of all games.
      * Also checks the counts of all games.
      */
     public void checkAllCounts() {
-        if (Integer.parseInt(countForHochzaehlen.getText().toString()) > 0 || Integer.parseInt(countForZahlenEinfuegen.getText().toString()) > 0 || Integer.parseInt(countForGroesserKleiner.getText().toString()) > 0) {
-            startButton.setVisibility(View.VISIBLE);
-        } else {
-            startButton.setVisibility(View.GONE);
-        }
+
         checkCount(countForHochzaehlen, hochzaehlen);
         checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
         checkCount(countForGroesserKleiner, groesserKleiner);
