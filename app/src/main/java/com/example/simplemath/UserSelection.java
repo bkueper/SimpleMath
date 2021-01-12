@@ -115,11 +115,13 @@ public class UserSelection extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int newestId = data.getIntExtra("NEWUSERID", 0);
-        if (newestId != 0) {
-            SharedPreferences prefs = getSharedPreferences("usernamePrefs", MODE_PRIVATE);
-            String newName = prefs.getString(String.valueOf(newestId), "");
-            addUser(newName);
+        if(data != null){
+            int newestId = data.getIntExtra("NEWUSERID", 0);
+            if (newestId != 0) {
+                SharedPreferences prefs = getSharedPreferences("usernamePrefs", MODE_PRIVATE);
+                String newName = prefs.getString(String.valueOf(newestId), "");
+                addUser(newName);
+            }
         }
     }
 
