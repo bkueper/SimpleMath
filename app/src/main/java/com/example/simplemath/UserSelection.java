@@ -24,6 +24,11 @@ import java.util.Map;
 import static com.example.simplemath.R.color.purple_200;
 import static com.example.simplemath.R.color.unserBlau;
 
+/**
+ * UserSelection allows the User to select a select a profile, edit it or delete it.
+ * This class generates all
+ * @author Bjarne Küper and Sascha Rührup
+ */
 public class UserSelection extends AppCompatActivity {
     LinearLayout linearLayoutUsers;
     Button setNewUserName, deleteUsername;
@@ -33,6 +38,12 @@ public class UserSelection extends AppCompatActivity {
     ArrayList<Button> buttonsInLinear = new ArrayList<>();
     private ImageButton imageButton;
 
+    /**
+     * Converts a number of dp to a number of pixels.
+     * @param dp number of dp to convert
+     * @param context required to get access to the devices display dimensions
+     * @return dp converted to pixels depending on the devices display dimensions
+     */
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -40,6 +51,12 @@ public class UserSelection extends AppCompatActivity {
         return px;
     }
 
+    /**
+     * The onCreate method sets the Content and finds the Views in the layout file.
+     * It also sets onCLick listeners for editing and deleting a user as well as for creating a new one.
+     * Finally it creates a new user button for every user in shared preferences.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +72,7 @@ public class UserSelection extends AppCompatActivity {
                     editButton.setText(newUsername);
                     replaceName(editUsername, newUsername);
                     enterUsername.setText("");
-                    closeEditUsernameMenu(editButton, editUsername);
+                    closeEditUsernameMenu(editButton);
                 } else {
                     enterUsername.setText("");
                     Toast.makeText(getApplicationContext(), "Username schon vergeben", Toast.LENGTH_SHORT).show();
@@ -69,7 +86,7 @@ public class UserSelection extends AppCompatActivity {
                 removeName(editUsername);
                 linearLayoutUsers.removeView(editButton);
                 Toast.makeText(getApplicationContext(), editUsername + " entfernt", Toast.LENGTH_SHORT).show();
-                closeEditUsernameMenu(editButton, editUsername);
+                closeEditUsernameMenu(editButton);
             }
         });
         enterUsername = findViewById(R.id.enterUsername);
@@ -89,6 +106,12 @@ public class UserSelection extends AppCompatActivity {
         }
     }
 
+    /**
+     * Receives an id related to the newest user created in "CreateUser" and adds it to the user selection.
+     * @param requestCode
+     * @param resultCode
+     * @param data containing information as intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -100,16 +123,28 @@ public class UserSelection extends AppCompatActivity {
         }
     }
 
+    /**
+     * starts the Activity CreateUser
+     */
     public void openCreateUser() {
         Intent intent = new Intent(this, CreateUser.class);
         startActivityForResult(intent, 0);
     }
 
+    /**
+     * starts the Activity GameSelection
+     */
     public void openGameSelection() {
         Intent intent = new Intent(this, GameSelection.class);
         startActivity(intent);
     }
 
+    /**
+     * Receives a String and creates a button. Sets onLongClick to open edit and deletion context.
+     * Calls another method to set an onClick that starts the game selection.
+     * Finally adds the button to the layout and a separate list.
+     * @param name of user to add to the user selection
+     */
     public void addUser(String name) {
         int width = Math.round(convertDpToPixel(200, getApplicationContext()));
         int height = Math.round(convertDpToPixel(70, getApplicationContext()));
@@ -118,7 +153,7 @@ public class UserSelection extends AppCompatActivity {
         tempButton.setTextSize(25);
         tempButton.setBackgroundColor(getResources().getColor(unserBlau));
         tempButton.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-        setCustomOnclick(tempButton, name);
+        setCustomOnclick(tempButton);
         tempButton.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -130,7 +165,7 @@ public class UserSelection extends AppCompatActivity {
                 tempButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        closeEditUsernameMenu(editButton, editUsername);
+                        closeEditUsernameMenu(editButton);
                     }
                 });
                 //tempButton.setOnClickListener(null);
@@ -143,6 +178,11 @@ public class UserSelection extends AppCompatActivity {
         buttonsInLinear.add(tempButton);
     }
 
+    /**
+     * makes the edit and delete buttons visible and saves the user it is called from.
+     * @param button clicked button to edit
+     * @param name name of the user, action is started on
+     */
     public void openEditUsernameMenu(Button button, String name) {
         setNewUserName.setVisibility(View.VISIBLE);
         deleteUsername.setVisibility(View.VISIBLE);
@@ -151,17 +191,28 @@ public class UserSelection extends AppCompatActivity {
         editButton = button;
     }
 
-    public void closeEditUsernameMenu(Button button, String name) {
+    /**
+     * disables the edit and delete context and saves the given name on the given button.
+     * Finally resets the buttons color to default.
+     * Links a given name to the button.
+     * @param button current button
+     */
+    public void closeEditUsernameMenu(Button button) {
         setNewUserName.setVisibility(View.INVISIBLE);
         deleteUsername.setVisibility(View.INVISIBLE);
         enterUsername.setVisibility(View.INVISIBLE);
         editUsername = null;
         editButton = null;
-        setCustomOnclick(button, name);
+        setCustomOnclick(button);
         button.setBackgroundColor(getResources().getColor(unserBlau));
     }
 
-    public void setCustomOnclick(Button button, String name) {
+    /**
+     * Sets onClick for the given button, which saves the username as selected user in shared preferences
+     * and starts the game selection.
+     * @param button current button
+     */
+    public void setCustomOnclick(Button button) {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +225,11 @@ public class UserSelection extends AppCompatActivity {
         });
     }
 
+    /**
+     * Checks if the given username is already present.
+     * @param username username to check
+     * @return true if username does not already exist, false otherwise
+     */
     public boolean isNewUsername(String username) {
         if (username.equals("")) {
             return false;
@@ -189,6 +245,10 @@ public class UserSelection extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Removes a given name from all highscore lists as well as from the list of users in shared prefs
+     * @param name to remove
+     */
     public void removeName(String name) {
         SharedPreferences.Editor editor = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE).edit();
         editor.remove(name);
@@ -211,24 +271,29 @@ public class UserSelection extends AppCompatActivity {
         editor.commit();
     }
 
-    public void replaceName(String alt, String neu) {
+    /**
+     * edits the shared preferences for the different highscore lists and the list of users and changes the name
+     * @param currentUsername name to replace
+     * @param newUsername new name set
+     */
+    public void replaceName(String currentUsername, String newUsername) {
         SharedPreferences.Editor editor = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE).edit();
         SharedPreferences prefs = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE);
-        int score = prefs.getInt(alt, 0);
-        editor.remove(alt);
-        editor.putInt(neu, score);
+        int score = prefs.getInt(currentUsername, 0);
+        editor.remove(currentUsername);
+        editor.putInt(newUsername, score);
         editor.commit();
         editor = getSharedPreferences("zahlenEinfuegenHighscore", MODE_PRIVATE).edit();
         prefs = getSharedPreferences("zahlenEinfuegenHighscore", MODE_PRIVATE);
-        score = prefs.getInt(alt, 0);
-        editor.remove(alt);
-        editor.putInt(neu, score);
+        score = prefs.getInt(currentUsername, 0);
+        editor.remove(currentUsername);
+        editor.putInt(newUsername, score);
         editor.commit();
         editor = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE).edit();
         prefs = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE);
-        score = prefs.getInt(alt, 0);
-        editor.remove(alt);
-        editor.putInt(neu, score);
+        score = prefs.getInt(currentUsername, 0);
+        editor.remove(currentUsername);
+        editor.putInt(newUsername, score);
         editor.commit();
 
         editor = getSharedPreferences("usernamePrefs", MODE_PRIVATE).edit();
@@ -236,9 +301,9 @@ public class UserSelection extends AppCompatActivity {
 
         Map<String, ?> allUsersMap = prefs.getAll();
         for (String key : allUsersMap.keySet()) {
-            if (prefs.getString(key, "").equals(alt)) {
+            if (prefs.getString(key, "").equals(currentUsername)) {
                 editor.remove(key);
-                editor.putString(key, neu);
+                editor.putString(key, newUsername);
             }
         }
         editor.commit();

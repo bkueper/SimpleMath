@@ -29,7 +29,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
         helloUser = findViewById(R.id.halloUser);
-        helloUser.setText("Hallo " + getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", ""));
+        helloUser.setText("Hallo " + getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", "").toUpperCase());
         countForZahlenEinfuegen = findViewById(R.id.countForZahlenEinfuegen);
         countForGroesserKleiner = findViewById(R.id.countForGroesserKleiner);
         countForHochzaehlen = findViewById(R.id.countForHochzählen);
