@@ -159,7 +159,7 @@
 
     <View
         android:id="@+id/solutionSpace1"
-        android:layout_width="60dp"
+        android:layout_width="105dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -168,7 +168,7 @@
 
     <View
         android:id="@+id/solutionSpace2"
-        android:layout_width="60dp"
+        android:layout_width="105dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
         app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen1"
@@ -177,7 +177,7 @@
 
     <View
         android:id="@+id/solutionSpace3"
-        android:layout_width="60dp"
+        android:layout_width="105dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
         app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen2"
@@ -186,7 +186,7 @@
 
     <View
         android:id="@+id/solutionSpace4"
-        android:layout_width="60dp"
+        android:layout_width="105dp"
         android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
         app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen3"

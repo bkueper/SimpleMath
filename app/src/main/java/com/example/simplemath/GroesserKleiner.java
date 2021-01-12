@@ -172,25 +172,25 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
                 if (isViewInBounds(solution1, x, y)) {
                     occupiedSpace[0] = (Button) v;
                     solution1.dispatchTouchEvent(event);
-                    v.setX(solution1.getX() - 20);
+                    v.setX(solution1.getX() + 40);
                     v.setY(solution1.getY() + 60);
                 }
                 if (isViewInBounds(solution2, x, y)) {
                     occupiedSpace[1] = (Button) v;
                     solution2.dispatchTouchEvent(event);
-                    v.setX(solution2.getX() - 20);
+                    v.setX(solution2.getX() + 40);
                     v.setY(solution2.getY() + 60);
                 }
                 if (isViewInBounds(solution3, x, y)) {
                     occupiedSpace[2] = (Button) v;
                     solution3.dispatchTouchEvent(event);
-                    v.setX(solution3.getX() - 20);
+                    v.setX(solution3.getX() + 40);
                     v.setY(solution3.getY() + 60);
                 }
                 if (isViewInBounds(solution4, x, y)) {
                     occupiedSpace[3] = (Button) v;
                     solution4.dispatchTouchEvent(event);
-                    v.setX(solution4.getX() - 20);
+                    v.setX(solution4.getX() + 40);
                     v.setY(solution4.getY() + 60);
                 }
                 break;
