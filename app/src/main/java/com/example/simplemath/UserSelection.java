@@ -55,7 +55,7 @@ public class UserSelection extends AppCompatActivity {
      * The onCreate method sets the Content and finds the Views in the layout file.
      * It also sets onCLick listeners for editing and deleting a user as well as for creating a new one.
      * Finally it creates a new user button for every user in shared preferences.
-     * @param savedInstanceState
+     * @param savedInstanceState android specific
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,8 +108,8 @@ public class UserSelection extends AppCompatActivity {
 
     /**
      * Receives an id related to the newest user created in "CreateUser" and adds it to the user selection.
-     * @param requestCode
-     * @param resultCode
+     * @param requestCode start code
+     * @param resultCode received code
      * @param data containing information as intent
      */
     @Override
