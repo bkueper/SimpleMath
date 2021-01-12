@@ -26,7 +26,7 @@ import static com.example.simplemath.R.color.unserBlau;
 
 /**
  * UserSelection allows the User to select a select a profile, edit it or delete it.
- * This class generates all
+ * This class generates all clickable user buttons and allows to edit or delete them.
  * @author Bjarne Küper and Sascha Rührup
  */
 public class UserSelection extends AppCompatActivity {
@@ -124,7 +124,7 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * starts the Activity CreateUser
+     * starts the Activity CreateUser.
      */
     public void openCreateUser() {
         Intent intent = new Intent(this, CreateUser.class);
@@ -132,7 +132,7 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * starts the Activity GameSelection
+     * starts the Activity GameSelection.
      */
     public void openGameSelection() {
         Intent intent = new Intent(this, GameSelection.class);
@@ -246,7 +246,7 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * Removes a given name from all highscore lists as well as from the list of users in shared prefs
+     * Removes a given name from all highscore lists as well as from the list of users in shared prefs.
      * @param name to remove
      */
     public void removeName(String name) {
@@ -272,7 +272,7 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * edits the shared preferences for the different highscore lists and the list of users and changes the name
+     * Edits the shared preferences for the different highscore lists and the list of users and changes the name.
      * @param currentUsername name to replace
      * @param newUsername new name set
      */

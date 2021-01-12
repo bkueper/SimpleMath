@@ -17,9 +17,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * This is the Javaclass for the game/activity "Zahlen Einfügen".
+ *
+ * @author Bjarne Küper and Sascha Rührup
+ */
 public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
-    CountDownTimer cTimer = null;
+    private CountDownTimer cTimer = null;
     private int scoreValue = 0;
     private int correctAnswers = 0;
     private int rounds, remainingTasks, missingPart, missingPartIndex, minutes, gameID;
@@ -27,6 +32,12 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     private TextView score, time, taskText, taskProgress, resultCorrectOrWrong;
     private Button result1, result2, result3, result4, dontKnow;
 
+    /**
+     * The onCreate method sets the Content and finds the Views in the layout file.
+     * Gets additional information about the game to start from the intent and finally starts a new game.
+     *
+     * @param savedInstanceState android related
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +70,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * releases the cTimer, if not null to free up system resources.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -67,6 +81,12 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Depending on the button clicked, either validates the button or in case of the "dont know" button,
+     * opens the evaluation or generates a new task.
+     *
+     * @param v View clicked on
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -97,6 +117,12 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Receives a button to validate. Compares the buttons' text to the correct solution and calls
+     * correctButton or wrongButton accordingly. Finally it opens the evaluation or generates a new Task.
+     *
+     * @param button clicked, that gets validated
+     */
     public void validateButton(Button button) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
             if (button.getText().toString().equals(mathSymbolFromNumber(missingPart))) {
@@ -118,6 +144,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * In case of a Freeplay game, this method retrieves a boolean from the intent to start a new
+     * Freeplay game, if necessary.
+     *
+     * @param requestCode start code
+     * @param resultCode  received code
+     * @param data        intent sent back
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -134,16 +168,21 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Displays a TextView to indicate the press of the correct button, that stays visible for set delay.
+     * Increases scores and decreases remainingTasks accordingly.
+     */
     public void correctButton() {
         resultCorrectOrWrong.setText("RICHTIG");
         resultCorrectOrWrong.setTextColor(Color.GREEN);
         resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
+        int delay = 2000;
         handler.postDelayed(new Runnable() {
             public void run() {
                 resultCorrectOrWrong.setVisibility(View.GONE);
             }
-        }, 2000);
+        }, delay);
         if (highscoreMode) {
             scoreValue += 1;
         } else {
@@ -152,16 +191,21 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * Displays a TextView to indicate the press of a wrong button, that stays visible for set delay.
+     * Decreases scores and remainingTasks accordingly.
+     */
     public void wrongButton() {
         resultCorrectOrWrong.setText("FALSCH");
         resultCorrectOrWrong.setTextColor(Color.RED);
         resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
+        int delay = 2000;
         handler.postDelayed(new Runnable() {
             public void run() {
                 resultCorrectOrWrong.setVisibility(View.GONE);
             }
-        }, 2000);
+        }, delay);
         if (highscoreMode) {
             if (scoreValue > 0) {
                 scoreValue -= 1;
@@ -171,11 +215,16 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-
-    public void startHighscoreGame(int minuten) {
+    /**
+     * Generates a new Task, starts a timer with given minutes and opens the evaluation and
+     * finishes this activity, after the timer runs out.
+     *
+     * @param minutes time to play
+     */
+    public void startHighscoreGame(int minutes) {
         taskProgress.setVisibility(View.GONE);
         updateViews(generateTask());
-        cTimer = new CountDownTimer(minuten * 60000, 1000) {
+        cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
@@ -190,6 +239,10 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         cTimer.start();
     }
 
+    /**
+     * opens the activity Evaluation.
+     * Depending on the gamemode, adds needed information to the intent
+     */
     public void openEvaluation() {
         Intent intent = new Intent(this, Evaluation.class);
         if (highscoreMode) {
@@ -210,6 +263,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /**
+     * sets remainingTasks, generates a new Task and disables Views related to Highscore mode.
+     */
     public void startFreeGame() {
         remainingTasks = 15;
         updateViews(generateTask());
@@ -217,20 +273,33 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         time.setVisibility(View.GONE);
     }
 
+    /**
+     * Generates a new task. In case the result of the task is not in the range from 1-100
+     * the method calls itself again.
+     *
+     * @return int array containing a task
+     */
     public int[] generateTask() {
-        int[] aufgabe = new int[6];
-        aufgabe[0] = 1 + random.nextInt(9);
-        aufgabe[1] = random.nextInt(3);
-        aufgabe[2] = 1 + random.nextInt(9);
-        aufgabe[3] = random.nextInt(3);
-        aufgabe[4] = 1 + random.nextInt(9);
-        aufgabe[5] = calculateResult(aufgabe);
-        if (aufgabe[5] > 100 || aufgabe[5] < 1) {
-            aufgabe = generateTask();
+        int[] task = new int[6];
+        task[0] = 1 + random.nextInt(9);
+        task[1] = random.nextInt(3);
+        task[2] = 1 + random.nextInt(9);
+        task[3] = random.nextInt(3);
+        task[4] = 1 + random.nextInt(9);
+        task[5] = calculateResult(task);
+        if (task[5] > 100 || task[5] < 1) {
+            task = generateTask();
         }
-        return aufgabe;
+        return task;
     }
 
+    /**
+     * iterates over the array and checks for the number.
+     *
+     * @param array  to compare against
+     * @param number to check
+     * @return false if number is not present in array, true otherwise
+     */
     public boolean isInArray(int[] array, int number) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == number) {
@@ -240,7 +309,18 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         return false;
     }
 
-    public void updateViews(int[] aufgabe) {
+    /**
+     * Updates progress or score.
+     * Chooses a random part of the given task as missing. In case it is a symbol, the buttons' texts
+     * are set to the possible symbols and the displayed task is updated.
+     * In case the missing part is the result of the task, the buttons receive random numbers calculated by
+     * rounding the correct answer down to the lower multiple of ten and adding a random number between
+     * 0 and 9. Finally the correct answer replaces one of the generated numbers and all buttons are set.
+     * Otherwise the buttons get a random value from 1 to 9 and the correct answer is placed after that and
+     * all buttons are set.
+     * @param task to update views with
+     */
+    public void updateViews(int[] task) {
         if (!highscoreMode) {
             taskProgress.setText(String.format("Aufgabe %d von 15", 16 - remainingTasks));
         } else {
@@ -249,17 +329,19 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
         missingPartIndex = random.nextInt(6);
         int[] buttonValues = new int[4];
-        missingPart = aufgabe[missingPartIndex];
+        missingPart = task[missingPartIndex];
         if (missingPartIndex == 1 || missingPartIndex == 3) {
+            // missing part is a symbol
             result1.setText("+");
             result2.setText("-");
             result3.setText("*");
             result4.setVisibility(View.INVISIBLE);
-            taskText.setText(taskAsString(aufgabe, missingPartIndex));
+            taskText.setText(taskAsString(task, missingPartIndex));
             return;
+
         } else if (missingPartIndex == 5) {
+            // missing part is the result
             int offset = missingPart / 10 * 10;
-            int correctAnswerIndex = random.nextInt(4);
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;
                 do {
@@ -267,9 +349,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
                 buttonValues[i] = newNumber;
             }
-            buttonValues[correctAnswerIndex] = missingPart;
+            buttonValues[random.nextInt(4)] = missingPart;
         } else {
-            int correctAnswerIndex = random.nextInt(4);
+            // missing part is a number from the calculation
             for (int i = 0; i < buttonValues.length; i++) {
                 int newNumber;
                 do {
@@ -277,36 +359,48 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
                 } while (isInArray(buttonValues, newNumber) || missingPart == newNumber);
                 buttonValues[i] = newNumber;
             }
-            buttonValues[correctAnswerIndex] = missingPart;
+            buttonValues[random.nextInt(4)] = missingPart;
         }
+
         result1.setText(String.valueOf(buttonValues[0]));
         result2.setText(String.valueOf(buttonValues[1]));
         result3.setText(String.valueOf(buttonValues[2]));
         result4.setText(String.valueOf(buttonValues[3]));
         result4.setVisibility(View.VISIBLE);
-        taskText.setText(taskAsString(aufgabe, missingPartIndex));
+        taskText.setText(taskAsString(task, missingPartIndex));
     }
 
-    public String taskAsString(int[] aufgabe, int missingPartIndex) {
-        StringBuilder ergebnisString = new StringBuilder();
-        for (int i = 0; i < aufgabe.length; i++) {
-            if (i == aufgabe.length - 1) {
-                ergebnisString.append("= ");
+    /**
+     * Converts a given task with a missing part to a custom String.
+     * @param task task to convert
+     * @param missingPartIndex index of the missing part of the task
+     * @return task as custom String
+     */
+    public String taskAsString(int[] task, int missingPartIndex) {
+        StringBuilder resultString = new StringBuilder();
+        for (int i = 0; i < task.length; i++) {
+            if (i == task.length - 1) {
+                resultString.append("= ");
             }
             if (i == missingPartIndex) {
-                ergebnisString.append("___");
+                resultString.append("___");
             } else {
                 if (i == 1 || i == 3) {
-                    ergebnisString.append(mathSymbolFromNumber(aufgabe[i]));
+                    resultString.append(mathSymbolFromNumber(task[i]));
                 } else {
-                    ergebnisString.append(aufgabe[i]);
+                    resultString.append(task[i]);
                 }
             }
-            ergebnisString.append(" ");
+            resultString.append(" ");
         }
-        return ergebnisString.toString();
+        return resultString.toString();
     }
 
+    /**
+     * Converts a number to String with the following pattern: 1:+, 2:-, 3:*
+     * @param number of the symbol to convert
+     * @return symbol as String
+     */
     public String mathSymbolFromNumber(int number) {
         String mathSymbol = " ";
         switch (number) {
@@ -325,6 +419,11 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         return mathSymbol;
     }
 
+    /**
+     * Calculates the given task and returns the solution
+     * @param task to calculate the result for
+     * @return int solution of the task
+     */
     public int calculateResult(int[] task) {
         int result = 0;
         int index = task[1] + 3 * task[3];
