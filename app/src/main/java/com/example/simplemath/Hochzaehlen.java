@@ -31,7 +31,7 @@ import static java.lang.String.format;
 public class Hochzaehlen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     private GridLayout gridLayout;
-    public ArrayList<Button> allButtons = new ArrayList<>();
+    private  ArrayList<Button> allButtons = new ArrayList<>();
     private int currentPosition, minPosition,spielId,remainingTasks,rounds,minutes,correctAnswers, firstNumber, secondNumber;
     private int scoreValue = 0;
     private TextView score, time, taskText, taskProgress;
@@ -45,7 +45,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * The information (duration of game in minutes, the game ID,
      * the amount of times the game has to be played, a boolean that says whether the game is a highscoregame or not)
      * get taken out of the intent, that started the activity.
-     * @param savedInstanceState
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,17 +82,17 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     }
 
     /**
-     * Starts a highscoregame for x minutes. Updates the views for the first time
-     * and starts the counter for the given amount of minutes. The Visibility of the
+     * Starts a Highscore game for given minutes. Updates the views for the first time
+     * and starts the counter for the given amount of minutes. The visibility of the
      * View that shows up in "Freies Spiel" gets set to "GONE".
-     * @param minuten
+     * @param minutes time the game runs for.
      */
-    public void startHighscoreGame(int minuten) {
+    public void startHighscoreGame(int minutes) {
         remainingTasks = 1;
         updateViews();
         scoreValue = 0;
         taskProgress.setVisibility(View.GONE);
-        cTimer = new CountDownTimer(minuten * 60000, 1000) {
+        cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 time.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
@@ -123,7 +123,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * Finds out whether the game needs to start another round
      * or needs to be closed.
      * @param requestCode number that gets answered from the other Acitvity.
-     * @param resultCode
+     * @param resultCode received code.
      * @param data intent which is filled with information from the other Activity.
      */
     @Override
@@ -247,8 +247,8 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     }
 
     /**
-     * Adds a circlebutton to the grid layout.
-     * @param i value for the id, which gets set in the method
+     * Adds a circular button to the grid layout.
+     * @param i value for the id, which gets set in the method.
      */
     public void addButton(int i) {
             Button button = new Button(this);
@@ -264,9 +264,9 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Converts a number of dp to a number of pixels.
-     * @param dp number of dp to convert
-     * @param context required to get access to the devices display dimensions
-     * @return dp converted to pixels depending on the devices display dimensions
+     * @param dp number of dp to convert.
+     * @param context required to get access to the devices display dimensions.
+     * @return dp converted to pixels depending on the devices display dimensions.
      */
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();

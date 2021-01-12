@@ -30,12 +30,12 @@ import static com.example.simplemath.R.color.unserBlau;
  * @author Bjarne Küper and Sascha Rührup
  */
 public class UserSelection extends AppCompatActivity {
-    LinearLayout linearLayoutUsers;
-    Button setNewUserName, deleteUsername;
-    EditText enterUsername;
-    String editUsername;
-    Button editButton;
-    ArrayList<Button> buttonsInLinear = new ArrayList<>();
+    private LinearLayout linearLayoutUsers;
+    private Button setNewUserName, deleteUsername;
+    private EditText enterUsername;
+    private String editUsername;
+    private Button editButton;
+    private ArrayList<Button> buttonsInLinear = new ArrayList<>();
     private ImageButton imageButton;
 
     /**
@@ -55,7 +55,7 @@ public class UserSelection extends AppCompatActivity {
      * The onCreate method sets the Content and finds the Views in the layout file.
      * It also sets onCLick listeners for editing and deleting a user as well as for creating a new one.
      * Finally it creates a new user button for every user in shared preferences.
-     * @param savedInstanceState android specific
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class UserSelection extends AppCompatActivity {
      * Receives an id related to the newest user created in "CreateUser" and adds it to the user selection.
      * @param requestCode start code
      * @param resultCode received code
-     * @param data containing information as intent
+     * @param data containing information as intent.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -143,7 +143,7 @@ public class UserSelection extends AppCompatActivity {
      * Receives a String and creates a button. Sets onLongClick to open edit and deletion context.
      * Calls another method to set an onClick that starts the game selection.
      * Finally adds the button to the layout and a separate list.
-     * @param name of user to add to the user selection
+     * @param name of user to add to the user selection.
      */
     public void addUser(String name) {
         int width = Math.round(convertDpToPixel(200, getApplicationContext()));
@@ -180,8 +180,8 @@ public class UserSelection extends AppCompatActivity {
 
     /**
      * makes the edit and delete buttons visible and saves the user it is called from.
-     * @param button clicked button to edit
-     * @param name name of the user, action is started on
+     * @param button clicked button to edit.
+     * @param name name of the user, action is started on.
      */
     public void openEditUsernameMenu(Button button, String name) {
         setNewUserName.setVisibility(View.VISIBLE);
@@ -246,8 +246,8 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * Removes a given name from all highscore lists as well as from the list of users in shared prefs.
-     * @param name to remove
+     * Removes a given name from all Highscore lists as well as from the list of users in shared prefs.
+     * @param name Name to remove,
      */
     public void removeName(String name) {
         SharedPreferences.Editor editor = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE).edit();
@@ -272,9 +272,9 @@ public class UserSelection extends AppCompatActivity {
     }
 
     /**
-     * Edits the shared preferences for the different highscore lists and the list of users and changes the name.
-     * @param currentUsername name to replace
-     * @param newUsername new name set
+     * Edits the shared preferences for the different Highscore lists and the list of users and changes the name.
+     * @param currentUsername name to replace.
+     * @param newUsername new name set.
      */
     public void replaceName(String currentUsername, String newUsername) {
         SharedPreferences.Editor editor = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE).edit();

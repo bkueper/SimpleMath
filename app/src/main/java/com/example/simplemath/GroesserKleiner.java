@@ -45,7 +45,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
      * The onCreate method sets the Content and finds the Views in the layout file.
      * It retrieves information about gamemode and game duration or number of rounds respectively.
      * Finally a Highscore or Freeplay game is started.
-     * @param savedInstanceState
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         result4.setOnTouchListener(this);
         confirm = findViewById(R.id.confirm);
         confirm.setOnClickListener(v -> {
-            ergebnisBewerten();
+            validateResult();
             if (remainingTasks <= 0) {
                 openEvaluation();
             } else {
@@ -93,7 +93,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * cTimer gets released to free up system resources
+     * cTimer gets released to free up system resources.
      */
     @Override
     protected void onDestroy() {
@@ -106,7 +106,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     /**
      * Sets required parameters remainingTasks and scoreValue.
      * Starts a timer for the Highscore game and opens the evaluation after it runs out.
-     * @param minutes time the Highscore game will last in minutes
+     * @param minutes time the Highscore game will last in minutes.
      */
     public void startHighscoreGame(int minutes) {
         remainingTasks = 1;
@@ -129,7 +129,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * Sets remainingTasks and disables Views related to Highscore mode only
+     * Sets remainingTasks and disables Views related to Highscore mode only.
      */
     public void startFreeplayGame() {
         remainingTasks = 15;
@@ -141,9 +141,9 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     /**
      * Checks position of selected View and wether it is inside specified area.
      * If the view is inside it, the View gets placed at a preset position.
-     * @param v current View
-     * @param event current MotionEvent
-     * @return consume event
+     * @param v current View.
+     * @param event current MotionEvent.
+     * @return consumed the event.
      */
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -201,20 +201,20 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * Starts another Freeplay game depending on the received data or ends this Activitiy
+     * Starts another Freeplay game depending on the received data or ends this Activitiy.
      * @param requestCode number that gets answered from the other Acitvity.
-     * @param resultCode
+     * @param resultCode received code.
      * @param data intent which is filled with information from the other Activity.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        boolean weitereRunde = false;
+        boolean anotherRound = false;
         if (requestCode == 1) {
             assert data != null;
-            weitereRunde = data.getBooleanExtra("WEITERERUNDE", false);
+            anotherRound = data.getBooleanExtra("WEITERERUNDE", false);
         }
-        if (weitereRunde) {
+        if (anotherRound) {
             correctAnswers = 0;
             startFreeplayGame();
         } else {
@@ -223,9 +223,9 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * Evaluates the task and sets increments or decreases scores and remainingTasks accordingly
+     * Evaluates the task and increments or decreases scores and remainingTasks accordingly.
      */
-    public void ergebnisBewerten() {
+    public void validateResult() {
         if (!highscoreMode) {
             remainingTasks--;
         }
@@ -263,7 +263,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * updates game progress indicator or score and generates a new round as well as resetting the playing field
+     * updates game progress indicator or score and generates a new round as well as resetting the playing field.
      */
     public void updateViews() {
         if (!highscoreMode) {
@@ -285,19 +285,19 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         }
         int[] buttonValues = new int[4];
         for (int i = 0; i < 4; i++) {
-            boolean doppeltesErgebnis;
-            int randomErgebnis;
+            boolean alreadyExistent;
+            int randomNumber;
             do {
-                doppeltesErgebnis = false;
-                randomErgebnis = random.nextInt(100);
+                alreadyExistent = false;
+                randomNumber = random.nextInt(100);
                 for (int j = 0; j < 4; j++) {
-                    if (buttonValues[j] == randomErgebnis) {
-                        doppeltesErgebnis = true;
+                    if (buttonValues[j] == randomNumber) {
+                        alreadyExistent = true;
                         break;
                     }
                 }
-            } while (doppeltesErgebnis);
-            buttonValues[i] = randomErgebnis;
+            } while (alreadyExistent);
+            buttonValues[i] = randomNumber;
         }
         result1.setText(valueOf(buttonValues[0]));
         result2.setText(valueOf(buttonValues[1]));
@@ -320,11 +320,11 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     *
-     * @param view View to check coordinate against
+     * checks if the given view contains the x/y coordinates.
+     * @param view View to check coordinate against.
      * @param x coordinate
      * @param y coordinate
-     * @return true if View contains the coordinates, flase otherwise
+     * @return true if View contains the coordinates, false otherwise.
      */
     private boolean isViewInBounds(View view, int x, int y) {
         view.getDrawingRect(normalRect);
@@ -334,7 +334,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * starts the evaluation activity and adds needed information to the intent
+     * starts the evaluation activity and adds needed information to the intent.
      */
     public void openEvaluation() {
         Intent intent = new Intent(this, Evaluation.class);

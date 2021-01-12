@@ -22,7 +22,7 @@ public class CreateUser extends AppCompatActivity {
     /**
      * Finds all needed Views from the layout and sets OnClickListeners for the button to create the
      * user.
-     * @param savedInstanceState
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

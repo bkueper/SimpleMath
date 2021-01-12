@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import static java.lang.String.format;
 
 /**
- * Class which evaluates the last game.
+ * Class which evaluates the latest game.
  */
 public class Evaluation extends AppCompatActivity {
     private boolean anotherRound;
@@ -21,7 +21,7 @@ public class Evaluation extends AppCompatActivity {
      * Finds out whether a new Highscore in the played game got broken or how many tasks were
      * correct. Updates Highscore if old highscore got broken. Tells the Activity that opened,
      * whether it needs to start another round or not.
-     * @param savedInstanceState
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,6 @@ public class Evaluation extends AppCompatActivity {
                     result.putExtra("WEITERERUNDE", anotherRound);
                     setResult(1, result);
                     finish();
-
                 }
             });
         }

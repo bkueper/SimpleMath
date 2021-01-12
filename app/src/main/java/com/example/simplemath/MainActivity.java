@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private Button singleplayer, multiplayer;
     /**
      * Creates the 2 Buttons and overrides onClick methods.
-     * @param savedInstanceState
+     * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         singleplayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openStartseite();
+                openGameSelection();
             }
         });
         multiplayer = findViewById(R.id.multiplayer);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Opens the singleplayer game selection Activity.
      */
-    public void openStartseite() {
+    public void openGameSelection() {
         Intent intent = new Intent(this, UserSelection.class);
         startActivity(intent);
     }

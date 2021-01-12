@@ -85,7 +85,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * Depending on the button clicked, either validates the button or in case of the "dont know" button,
      * opens the evaluation or generates a new task.
      *
-     * @param v View clicked on
+     * @param v View clicked on.
      */
     @Override
     public void onClick(View v) {
@@ -121,7 +121,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * Receives a button to validate. Compares the buttons' text to the correct solution and calls
      * correctButton or wrongButton accordingly. Finally it opens the evaluation or generates a new Task.
      *
-     * @param button clicked, that gets validated
+     * @param button clicked, that gets validated.
      */
     public void validateButton(Button button) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
@@ -145,8 +145,8 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     }
 
     /**
-     * In case of a Freeplay game, this method retrieves a boolean from the intent to start a new
-     * Freeplay game, if necessary.
+     * In case of a "Freies Spiel" game, this method retrieves a boolean from the intent to start a new
+     * "Freies Spiel" game, if necessary.
      *
      * @param requestCode start code
      * @param resultCode  received code
@@ -298,6 +298,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      *
      * @param array  to compare against
      * @param number to check
+     *
      * @return false if number is not present in array, true otherwise
      */
     public boolean isInArray(int[] array, int number) {
@@ -318,6 +319,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * 0 and 9. Finally the correct answer replaces one of the generated numbers and all buttons are set.
      * Otherwise the buttons get a random value from 1 to 9 and the correct answer is placed after that and
      * all buttons are set.
+     *
      * @param task to update views with
      */
     public void updateViews(int[] task) {
@@ -372,6 +374,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     /**
      * Converts a given task with a missing part to a custom String.
+     *
      * @param task task to convert
      * @param missingPartIndex index of the missing part of the task
      * @return task as custom String
@@ -398,6 +401,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     /**
      * Converts a number to String with the following pattern: 1:+, 2:-, 3:*
+     *
      * @param number of the symbol to convert
      * @return symbol as String
      */
@@ -421,6 +425,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
 
     /**
      * Calculates the given task and returns the solution
+     *
      * @param task to calculate the result for
      * @return int solution of the task
      */
