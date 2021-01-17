@@ -135,6 +135,23 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
         cTimer.start();
     }
 
+    /** Checks a given array for a button.
+     *
+     * @param array array to search in.
+     * @param button button to search for
+     * @return true if button is in array, false otherwise
+     */
+    public boolean isInArray(Button[] array, Button button){
+        for(Button elem: array){
+            if(elem != null) {
+                if (elem == button) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Sets remainingTasks and disables Views related to Highscore mode only.
      */
@@ -146,7 +163,7 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     }
 
     /**
-     * Checks position of selected View and wether it is inside specified area.
+     * Checks position of selected View and whether it is inside specified area.
      * If the view is inside it, the View gets placed at a preset position.
      *
      * @param v     current View.
@@ -166,6 +183,13 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
             case MotionEvent.ACTION_DOWN:
                 dX = v.getX() - event.getRawX();
                 dY = v.getY() - event.getRawY();
+                if(isInArray(occupiedSpace, (Button)v)){
+                    for (int i = 0; i< occupiedSpace.length; i++){
+                        if(occupiedSpace[i] == v){
+                            occupiedSpace[i] = null;
+                        }
+                    }
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 v.animate()

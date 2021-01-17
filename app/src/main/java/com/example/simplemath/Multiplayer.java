@@ -354,6 +354,13 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         return result;
     }
 
+    /** Compares the content of the given button with the correct solution and calls
+     * correctButton or wrongButton accordingly. After that the feedback texts are set and
+     * displayed for a short time. Finally a new task is generated and the views are updated.
+     *
+     * @param button the button, that was pressed.
+     * @param playerNumber id of the player, that wants to validate a button.
+     */
     public void validateButton(Button button, int playerNumber) {
         if (missingPartIndex == 1 || missingPartIndex == 3) {
             if (button.getText().toString().equals(mathSymbolFromNumber(missingPart))) {
@@ -441,23 +448,23 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
             scoreValuePlayer2++;
             if (scoreValuePlayer1 > 0) {
                 scoreValuePlayer1--;
-                resultRightOrWrongPlayer1.setText("FALSCH");
-                resultRightOrWrongPlayer1.setTextColor(Color.RED);
-
-                resultRightOrWrongPlayer2.setText("GLÜCK GEHABT");
-                resultRightOrWrongPlayer2.setTextColor(Color.GREEN);
             }
+            resultRightOrWrongPlayer1.setText("FALSCH");
+            resultRightOrWrongPlayer1.setTextColor(Color.RED);
+
+            resultRightOrWrongPlayer2.setText("GLÜCK GEHABT");
+            resultRightOrWrongPlayer2.setTextColor(Color.GREEN);
+
         } else if (playerNumber == 2) {
             scoreValuePlayer1++;
             if (scoreValuePlayer2 > 0) {
                 scoreValuePlayer2--;
-                resultRightOrWrongPlayer1.setText("GLÜCK GEHABT");
-                resultRightOrWrongPlayer1.setTextColor(Color.GREEN);
-
-                resultRightOrWrongPlayer2.setText("FALSCH");
-                resultRightOrWrongPlayer2.setTextColor(Color.RED);
-
             }
+            resultRightOrWrongPlayer1.setText("GLÜCK GEHABT");
+            resultRightOrWrongPlayer1.setTextColor(Color.GREEN);
+
+            resultRightOrWrongPlayer2.setText("FALSCH");
+            resultRightOrWrongPlayer2.setTextColor(Color.RED);
         }
     }
 
