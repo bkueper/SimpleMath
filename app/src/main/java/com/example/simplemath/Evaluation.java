@@ -1,5 +1,6 @@
 package com.example.simplemath;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static java.lang.String.format;
+import static java.lang.String.*;
 
 /**
  * Class which evaluates the latest game.
@@ -23,6 +24,7 @@ public class Evaluation extends AppCompatActivity {
      * whether it needs to start another round or not.
      * @param savedInstanceState android related
      */
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class Evaluation extends AppCompatActivity {
         SharedPreferences.Editor editor = null;
         setContentView(R.layout.activity_evaluation);
         TextView feedbackText = findViewById(R.id.feedbackFreiesSpiel);
-        Button continueButton = findViewById(R.id.weiterButton);
+        Button continueButton = findViewById(R.id.continueButton);
         TextView highscoreView = findViewById(R.id.highscore);
         Intent intent = getIntent();
         int gameID = intent.getIntExtra("SPIELID", 0);
@@ -68,26 +70,18 @@ public class Evaluation extends AppCompatActivity {
             highscoreView.setText(format("HIGHSCORE: %.2f", oldHighscore));
             feedbackText.setText(format("DEIN SCORE: %.2f", scorePerMinute));
 
-            continueButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            continueButton.setOnClickListener(v -> finish());
         } else {
             int rounds = intent.getIntExtra("DURCHLAEUFE", 0);
             int reachedPoints = intent.getIntExtra("PUNKTZAHL", 0);
             anotherRound = rounds > 0;
             highscoreView.setVisibility(View.GONE);
             feedbackText.setText(format("Du hast %d von 15 Aufgaben gelöst!", reachedPoints));
-            continueButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent result = new Intent();
-                    result.putExtra("WEITERERUNDE", anotherRound);
-                    setResult(1, result);
-                    finish();
-                }
+            continueButton.setOnClickListener(v -> {
+                Intent result = new Intent();
+                result.putExtra("WEITERERUNDE", anotherRound);
+                setResult(1, result);
+                finish();
             });
         }
 

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="dein Score: 68"
+        android:text="@string/dein_score_68"
         android:textColor="@color/purple_200"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="HIGHSCORE: 69"
+        android:text="@string/highscore_69"
         android:textColor="@color/purple_500"
         android:textSize="38sp"
         android:textStyle="bold"
@@ -33,7 +33,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/weiterButton"
+        android:id="@+id/continueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
