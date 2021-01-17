@@ -24,4 +24,12 @@
     <string name="hochzaehlen">Hochzaehlen</string>
     <string name="zahleneinf_gen">ZahlenEinfügen</string>
     <string name="gr_erkleiner">GrößerKleiner</string>
+    <string name="zeit">Zeit:</string>
+    <string name="aufgabe_1_von_15">Aufgabe 1 von 15</string>
+    <string name="_16">16</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="sortiere_von_gro_nach_klein">Sortiere von groß nach klein</string>
+    <string name="score">SCORE:</string>
 </resources>

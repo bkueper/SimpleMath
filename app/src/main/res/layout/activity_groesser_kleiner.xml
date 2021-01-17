@@ -11,36 +11,36 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="40dp"
-        android:text="SCORE: "
+        android:text="@string/score"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="40dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/timeLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:text="Zeit: "
+        android:text="@string/zeit"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="50dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/taskProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Aufgabe 1 von 15"
+        android:text="@string/aufgabe_1_von_15"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -49,74 +49,74 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/groesserKleinerErgebnis1"
+        android:id="@+id/largerSmallerSolution1"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="16"
+        android:text="@string/_16"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/groesserKleinerErgebnis2"
+        app:layout_constraintEnd_toStartOf="@+id/largerSmallerSolution2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/groesserKleinerErgebnis2"
+        android:id="@+id/largerSmallerSolution2"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="2"
+        android:text="@string/_2"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/groesserKleinerErgebnis1"
+        app:layout_constraintStart_toEndOf="@+id/largerSmallerSolution1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/groesserKleinerErgebnis3"
+        android:id="@+id/largerSmallerSolution3"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="3"
+        android:text="@string/_3"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/groesserKleinerErgebnis4"
+        app:layout_constraintEnd_toStartOf="@+id/largerSmallerSolution4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis1" />
+        app:layout_constraintTop_toBottomOf="@id/largerSmallerSolution1" />
 
     <Button
-        android:id="@+id/groesserKleinerErgebnis4"
+        android:id="@+id/largerSmallerSolution4"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="4"
+        android:text="@string/_4"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/groesserKleinerErgebnis3"
-        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis1" />
+        app:layout_constraintStart_toEndOf="@id/largerSmallerSolution3"
+        app:layout_constraintTop_toBottomOf="@id/largerSmallerSolution1" />
 
 
     <TextView
-        android:id="@+id/sortierAufgabe"
+        android:id="@+id/sortingTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:text="Sortiere von groß nach klein"
+        android:text="@string/sortiere_von_gro_nach_klein"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold|italic"
 
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groesserKleinerErgebnis3" />
+        app:layout_constraintTop_toBottomOf="@id/largerSmallerSolution3" />
 
     <TextView
-        android:id="@+id/groesserKleinerZeichen1"
+        android:id="@+id/largerSmallerSymbol1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
@@ -125,12 +125,12 @@
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/groesserKleinerZeichen2"
+        app:layout_constraintEnd_toStartOf="@id/largerSmallerSymbol2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/groesserKleinerZeichen2"
+        android:id="@+id/largerSmallerSymbol2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
@@ -139,12 +139,12 @@
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/groesserKleinerZeichen3"
+        app:layout_constraintEnd_toStartOf="@id/largerSmallerSymbol3"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@id/groesserKleinerZeichen1" />
+        app:layout_constraintStart_toEndOf="@id/largerSmallerSymbol1" />
 
     <TextView
-        android:id="@+id/groesserKleinerZeichen3"
+        android:id="@+id/largerSmallerSymbol3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
@@ -155,56 +155,56 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/groesserKleinerZeichen2" />
+        app:layout_constraintStart_toEndOf="@+id/largerSmallerSymbol2" />
 
     <View
         android:id="@+id/solutionSpace1"
         android:layout_width="105dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
+        app:layout_constraintBottom_toBottomOf="@id/largerSmallerSymbol1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen1"
-        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1" />
+        app:layout_constraintRight_toLeftOf="@id/largerSmallerSymbol1"
+        app:layout_constraintTop_toTopOf="@id/largerSmallerSymbol1" />
 
     <View
         android:id="@+id/solutionSpace2"
         android:layout_width="105dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
-        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen1"
-        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen2"
-        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1" />
+        app:layout_constraintBottom_toBottomOf="@id/largerSmallerSymbol1"
+        app:layout_constraintLeft_toRightOf="@id/largerSmallerSymbol1"
+        app:layout_constraintRight_toLeftOf="@id/largerSmallerSymbol2"
+        app:layout_constraintTop_toTopOf="@id/largerSmallerSymbol1" />
 
     <View
         android:id="@+id/solutionSpace3"
         android:layout_width="105dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
-        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen2"
-        app:layout_constraintRight_toLeftOf="@id/groesserKleinerZeichen3"
-        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1" />
+        app:layout_constraintBottom_toBottomOf="@id/largerSmallerSymbol1"
+        app:layout_constraintLeft_toRightOf="@id/largerSmallerSymbol2"
+        app:layout_constraintRight_toLeftOf="@id/largerSmallerSymbol3"
+        app:layout_constraintTop_toTopOf="@id/largerSmallerSymbol1" />
 
     <View
         android:id="@+id/solutionSpace4"
         android:layout_width="105dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@id/groesserKleinerZeichen1"
-        app:layout_constraintLeft_toRightOf="@id/groesserKleinerZeichen3"
+        app:layout_constraintBottom_toBottomOf="@id/largerSmallerSymbol1"
+        app:layout_constraintLeft_toRightOf="@id/largerSmallerSymbol3"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/groesserKleinerZeichen1" />
+        app:layout_constraintTop_toTopOf="@id/largerSmallerSymbol1" />
 
     <Button
         android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginRight="40dp"
         android:backgroundTint="@color/unserBlau"
         android:text="@string/bestaetigen"
         android:textColor="#FFEB3B"
         android:textSize="20sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groesserKleinerZeichen3"
-        android:layout_marginEnd="40dp" />
+        app:layout_constraintTop_toBottomOf="@id/largerSmallerSymbol3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
