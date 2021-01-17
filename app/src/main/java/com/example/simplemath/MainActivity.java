@@ -2,7 +2,6 @@ package com.example.simplemath;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
  * @author Bjarne Küper and Sascha Rührup
  */
 public class MainActivity extends AppCompatActivity {
-    private Button singleplayer, multiplayer;
     /**
      * Creates the 2 Buttons and overrides onClick methods.
      * @param savedInstanceState android related
@@ -23,20 +21,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        singleplayer = findViewById(R.id.singleplayer);
-        singleplayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGameSelection();
-            }
-        });
-        multiplayer = findViewById(R.id.multiplayer);
-        multiplayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMultiplayer();
-            }
-        });
+        Button singleplayer = findViewById(R.id.singleplayer);
+        singleplayer.setOnClickListener(v -> openGameSelection());
+        Button multiplayer = findViewById(R.id.multiplayer);
+        multiplayer.setOnClickListener(v -> openMultiplayer());
     }
     /**
      * Opens the Multiplayer Activity.
