@@ -1,5 +1,6 @@
 package com.example.simplemath;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -13,12 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.example.simplemath.R.color.unserBlau;
 
 /**
  * This is the Javaclass for the game/activity "Multiplayer".
+ *
  * @author Bjarne Küper and Sascha Rührup
  */
 public class Multiplayer extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +36,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
     /**
      * The onCreate method sets the Content and finds the Views in the layout file.
      * sets onClick listeners for all Buttons, implemented by this class.
+     *
      * @param savedInstanceState android related
      */
     @Override
@@ -44,36 +48,36 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         startPlayer2 = findViewById(R.id.startPlayer2);
         startPlayer2.setOnClickListener(this);
 
-        countdownPlayer1 = findViewById(R.id.countdownSpieler1);
-        countdownPlayer2 = findViewById(R.id.countdownSpieler2);
-        resultRightOrWrongPlayer1 = findViewById(R.id.ergebnisRichtigOderFalschSpieler1);
-        resultRightOrWrongPlayer2 = findViewById(R.id.ergebnisRichtigOderFalschSpieler2);
+        countdownPlayer1 = findViewById(R.id.countdownPlayer1);
+        countdownPlayer2 = findViewById(R.id.countdownPlayer2);
+        resultRightOrWrongPlayer1 = findViewById(R.id.feedbackPlayer1);
+        resultRightOrWrongPlayer2 = findViewById(R.id.feedbackPlayer2);
 
 
-        result1Player1 = findViewById(R.id.ergebnisButton1Spieler1);
+        result1Player1 = findViewById(R.id.option1Player1);
         result1Player1.setOnClickListener(this);
-        result2Player1 = findViewById(R.id.ergebnisButton2Spieler1);
+        result2Player1 = findViewById(R.id.option2Player1);
         result2Player1.setOnClickListener(this);
-        result3Player1 = findViewById(R.id.ergebnisButton3Spieler1);
+        result3Player1 = findViewById(R.id.option3Player1);
         result3Player1.setOnClickListener(this);
-        result4Player1 = findViewById(R.id.ergebnisButton4Spieler1);
+        result4Player1 = findViewById(R.id.option4Player1);
         result4Player1.setOnClickListener(this);
 
-        result1Player2 = findViewById(R.id.ergebnisButton1Spieler2);
+        result1Player2 = findViewById(R.id.option1Player2);
         result1Player2.setOnClickListener(this);
-        result2Player2 = findViewById(R.id.ergebnisButton2Spieler2);
+        result2Player2 = findViewById(R.id.option2Player2);
         result2Player2.setOnClickListener(this);
-        result3Player2 = findViewById(R.id.ergebnisButton3Spieler2);
+        result3Player2 = findViewById(R.id.option3Player2);
         result3Player2.setOnClickListener(this);
-        result4Player2 = findViewById(R.id.ergebnisButton4Spieler2);
+        result4Player2 = findViewById(R.id.option4Player2);
         result4Player2.setOnClickListener(this);
 
-        taskPlayer1 = findViewById(R.id.aufgabePlayer1);
-        taskPlayer2 = findViewById(R.id.aufgabePlayer2);
-        scorePlayer1 = findViewById(R.id.scoreSpieler1);
-        scorePlayer2 = findViewById(R.id.scoreSpieler2);
-        timeLeftPlayer1 = findViewById(R.id.zeitUebrigSpieler1);
-        timeLeftPlayer2 = findViewById(R.id.zeitUebrigSpieler2);
+        taskPlayer1 = findViewById(R.id.taskPlayer1);
+        taskPlayer2 = findViewById(R.id.taskPlayer2);
+        scorePlayer1 = findViewById(R.id.scorePlayer1);
+        scorePlayer2 = findViewById(R.id.scorePlayer2);
+        timeLeftPlayer1 = findViewById(R.id.timeLeftPlayer1);
+        timeLeftPlayer2 = findViewById(R.id.timeLeftPlayer2);
 
     }
 
@@ -81,6 +85,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
      * Sets onClick listeners for all Buttons. The Buttons startPlayer1/2 set a boolean to true and change color.
      * When both booleans are true, the game countdown starts, and the start Buttons are set to "GONE".
      * The result Buttons call the validateButton function.
+     *
      * @param v View that was clicked.
      */
     @Override
@@ -94,28 +99,28 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 player2Ready = true;
                 startPlayer2.setBackgroundColor(Color.GREEN);
                 break;
-            case R.id.ergebnisButton1Spieler1:
+            case R.id.option1Player1:
                 validateButton(result1Player1, 1);
                 break;
-            case R.id.ergebnisButton2Spieler1:
+            case R.id.option2Player1:
                 validateButton(result2Player1, 1);
                 break;
-            case R.id.ergebnisButton3Spieler1:
+            case R.id.option3Player1:
                 validateButton(result3Player1, 1);
                 break;
-            case R.id.ergebnisButton4Spieler1:
+            case R.id.option4Player1:
                 validateButton(result4Player1, 1);
                 break;
-            case R.id.ergebnisButton1Spieler2:
+            case R.id.option1Player2:
                 validateButton(result1Player2, 2);
                 break;
-            case R.id.ergebnisButton2Spieler2:
+            case R.id.option2Player2:
                 validateButton(result2Player2, 2);
                 break;
-            case R.id.ergebnisButton3Spieler2:
+            case R.id.option3Player2:
                 validateButton(result3Player2, 2);
                 break;
-            case R.id.ergebnisButton4Spieler2:
+            case R.id.option4Player2:
                 validateButton(result4Player2, 2);
                 break;
         }
@@ -140,8 +145,8 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownPlayer1.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
-                countdownPlayer2.setText(String.format("%s", new SimpleDateFormat("s").format(new Date(millisUntilFinished+1000))));
+                countdownPlayer1.setText(String.format("%s", new SimpleDateFormat("s", Locale.GERMAN).format(new Date(millisUntilFinished + 1000))));
+                countdownPlayer2.setText(String.format("%s", new SimpleDateFormat("s", Locale.GERMAN).format(new Date(millisUntilFinished + 1000))));
             }
 
             @Override
@@ -174,8 +179,8 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
     }
 
     /**
-     *  Starts a multiplayer game by creating a new countdown and generating the first Task.
-     *  In onFinish, the game gets evaluated and the players get a message. After a delay, the activity finishes.
+     * Starts a multiplayer game by creating a new countdown and generating the first Task.
+     * In onFinish, the game gets evaluated and the players get a message. After a delay, the activity finishes.
      *
      * @param minutes time a game lasts.
      */
@@ -183,10 +188,11 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeLeftPlayer1.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
-                timeLeftPlayer2.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
+                timeLeftPlayer1.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss", Locale.GERMAN).format(new Date(millisUntilFinished))));
+                timeLeftPlayer2.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss", Locale.GERMAN).format(new Date(millisUntilFinished))));
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onFinish() {
                 changeResultButtonVisibility(View.GONE);
@@ -209,11 +215,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
                 }
                 Handler handler = new Handler();
                 int delay = 8000;
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        finish();
-                    }
-                }, delay);
+                handler.postDelayed(() -> finish(), delay);
 
             }
         };
@@ -224,6 +226,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
     /**
      * Generates a new task. The solution to the task gets calculated and in case it is not
      * in range 1-100, the method calls itself recursively.
+     *
      * @return int array containing the task
      */
     public int[] generateTask() {
@@ -239,6 +242,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return aufgabe;
     }
+
     /**
      * iterates over the array and checks for the number.
      *
@@ -247,17 +251,18 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
      * @return false if number is not present in array, true otherwise.
      */
     public boolean isInArray(int[] array, int number) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == number) {
+        for (int value : array) {
+            if (value == number) {
                 return true;
             }
         }
         return false;
     }
+
     /**
      * Converts a given task with a missing part to a custom String.
      *
-     * @param task task to convert
+     * @param task             task to convert
      * @param missingPartIndex index of the missing part of the task
      * @return task as custom String
      */
@@ -280,6 +285,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return resultString.toString();
     }
+
     /**
      * Converts a number to String with the following pattern: 1:+, 2:-, 3:*
      *
@@ -303,6 +309,7 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         }
         return mathSymbol;
     }
+
     /**
      * Calculates the given task and returns the solution
      *
@@ -364,14 +371,12 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
         changeResultButtonVisibility(View.GONE);
         long delay = 500;
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-                                public void run() {
-                                    changeResultButtonVisibility(View.VISIBLE);
-                                    resultRightOrWrongPlayer1.setVisibility(View.GONE);
-                                    resultRightOrWrongPlayer2.setVisibility(View.GONE);
-                                    updateViews(generateTask());
-                                }
-                            }
+        handler.postDelayed(() -> {
+                    changeResultButtonVisibility(View.VISIBLE);
+                    resultRightOrWrongPlayer1.setVisibility(View.GONE);
+                    resultRightOrWrongPlayer2.setVisibility(View.GONE);
+                    updateViews(generateTask());
+                }
                 , delay);
 
 
@@ -379,9 +384,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Sets the visibility of the result buttons.
+     *
      * @param value Value to set visibility to. View.GONE, View.VISIBLE, View.INVISIBLE .
      */
-    public void changeResultButtonVisibility(int value){
+    public void changeResultButtonVisibility(int value) {
 
         result1Player1.setVisibility(value);
         result2Player1.setVisibility(value);
@@ -396,8 +402,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Increases the players score and displays messages to both players.
+     *
      * @param playerNumber Playernumber that pressed the correct button.
      */
+    @SuppressLint("SetTextI18n")
     public void correctButton(int playerNumber) {
         resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
         resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
@@ -422,8 +430,10 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
      * Decreases the score of the player, that pressed the button and increases
      * the score of the other player.
      * Sets texts to display messages to both players.
+     *
      * @param playerNumber Playernumber that pressed the wrong button.
      */
+    @SuppressLint("SetTextI18n")
     public void wrongButton(int playerNumber) {
         resultRightOrWrongPlayer1.setVisibility(View.VISIBLE);
         resultRightOrWrongPlayer2.setVisibility(View.VISIBLE);
@@ -464,8 +474,8 @@ public class Multiplayer extends AppCompatActivity implements View.OnClickListen
      * @param task to update views with.
      */
     public void updateViews(int[] task) {
-        scorePlayer1.setText(String.format("SCORE: %d", scoreValuePlayer1));
-        scorePlayer2.setText(String.format("SCORE: %d", scoreValuePlayer2));
+        scorePlayer1.setText(String.format(Locale.GERMAN, "SCORE: %d", scoreValuePlayer1));
+        scorePlayer2.setText(String.format(Locale.GERMAN, "SCORE: %d", scoreValuePlayer2));
 
         missingPartIndex = random.nextInt(6);
         int[] buttonValues = new int[4];

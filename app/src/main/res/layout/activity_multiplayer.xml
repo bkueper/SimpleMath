@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/unserBlau"
+        android:text="@string/start_firstLetterCapital"
         android:textColor="#FFEB3B"
-        android:text="Start"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,20 +25,20 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/unserBlau"
-        android:textColor="#FFEB3B"
         android:rotation="180"
-        android:text="Start"
+        android:text="@string/start_firstLetterCapital"
+        android:textColor="#FFEB3B"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/countdownSpieler1"
+        android:id="@+id/countdownPlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
-        android:text="3"
+        android:text="@string/_3"
         android:textColor="@color/unserBlau"
         android:textSize="144sp"
         android:textStyle="bold"
@@ -48,12 +48,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/countdownSpieler2"
+        android:id="@+id/countdownPlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:rotation="180"
-        android:text="3"
+        android:text="@string/_3"
         android:textColor="@color/unserBlau"
         android:textSize="144sp"
         android:textStyle="bold"
@@ -63,11 +63,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/aufgabePlayer1"
+        android:id="@+id/taskPlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="200dp"
-        android:text=" 4 + 2 * 3 = ___"
+        android:text="@string/_4_2_3"
         android:textColor="#3E3E3E"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -77,12 +77,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/aufgabePlayer2"
+        android:id="@+id/taskPlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:rotation="180"
-        android:text=" 4 + 2 * 3 = ___"
+        android:text="@string/_4_2_3"
         android:textColor="#3E3E3E"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -92,130 +92,130 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton1Spieler1"
+        android:id="@+id/option1Player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton2Spieler1"
+        app:layout_constraintEnd_toStartOf="@+id/option2Player1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton2Spieler1"
+        android:id="@+id/option2Player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton3Spieler1"
+        app:layout_constraintEnd_toStartOf="@+id/option3Player1"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton1Spieler1" />
+        app:layout_constraintStart_toEndOf="@+id/option1Player1" />
 
     <Button
-        android:id="@+id/ergebnisButton3Spieler1"
+        android:id="@+id/option3Player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton4Spieler1"
+        app:layout_constraintEnd_toStartOf="@+id/option4Player1"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton2Spieler1" />
+        app:layout_constraintStart_toEndOf="@+id/option2Player1" />
 
     <Button
-        android:id="@+id/ergebnisButton4Spieler1"
+        android:id="@+id/option4Player1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/unserBlau"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton3Spieler1" />
+        app:layout_constraintStart_toEndOf="@+id/option3Player1" />
 
 
     <Button
-        android:id="@+id/ergebnisButton1Spieler2"
+        android:id="@+id/option1Player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/unserBlau"
         android:rotation="180"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton2Spieler2"
+        app:layout_constraintEnd_toStartOf="@+id/option2Player2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton2Spieler2"
+        android:id="@+id/option2Player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/unserBlau"
         android:rotation="180"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton3Spieler2"
+        app:layout_constraintEnd_toStartOf="@+id/option3Player2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton1Spieler2"
+        app:layout_constraintStart_toEndOf="@+id/option1Player2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton3Spieler2"
+        android:id="@+id/option3Player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/unserBlau"
         android:rotation="180"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/ergebnisButton4Spieler2"
+        app:layout_constraintEnd_toStartOf="@+id/option4Player2"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton2Spieler2"
+        app:layout_constraintStart_toEndOf="@+id/option2Player2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ergebnisButton4Spieler2"
+        android:id="@+id/option4Player2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:backgroundTint="@color/unserBlau"
         android:rotation="180"
-        android:text="  "
+        android:text="@string/empty"
         android:textSize="35sp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ergebnisButton3Spieler2"
+        app:layout_constraintStart_toEndOf="@+id/option3Player2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/scoreSpieler1"
+        android:id="@+id/scorePlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="300dp"
-        android:text="SCORE: 0"
+        android:text="@string/score_0"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -224,7 +224,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/zeitUebrigSpieler1"
+        android:id="@+id/timeLeftPlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
@@ -233,18 +233,18 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/scoreSpieler1"
+        app:layout_constraintLeft_toRightOf="@id/scorePlayer1"
         app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
-        android:id="@+id/scoreSpieler2"
+        android:id="@+id/scorePlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="300dp"
         android:rotation="180"
-        android:text="SCORE: 0"
+        android:text="@string/score_0"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -253,7 +253,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/zeitUebrigSpieler2"
+        android:id="@+id/timeLeftPlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
@@ -262,16 +262,16 @@
         android:textSize="30sp"
         android:textStyle="bold"
         android:visibility="gone"
-        app:layout_constraintLeft_toRightOf="@id/scoreSpieler2"
+        app:layout_constraintLeft_toRightOf="@id/scorePlayer2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ergebnisRichtigOderFalschSpieler1"
+        android:id="@+id/feedbackPlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="130dp"
-        android:text="Richtig"
+        android:text="@string/richtig"
         android:textSize="30sp"
         android:textStyle="bold"
         android:visibility="gone"
@@ -280,12 +280,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/ergebnisRichtigOderFalschSpieler2"
+        android:id="@+id/feedbackPlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
         android:rotation="180"
-        android:text="Richtig"
+        android:text="@string/richtig"
         android:textSize="30sp"
         android:textStyle="bold"
         android:visibility="gone"
