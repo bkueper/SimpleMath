@@ -7,7 +7,7 @@
     tools:context=".GameSelection">
 
     <TextView
-        android:id="@+id/halloUser"
+        android:id="@+id/helloUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -25,11 +25,11 @@
         android:text="@string/highscoreButtonText"
         app:backgroundTint="#2196F3"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/freeGame"
+        app:layout_constraintRight_toLeftOf="@+id/freiesSpiel"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/freeGame"
+        android:id="@+id/freiesSpiel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -52,16 +52,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/angezeigteZeit"
+        android:id="@+id/displayTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 Min"
+        android:text="@string/_1_min"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/gameDuration"
         app:layout_constraintLeft_toLeftOf="@id/gameDuration" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/ScrollViewFuerSpiele"
+        android:id="@+id/ScrollViewForGames"
         android:layout_width="wrap_content"
         android:layout_height="450dp"
         android:layout_marginTop="150dp"
@@ -75,6 +75,7 @@
             android:layout_height="match_parent">
 
             <ImageButton
+                android:contentDescription="@string/hochzaehlen"
                 android:id="@+id/hochzaehlen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,6 +87,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
+                android:contentDescription="@string/zahleneinf_gen"
                 android:id="@+id/zahlenEinfuegen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,6 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/hochzaehlen" />
 
             <ImageButton
+                android:contentDescription="@string/gr_erkleiner"
                 android:id="@+id/groesserKleiner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/zahlenEinfuegen" />
 
             <TextView
-                android:id="@+id/countForHochzählen"
+                android:id="@+id/countForHochzaehlen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/defaultValueFreiesSpiel"
@@ -130,7 +133,7 @@
                 android:text="@string/plus_symbol"
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintLeft_toRightOf="@id/countForHochzählen"
+                app:layout_constraintLeft_toRightOf="@id/countForHochzaehlen"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/hochzaehlen" />
 
@@ -143,7 +146,7 @@
                 android:textStyle="bold"
                 app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/countForHochzählen"
+                app:layout_constraintRight_toLeftOf="@id/countForHochzaehlen"
                 app:layout_constraintTop_toBottomOf="@id/hochzaehlen" />
 
             <TextView
@@ -231,6 +234,6 @@
         android:textSize="30sp"
         app:iconTint="#FFFFFF"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ScrollViewFuerSpiele" />
+        app:layout_constraintTop_toBottomOf="@id/ScrollViewForGames" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

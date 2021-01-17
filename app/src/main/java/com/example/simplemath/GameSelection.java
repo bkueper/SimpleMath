@@ -1,5 +1,6 @@
 package com.example.simplemath;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,17 +14,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
+
 /**
  * This is the Javaclass for the activity "GameSelection".
- * @author Bjarne Küper and Sascha Rührup
  *
+ * @author Bjarne Küper and Sascha Rührup
  */
 public class GameSelection extends AppCompatActivity implements View.OnClickListener {
     private int gameID;
     private Button highscore, freeGame, startButton;
     private Button hochzaehlenPlus, hochzaehlenMinus, zahlenEinfuegenPlus, zahlenEinfuegenMinus, groesserKleinerPlus, groesserKleinerMinus;
     private SeekBar seekBar;
-    private TextView time, helloUser;
+    private TextView time;
     private ImageButton hochzaehlen, zahlenEinfuegen, groesserKleiner;
     private TextView countForHochzaehlen, countForZahlenEinfuegen, countForGroesserKleiner;
     private boolean highscoreMode = false;
@@ -33,26 +35,29 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
      * The selected user is greeted. An onProgressChanged listener is set for the progressbar.
      * All buttons get an onCLick listener, implemented by this class.
      * Finally the state of the selected games is checked.
+     *
      * @param savedInstanceState android related
      */
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
-        helloUser = findViewById(R.id.halloUser);
-        helloUser.setText("Hallo " + getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", "").toUpperCase());
+        TextView helloUser = findViewById(R.id.helloUser);
+        helloUser.setText(format("Hallo %s", getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", "").toUpperCase()));
         countForZahlenEinfuegen = findViewById(R.id.countForZahlenEinfuegen);
         countForGroesserKleiner = findViewById(R.id.countForGroesserKleiner);
-        countForHochzaehlen = findViewById(R.id.countForHochzählen);
+        countForHochzaehlen = findViewById(R.id.countForHochzaehlen);
         highscore = findViewById(R.id.highscore);
         highscore.setOnClickListener(this);
-        freeGame = findViewById(R.id.freeGame);
+        freeGame = findViewById(R.id.freiesSpiel);
         freeGame.setOnClickListener(this);
         seekBar = findViewById(R.id.gameDuration);
         seekBar.setMax(14);
         seekBar.setProgress(2);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int totalProgress;
+
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -70,7 +75,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
                 time.setText(format("%d Min", totalProgress + 1));
             }
         });
-        time = findViewById(R.id.angezeigteZeit);
+        time = findViewById(R.id.displayTime);
         time.setText(format("%d Min", seekBar.getProgress() + 1));
         hochzaehlen = findViewById(R.id.hochzaehlen);
         hochzaehlen.setOnClickListener(this);
@@ -98,6 +103,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     /**
      * Increases the count of the TextView by getting its text, increasing it by one,
      * if it is not already nine or higher and setting the views text with the new value.
+     *
      * @param tw TextView to increase the count for.
      */
     public void countPlus(TextView tw) {
@@ -107,9 +113,11 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
             tw.setText(valueOf(count));
         }
     }
+
     /**
      * Decreases the count of the TextView by getting its text, decreasing it by one,
      * if it is not already zero or lower and setting the views text with the new value.
+     *
      * @param tw TextView to decrease the count for.
      */
     public void countMinus(TextView tw) {
@@ -123,6 +131,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
     /**
      * Checks the given TextView. Depending on its count the background of the given ImageButton is set.
      * Sets the startButton to visible if any have a count larger than zero, otherwise the startButton is set to "GONE".
+     *
      * @param tw TextView, containing a count.
      * @param ib ImageButton of the related game.
      */
@@ -133,9 +142,9 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
             startButton.setVisibility(View.GONE);
         }
         if (Integer.parseInt(tw.getText().toString()) > 0) {
-            ib.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+            ib.setBackgroundResource(R.drawable.default_button_pressed);
         } else {
-            ib.setBackground(getResources().getDrawable(R.drawable.default_button));
+            ib.setBackgroundResource(R.drawable.default_button);
         }
     }
 
@@ -153,8 +162,10 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
 
     /**
      * Sets the different functions for the buttons, which update the visibility of Views and call functions.
+     *
      * @param v View that is clicked.
      */
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -174,11 +185,11 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
                 countForGroesserKleiner.setVisibility(View.GONE);
                 countForZahlenEinfuegen.setVisibility(View.GONE);
                 countForHochzaehlen.setVisibility(View.GONE);
-                hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
+                hochzaehlen.setBackgroundResource(R.drawable.default_button);
+                zahlenEinfuegen.setBackgroundResource(R.drawable.default_button);
+                groesserKleiner.setBackgroundResource(R.drawable.default_button);
                 break;
-            case R.id.freeGame:
+            case R.id.freiesSpiel:
                 checkAllCounts();
                 highscoreMode = false;
                 highscore.setBackgroundColor(Color.parseColor("#2196F3"));
@@ -198,27 +209,27 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
             case R.id.hochzaehlen:
                 if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
-                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackgroundResource(R.drawable.default_button_pressed);
+                    zahlenEinfuegen.setBackgroundResource(R.drawable.default_button);
+                    groesserKleiner.setBackgroundResource(R.drawable.default_button);
                     gameID = 2;
                 }
                 break;
             case R.id.zahlenEinfuegen:
                 if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
-                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button));
+                    hochzaehlen.setBackgroundResource(R.drawable.default_button);
+                    zahlenEinfuegen.setBackgroundResource(R.drawable.default_button_pressed);
+                    groesserKleiner.setBackgroundResource(R.drawable.default_button);
                     gameID = 1;
                 }
                 break;
             case R.id.groesserKleiner:
                 if (highscoreMode) {
                     startButton.setVisibility(View.VISIBLE);
-                    hochzaehlen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                    zahlenEinfuegen.setBackground(getResources().getDrawable(R.drawable.default_button));
-                    groesserKleiner.setBackground(getResources().getDrawable(R.drawable.default_button_pressed));
+                    hochzaehlen.setBackgroundResource(R.drawable.default_button);
+                    zahlenEinfuegen.setBackgroundResource(R.drawable.default_button);
+                    groesserKleiner.setBackgroundResource(R.drawable.default_button_pressed);
                     gameID = 0;
                 }
                 break;
@@ -264,6 +275,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
 
     /**
      * Starts a new game in Highscore mode.
+     *
      * @param minutes time the game should last.
      * @param spielID game that gets started.
      */
@@ -297,13 +309,14 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
 
     /**
      * Starts one or multiple games with one or many rounds each.
+     *
      * @param roundsPerGame int array, each index relates to a game, the value defines the number of rounds.
      */
     public void startFreeGame(int[] roundsPerGame) {
         for (int i = 0; i < roundsPerGame.length; i++) {
             switch (i) {
                 case 0:
-                    if(roundsPerGame[2] > 0) {
+                    if (roundsPerGame[2] > 0) {
                         Intent intent = new Intent(this, GroesserKleiner.class);
                         intent.putExtra("HIGHSCOREMODE", false);
                         intent.putExtra("DURCHLAEUFE", roundsPerGame[2]);
@@ -319,7 +332,7 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
                     }
                     break;
                 case 2:
-                    if(roundsPerGame[0] > 0) {
+                    if (roundsPerGame[0] > 0) {
                         Intent intent3 = new Intent(this, Hochzaehlen.class);
                         intent3.putExtra("HIGHSCOREMODE", false);
                         intent3.putExtra("DURCHLAEUFE", roundsPerGame[0]);

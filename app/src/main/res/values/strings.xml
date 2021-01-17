@@ -20,4 +20,8 @@
     <string name="singleplayer">Singleplayer</string>
     <string name="highscore_69">HIGHSCORE: 69</string>
     <string name="dein_score_68">dein Score: 68</string>
+    <string name="_1_min">1 Min</string>
+    <string name="hochzaehlen">Hochzaehlen</string>
+    <string name="zahleneinf_gen">ZahlenEinfügen</string>
+    <string name="gr_erkleiner">GrößerKleiner</string>
 </resources>
