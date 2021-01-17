@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 /**
  * Class which evaluates the latest game.
@@ -22,6 +22,7 @@ public class Evaluation extends AppCompatActivity {
      * Finds out whether a new Highscore in the played game got broken or how many tasks were
      * correct. Updates Highscore if old highscore got broken. Tells the Activity that opened,
      * whether it needs to start another round or not.
+     *
      * @param savedInstanceState android related
      */
     @SuppressLint("DefaultLocale")
@@ -56,7 +57,7 @@ public class Evaluation extends AppCompatActivity {
         if (highscoreMode) {
             float scoreValue = intent.getIntExtra("SCOREWERT", 0);
             int minutes = intent.getIntExtra("MINUTES", 1);
-            float scorePerMinute =(float) scoreValue / minutes;
+            float scorePerMinute = (float) scoreValue / minutes;
             String username = getSharedPreferences("currentUser", MODE_PRIVATE).getString("username", "");
             float oldHighscore = prefs.getFloat(username, 0.0f);
 

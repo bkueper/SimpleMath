@@ -42,11 +42,11 @@
     </androidx.core.widget.NestedScrollView>
 
     <ImageButton
-        android:contentDescription="@string/neuen_user_erstellen"
         android:id="@+id/addUserButton"
         style="@style/DefaultButton"
         android:layout_width="75dp"
         android:layout_height="75dp"
+        android:contentDescription="@string/neuen_user_erstellen"
         android:scaleType="fitCenter"
         android:src="@drawable/plusbutton"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -56,12 +56,12 @@
     </ImageButton>
 
     <EditText
-        android:inputType="textPersonName"
         android:id="@+id/enterUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="11"
         android:hint="@string/neuer_username"
+        android:inputType="textPersonName"
         android:maxLength="10"
         android:textSize="25sp"
         android:visibility="invisible"

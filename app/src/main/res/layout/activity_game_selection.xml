@@ -75,11 +75,11 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:contentDescription="@string/hochzaehlen"
                 android:id="@+id/hochzaehlen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/default_button"
+                android:contentDescription="@string/hochzaehlen"
                 android:padding="10dp"
                 android:src="@drawable/hochzaehlen"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -87,12 +87,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageButton
-                android:contentDescription="@string/zahleneinf_gen"
                 android:id="@+id/zahlenEinfuegen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/default_button"
+                android:contentDescription="@string/zahleneinf_gen"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/zahleneinfuegen"
@@ -101,12 +101,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/hochzaehlen" />
 
             <ImageButton
-                android:contentDescription="@string/gr_erkleiner"
                 android:id="@+id/groesserKleiner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/default_button"
+                android:contentDescription="@string/gr_erkleiner"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/groesserkleiner"

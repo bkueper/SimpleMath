@@ -29,6 +29,8 @@ import static java.lang.String.valueOf;
  */
 public class GroesserKleiner extends AppCompatActivity implements View.OnTouchListener {
     private final Random random = new Random();
+    private final Rect normalRect = new Rect();
+    private final int[] location = new int[2];
     private Button result1;
     private Button result2;
     private Button result3;
@@ -39,8 +41,6 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     private TextView sortingTask, largerSmallerSymbol1, largerSmallerSymbol2, largerSmallerSymbol3, score, taskProgress, time;
     private View solution1, solution2, solution3, solution4;
     private float dX, dY;
-    private final Rect normalRect = new Rect();
-    private final int[] location = new int[2];
     private Button[] occupiedSpace = new Button[4];
     private float[] startingPositions;
     private CountDownTimer cTimer;
@@ -277,9 +277,9 @@ public class GroesserKleiner extends AppCompatActivity implements View.OnTouchLi
     @SuppressLint("SetTextI18n")
     public void updateViews() {
         if (!highscoreMode) {
-            taskProgress.setText(format(Locale.GERMAN,"Aufgabe %d von %d", (16 - remainingTasks), 15));
+            taskProgress.setText(format(Locale.GERMAN, "Aufgabe %d von %d", (16 - remainingTasks), 15));
         } else {
-            score.setText(format(Locale.GERMAN,"SCORE: %d", scoreValue));
+            score.setText(format(Locale.GERMAN, "SCORE: %d", scoreValue));
         }
         sortingType = random.nextInt(2);
         if (sortingType == 0) {

@@ -31,14 +31,27 @@ import static java.lang.String.format;
  */
 public class Hochzaehlen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
-    private GridLayout gridLayout;
     private final ArrayList<Button> allButtons = new ArrayList<>();
+    private GridLayout gridLayout;
     private int currentPosition, remainingTasks, spielId, rounds, minutes, correctAnswers, firstNumber, secondNumber;
     private int scoreValue = 0;
     private TextView score, time, taskText, taskProgress;
     private boolean highscoreMode;
     private CountDownTimer cTimer;
     private Button confirm;
+
+    /**
+     * Converts a number of dp to a number of pixels.
+     *
+     * @param dp      number of dp to convert.
+     * @param context required to get access to the devices display dimensions.
+     * @return dp converted to pixels depending on the devices display dimensions.
+     */
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+    }
 
     /**
      * The onCreate method sets the Content and finds the Views in the layout file.
@@ -268,19 +281,6 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         button.setId(i);
         allButtons.add(button);
         gridLayout.addView(button);
-    }
-
-    /**
-     * Converts a number of dp to a number of pixels.
-     *
-     * @param dp      number of dp to convert.
-     * @param context required to get access to the devices display dimensions.
-     * @return dp converted to pixels depending on the devices display dimensions.
-     */
-    public static float convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     /**

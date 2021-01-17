@@ -36,7 +36,7 @@ public class UserSelection extends AppCompatActivity {
     private EditText enterUsername;
     private String editUsername;
     private Button editButton;
-    private ArrayList<Button> buttonsInLinear = new ArrayList<>();
+    private final ArrayList<Button> buttonsInLinear = new ArrayList<>();
 
     /**
      * Converts a number of dp to a number of pixels.

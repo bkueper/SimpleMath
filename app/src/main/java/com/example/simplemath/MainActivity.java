@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
  * Class for the MainActivity. Has two Buttons which decide,
  * whether a multiplayer round gets started or the game selection
  * for the singleplayer.
+ *
  * @author Bjarne Küper and Sascha Rührup
  */
 public class MainActivity extends AppCompatActivity {
     /**
      * Creates the 2 Buttons and overrides onClick methods.
+     *
      * @param savedInstanceState android related
      */
     @Override
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Button multiplayer = findViewById(R.id.multiplayer);
         multiplayer.setOnClickListener(v -> openMultiplayer());
     }
+
     /**
      * Opens the Multiplayer Activity.
      */
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Multiplayer.class);
         startActivity(intent);
     }
+
     /**
      * Opens the singleplayer game selection Activity.
      */
