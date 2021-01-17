@@ -1,5 +1,6 @@
 package com.example.simplemath;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -30,7 +32,10 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     private int rounds, remainingTasks, missingPart, missingPartIndex, minutes, gameID;
     private boolean highscoreMode;
     private TextView score, time, taskText, taskProgress, resultCorrectOrWrong;
-    private Button result1, result2, result3, result4, dontKnow;
+    private Button result1;
+    private Button result2;
+    private Button result3;
+    private Button result4;
 
     /**
      * The onCreate method sets the Content and finds the Views in the layout file.
@@ -45,7 +50,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         score = findViewById(R.id.score);
         time = findViewById(R.id.timeLeft);
         taskText = findViewById(R.id.taskText);
-        resultCorrectOrWrong = findViewById(R.id.ergebnisRichtigOderFalsch);
+        resultCorrectOrWrong = findViewById(R.id.feedback);
         taskProgress = findViewById(R.id.taskProgress);
         result1 = findViewById(R.id.resultButton1);
         result1.setOnClickListener(this);
@@ -55,7 +60,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         result3.setOnClickListener(this);
         result4 = findViewById(R.id.resultButton4);
         result4.setOnClickListener(this);
-        dontKnow = findViewById(R.id.dontKnowButton);
+        Button dontKnow = findViewById(R.id.dontKnowButton);
         dontKnow.setOnClickListener(this);
         Intent intent = getIntent();
         highscoreMode = intent.getBooleanExtra("HIGHSCOREMODE", true);
@@ -172,17 +177,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * Displays a TextView to indicate the press of the correct button, that stays visible for set delay.
      * Increases scores and decreases remainingTasks accordingly.
      */
+    @SuppressLint("SetTextI18n")
     public void correctButton() {
         resultCorrectOrWrong.setText("RICHTIG");
         resultCorrectOrWrong.setTextColor(Color.GREEN);
         resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         int delay = 2000;
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                resultCorrectOrWrong.setVisibility(View.GONE);
-            }
-        }, delay);
+        handler.postDelayed(() -> resultCorrectOrWrong.setVisibility(View.GONE), delay);
         if (highscoreMode) {
             scoreValue += 1;
         } else {
@@ -195,17 +197,14 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      * Displays a TextView to indicate the press of a wrong button, that stays visible for set delay.
      * Decreases scores and remainingTasks accordingly.
      */
+    @SuppressLint("SetTextI18n")
     public void wrongButton() {
         resultCorrectOrWrong.setText("FALSCH");
         resultCorrectOrWrong.setTextColor(Color.RED);
         resultCorrectOrWrong.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         int delay = 2000;
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                resultCorrectOrWrong.setVisibility(View.GONE);
-            }
-        }, delay);
+        handler.postDelayed(() -> resultCorrectOrWrong.setVisibility(View.GONE), delay);
         if (highscoreMode) {
             if (scoreValue > 0) {
                 scoreValue -= 1;
@@ -227,7 +226,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
         cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished))));
+                time.setText(String.format("Zeit: %s", new SimpleDateFormat("mm:ss", Locale.GERMAN).format(new Date(millisUntilFinished))));
             }
 
             @Override
@@ -276,6 +275,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     /**
      * Generates a new task. The solution to the task gets calculated and in case it is not
      * in range 1-100, the method calls itself recursively.
+     *
      * @return int array containing the task.
      */
     public int[] generateTask() {
@@ -297,12 +297,11 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      *
      * @param array  to compare against
      * @param number to check
-     *
      * @return false if number is not present in array, true otherwise
      */
     public boolean isInArray(int[] array, int number) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == number) {
+        for (int value : array) {
+            if (value == number) {
                 return true;
             }
         }
@@ -323,9 +322,9 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
      */
     public void updateViews(int[] task) {
         if (!highscoreMode) {
-            taskProgress.setText(String.format("Aufgabe %d von 15", 16 - remainingTasks));
+            taskProgress.setText(String.format(Locale.GERMAN, "Aufgabe %d von 15", 16 - remainingTasks));
         } else {
-            score.setText(String.format("SCORE: %d", scoreValue));
+            score.setText(String.format(Locale.GERMAN, "SCORE: %d", scoreValue));
         }
 
         missingPartIndex = random.nextInt(6);
@@ -374,7 +373,7 @@ public class ZahlenEinfuegen extends AppCompatActivity implements View.OnClickLi
     /**
      * Converts a given task with a missing part to a custom String.
      *
-     * @param task task to convert
+     * @param task             task to convert
      * @param missingPartIndex index of the missing part of the task
      * @return task as custom String
      */
