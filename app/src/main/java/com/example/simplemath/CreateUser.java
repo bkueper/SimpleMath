@@ -16,19 +16,19 @@ import java.util.Map;
  * Class for the Activity, that creates a new User.
  */
 public class CreateUser extends AppCompatActivity {
-    private Button button;
     private EditText username;
 
     /**
      * Finds all needed Views from the layout and sets OnClickListeners for the button to create the
      * user.
+     *
      * @param savedInstanceState android related
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        button = findViewById(R.id.userErstellenButton);
+        Button button = findViewById(R.id.createUserButton);
         username = findViewById(R.id.enterUsername);
         button.setOnClickListener(new View.OnClickListener() {
             /**
@@ -44,12 +44,12 @@ public class CreateUser extends AppCompatActivity {
                     SharedPreferences ids = getSharedPreferences("usernameIds", MODE_PRIVATE);
                     if (ids.getInt("id", 0) == 0) {
                         editorIds.putInt("id", 1);
-                        editorIds.commit();
+                        editorIds.apply();
                     }
                     int currentId = ids.getInt("id", 0);
 
                     editor.putString(String.valueOf(currentId), username.getText().toString());
-                    editor.commit();
+                    editor.apply();
 
 
                     Intent result = new Intent();
@@ -70,6 +70,7 @@ public class CreateUser extends AppCompatActivity {
 
     /**
      * Method which checks whether a username is already in the Shared Preferences file.
+     *
      * @param username Username that gets checked.
      * @return True when when username is new. False when it got found in the Shared Preferences with all usernames.
      */
