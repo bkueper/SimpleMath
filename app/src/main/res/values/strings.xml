@@ -32,4 +32,6 @@
     <string name="_4">4</string>
     <string name="sortiere_von_gro_nach_klein">Sortiere von groß nach klein</string>
     <string name="score">SCORE:</string>
+    <string name="_1_2">1 + 2</string>
+    <string name="score_0">SCORE: 0</string>
 </resources>

@@ -1,8 +1,5 @@
 package com.example.simplemath;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -16,23 +13,27 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import static java.lang.String.format;
 
 /**
  * This is the Javaclass for the game/activity "Hochzählen".
- * @author Bjarne Küper and Sascha Rührup
  *
+ * @author Bjarne Küper and Sascha Rührup
  */
 public class Hochzaehlen extends AppCompatActivity implements View.OnClickListener {
     private final Random random = new Random();
     private GridLayout gridLayout;
-    private  ArrayList<Button> allButtons = new ArrayList<>();
-    private int currentPosition, minPosition,spielId,remainingTasks,rounds,minutes,correctAnswers, firstNumber, secondNumber;
+    private final ArrayList<Button> allButtons = new ArrayList<>();
+    private int currentPosition, remainingTasks, spielId, rounds, minutes, correctAnswers, firstNumber, secondNumber;
     private int scoreValue = 0;
     private TextView score, time, taskText, taskProgress;
     private boolean highscoreMode;
@@ -45,6 +46,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * The information (duration of game in minutes, the game ID,
      * the amount of times the game has to be played, a boolean that says whether the game is a highscoregame or not)
      * get taken out of the intent, that started the activity.
+     *
      * @param savedInstanceState android related
      */
     @Override
@@ -58,7 +60,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         confirm = findViewById(R.id.confirm);
         confirm.setOnClickListener(this);
         gridLayout = findViewById(R.id.gridLayout);
-        for(int i = 0; i<25; i++){
+        for (int i = 0; i < 25; i++) {
             addButton(i);
         }
         Intent intent = getIntent();
@@ -73,6 +75,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
             startFreeGame();
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -85,6 +88,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * Starts a Highscore game for given minutes. Updates the views for the first time
      * and starts the counter for the given amount of minutes. The visibility of the
      * View that shows up in "Freies Spiel" gets set to "GONE".
+     *
      * @param minutes time the game runs for.
      */
     public void startHighscoreGame(int minutes) {
@@ -95,7 +99,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         cTimer = new CountDownTimer(minutes * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                time.setText("Zeit: " + new SimpleDateFormat("mm:ss").format(new Date(millisUntilFinished)));
+                time.setText(format("Zeit: %s", new SimpleDateFormat("mm:ss", Locale.GERMAN).format(new Date(millisUntilFinished))));
             }
 
             @Override
@@ -122,9 +126,10 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     /**
      * Finds out whether the game needs to start another round
      * or needs to be closed.
+     *
      * @param requestCode number that gets answered from the other Acitvity.
-     * @param resultCode received code.
-     * @param data intent which is filled with information from the other Activity.
+     * @param resultCode  received code.
+     * @param data        intent which is filled with information from the other Activity.
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -145,21 +150,21 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     /**
      * Validates whether the given answer is correct or not.
      */
-    public void validate(){
-        if(currentPosition + 1 == firstNumber + secondNumber){
-            if(highscoreMode){
+    public void validate() {
+        if (currentPosition + 1 == firstNumber + secondNumber) {
+            if (highscoreMode) {
                 scoreValue++;
-            }else{
+            } else {
                 correctAnswers++;
                 remainingTasks--;
             }
             correctAnswer();
-        }else{
-            if(highscoreMode){
-                if(scoreValue > 0) {
+        } else {
+            if (highscoreMode) {
+                if (scoreValue > 0) {
                     scoreValue--;
                 }
-            }else{
+            } else {
                 remainingTasks--;
             }
             wrongAnswer();
@@ -172,7 +177,7 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     public void correctAnswer() {
         Handler handler = new Handler();
         confirm.setVisibility(View.GONE);
-        for(Button button:allButtons){
+        for (Button button : allButtons) {
             button.setBackgroundResource(R.drawable.round_button_bestaetigt);
         }
         handler.postDelayed(() -> {
@@ -181,13 +186,14 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
         }, 1000);
 
     }
+
     /**
      * Colors all buttons red for one second.
      */
     public void wrongAnswer() {
         Handler handler = new Handler();
         confirm.setVisibility(View.GONE);
-        for(Button button:allButtons) {
+        for (Button button : allButtons) {
             button.setBackgroundResource(R.drawable.round_button_falsch);
         }
         handler.postDelayed(() -> {
@@ -200,17 +206,17 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
      * Updates the score and updates the views for the possible
      * different clicked circles (Buttons).
      */
-    public void updateViews(){
-        if(!highscoreMode){
-            taskProgress.setText(format("Aufgabe %d von %d", (16 - remainingTasks), 15));
-        }else{
-            score.setText(format("SCORE: %d", scoreValue));
+    public void updateViews() {
+        if (!highscoreMode) {
+            taskProgress.setText(format(Locale.GERMAN, "Aufgabe %d von %d", (16 - remainingTasks), 15));
+        } else {
+            score.setText(format(Locale.GERMAN, "SCORE: %d", scoreValue));
         }
         taskText.setText(taskAsString());
-        for(int i = 0; i < firstNumber; i++){
+        for (int i = 0; i < firstNumber; i++) {
             allButtons.get(i).setBackgroundResource(R.drawable.round_button_bestaetigt);
         }
-        for(int i = firstNumber; i < allButtons.size(); i++){
+        for (int i = firstNumber; i < allButtons.size(); i++) {
             allButtons.get(i).setBackgroundResource(R.drawable.round_button);
         }
         currentPosition = firstNumber - 1;
@@ -219,12 +225,13 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
     /**
      * Sets the first and second number for the task and creates
      * a String out of them for the task TextView.
+     *
      * @return the task as a string
      */
-    public String taskAsString(){
+    public String taskAsString() {
         firstNumber = random.nextInt(21);
-        secondNumber = 1 + random.nextInt(25 - firstNumber) ;
-        return format("%d + %d", firstNumber, secondNumber);
+        secondNumber = 1 + random.nextInt(25 - firstNumber);
+        return format(Locale.GERMAN, "%d + %d", firstNumber, secondNumber);
     }
 
     /**
@@ -248,23 +255,25 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Adds a circular button to the grid layout.
+     *
      * @param i value for the id, which gets set in the method.
      */
     public void addButton(int i) {
-            Button button = new Button(this);
-            int width = Math.round(convertDpToPixel(50, getApplicationContext()));
-            int height = Math.round(convertDpToPixel(50, getApplicationContext()));
-            button.setBackgroundResource(R.drawable.round_button);
-            button.setLayoutParams(new LinearLayout.LayoutParams(width, height));
-            button.setOnClickListener(this);
-            button.setId(i);
-            allButtons.add(button);
-            gridLayout.addView(button);
+        Button button = new Button(this);
+        int width = Math.round(convertDpToPixel(50, getApplicationContext()));
+        int height = Math.round(convertDpToPixel(50, getApplicationContext()));
+        button.setBackgroundResource(R.drawable.round_button);
+        button.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+        button.setOnClickListener(this);
+        button.setId(i);
+        allButtons.add(button);
+        gridLayout.addView(button);
     }
 
     /**
      * Converts a number of dp to a number of pixels.
-     * @param dp number of dp to convert.
+     *
+     * @param dp      number of dp to convert.
      * @param context required to get access to the devices display dimensions.
      * @return dp converted to pixels depending on the devices display dimensions.
      */
@@ -276,13 +285,14 @@ public class Hochzaehlen extends AppCompatActivity implements View.OnClickListen
 
     /**
      * Describes how to handle the different onClick events from the Buttons.
+     *
      * @param v View that was clicked.
      */
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.confirm) {
             validate();
-            if(!highscoreMode) {
+            if (!highscoreMode) {
                 if (remainingTasks == 0) {
                     openEvaluation();
                 }
