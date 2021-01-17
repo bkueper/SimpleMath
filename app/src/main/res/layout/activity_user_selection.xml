@@ -42,6 +42,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <ImageButton
+        android:contentDescription="@string/neuen_user_erstellen"
         android:id="@+id/addUserButton"
         style="@style/DefaultButton"
         android:layout_width="75dp"
@@ -55,11 +56,12 @@
     </ImageButton>
 
     <EditText
+        android:inputType="textPersonName"
         android:id="@+id/enterUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="11"
-        android:hint="neuer Username"
+        android:hint="@string/neuer_username"
         android:maxLength="10"
         android:textSize="25sp"
         android:visibility="invisible"
@@ -72,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/unserBlau"
-        android:text="umbenennen"
+        android:text="@string/umbenennen"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@id/deleteUsername"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,8 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/unserRot"
-
-        android:text="entfernen"
+        android:text="@string/entfernen"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/setNewUsername"

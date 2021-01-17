@@ -38,4 +38,8 @@
     <string name="_4_2_3">4 + 2 * 3 = ___</string>
     <string name="empty" />
     <string name="richtig">Richtig</string>
+    <string name="neuer_username">neuer Username</string>
+    <string name="umbenennen">umbenennen</string>
+    <string name="entfernen">entfernen</string>
+    <string name="neuen_user_erstellen">neuen User erstellen</string>
 </resources>
