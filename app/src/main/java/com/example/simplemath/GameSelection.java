@@ -153,11 +153,9 @@ public class GameSelection extends AppCompatActivity implements View.OnClickList
      * Also checks the counts of all games.
      */
     public void checkAllCounts() {
-
         checkCount(countForHochzaehlen, hochzaehlen);
         checkCount(countForZahlenEinfuegen, zahlenEinfuegen);
         checkCount(countForGroesserKleiner, groesserKleiner);
-
     }
 
     /**

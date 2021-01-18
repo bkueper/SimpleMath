@@ -267,21 +267,21 @@ public class UserSelection extends AppCompatActivity {
     public void replaceName(String currentUsername, String newUsername) {
         SharedPreferences.Editor editor = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE).edit();
         SharedPreferences prefs = getSharedPreferences("groesserKleinerHighscore", MODE_PRIVATE);
-        int score = prefs.getInt(currentUsername, 0);
+        float score = prefs.getFloat(currentUsername, 0.0f);
         editor.remove(currentUsername);
-        editor.putInt(newUsername, score);
+        editor.putFloat(newUsername, score);
         editor.apply();
         editor = getSharedPreferences("zahlenEinfuegenHighscore", MODE_PRIVATE).edit();
         prefs = getSharedPreferences("zahlenEinfuegenHighscore", MODE_PRIVATE);
-        score = prefs.getInt(currentUsername, 0);
+        score = prefs.getFloat(currentUsername, 0.0f);
         editor.remove(currentUsername);
-        editor.putInt(newUsername, score);
+        editor.putFloat(newUsername, score);
         editor.apply();
         editor = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE).edit();
         prefs = getSharedPreferences("hochzaehlenHighscore", MODE_PRIVATE);
-        score = prefs.getInt(currentUsername, 0);
+        score = prefs.getFloat(currentUsername, 0.0f);
         editor.remove(currentUsername);
-        editor.putInt(newUsername, score);
+        editor.putFloat(newUsername, score);
         editor.apply();
 
         editor = getSharedPreferences("usernamePrefs", MODE_PRIVATE).edit();
